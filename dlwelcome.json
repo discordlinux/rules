@@ -1,0 +1,14 @@
+{
+    "username": "Discord Linux",
+    "avatar_url": "https://cdn.discordapp.com/avatars/437040236585811968/0c0e73c01f26797eb9a76ad5a82258d6.png",
+    "embeds": [{
+      "title": "**__Welcome to Discord Linux__**",
+      "color": "7308758",
+      "fields": [
+        {
+          "name": "Glory to the Tux",
+          "value": "Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.\nIf there are ever any issues with staff members, be sure to direct any and all complaints to <@149041922051145728> with a detailed message of what the complaint is.​"
+        }
+      ]
+    }]
+  }

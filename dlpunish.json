@@ -1,0 +1,34 @@
+{
+    "username": "Discord Linux",
+    "avatar_url": "https://cdn.discordapp.com/avatars/437040236585811968/0c0e73c01f26797eb9a76ad5a82258d6.png",
+    "embeds": [{
+      "title": "**__Punishment System__**",
+      "color": "7308758",
+      "fields": [
+        {
+          "name": "Restricted Words",
+          "value": "Messages containing Discord invite links and certain restricted words will automatically be deleted by <@134133271750639616>.\nPosts containing these words will result in a warning in <#227643567273672706>.\n[List of restricted words](https://gitlab.com/snippets/1727589/raw)\n​"
+        },
+        {
+          "name": "Verbal Warning",
+          "value": "A staff member asks the user to stop.\n​"
+        },
+        {
+          "name": "Written Warning",
+          "value": "A staff member issues a warning to <#227643567273672706>.\nThe user will be kicked automatically after 8 warnings.\n​"
+        },
+        {
+          "name": "Temporary Mute",
+          "value": "A staff member temporarily mutes the user.\n​"
+        },
+        {
+          "name": "Temporary Ban/Permanent Ban",
+          "value": "A staff member bans the user from the server either temporarily or permanently.\n​"
+        },
+        {
+          "name": "Please note:",
+          "value": "Staff members will determine the proper punishment based on the infraction.\nWarnings, mutes, and bans are logged to <#227643567273672706> for everyone to view."
+        }
+      ]
+    }]
+  }

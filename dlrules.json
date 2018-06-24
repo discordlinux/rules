@@ -1,0 +1,38 @@
+{
+    "username": "Discord Linux",
+    "avatar_url": "https://cdn.discordapp.com/avatars/437040236585811968/0c0e73c01f26797eb9a76ad5a82258d6.png",
+    "embeds": [{
+      "title": "**__General Rules__**",
+      "color": "7308758",
+      "fields": [
+        {
+          "name": "#1 - Be respectful",
+          "value": "This includes personal insults, demeaning behavior, and inflammatory language. Know when a debate has turned into an argument. Above all else, listen and cooperate with staff members.\n​"
+        },
+        {
+          "name": "#2 -No NSFW or illegal content",
+          "value": "Don't post or discuss content of this nature. This includes porn, gore, pirated software, etc.\n​"
+        },
+        {
+          "name": "#3 - No spamming or irrelevant messages",
+          "value": "Sending an unreasonable amount of messages in a short time or ones that are unrelated or unwanted will result in disciplinary action. Abusing bots is considered spam.\n​"
+        },
+        {
+          "name": "#4 - Use the channels as intended",
+          "value": "Please read the channel topics before using them. Likewise, if the conversation you are having is more suited to one of the specific channels, please move it there.\n​"
+        },
+        {
+          "name": "#5 - Don't link to or advertise other servers",
+          "value": "If you want to spread the word about your server, do so elsewhere. Server invites will be deleted automatically.\n​"
+        },
+        {
+          "name": "#6 - Don't use a selfbot",
+          "value": "They are against the terms of service and often an annoyance to other users.\n​"
+        },
+        {
+          "name": "Moderators have final say in the enforcement of these rules or other infractions.",
+          "value": "Don't attempt to loophole or use semantics to get around these rules. Respect the intent behind them, not the literal text."
+        }
+      ]
+    }]
+  }
