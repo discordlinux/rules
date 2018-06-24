@@ -4,10 +4,18 @@
 # Author: simonizor
 # Dependencies: curl
 
-# URL for #rules webhook
-WEBHOOK_URL="https://discordapp.com/api/webhooks/channelid/webhooktoken"
 # find running directory
 RUNNING_DIR="$(readlink -f "$(dirname "$0")")"
+# get WEBHOOK_URL from $RUNNING_DIR/config for #rules webhook or run $EDITOR to create file if it doesn't exist
+if [ ! -f "$RUNNING_DIR/config" ]; then
+    echo "Missing required '$RUNNING_DIR/config'; creating and launching $EDITOR ..."
+    echo "WEBHOOK_URL='InsertURLHere'" > "$RUNNING_DIR"/config
+    "$EDITOR" "$RUNNING_DIR"/config || { echo "Failed to launch EDITOR; edit '$RUNNING_DIR/config' manually and restart script."; exit 1; }
+fi
+if [ -f "$RUNNING_DIR/config" ]; then
+    . "$RUNNING_DIR"/config
+fi
+[ -z "$WEBHOOK_URL" ] && { echo "WEBHOOK_URL missing; was it entered in '$RUNNING_DIR/config'?"; exit 1; }
 # list of json files in $RUNNING_DIR to upload
 JSON_FILES="dlwelcome.json
 dlrules.json
