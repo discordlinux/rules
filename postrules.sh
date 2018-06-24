@@ -15,7 +15,10 @@ fi
 if [ -f "$RUNNING_DIR/config" ]; then
     . "$RUNNING_DIR"/config
 fi
-[ -z "$WEBHOOK_URL" ] && { echo "WEBHOOK_URL missing; was it entered in '$RUNNING_DIR/config'?"; exit 1; }
+if [ -z "$WEBHOOK_URL" ] || [ "$WEBHOOK_URL" = "InsertURLHere" ]; then
+    echo "WEBHOOK_URL missing; was it entered in '$RUNNING_DIR/config'?"
+    exit 1
+fi
 # list of json files in $RUNNING_DIR to upload
 JSON_FILES="dlwelcome.json
 dlrules.json
