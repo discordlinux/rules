@@ -1,0 +1,15 @@
+Existing censors:
+1. discord.gg
+2. discordapp.com/invite
+3. discord.me
+4. retarded
+5. nigger
+6. /retard\b/i (regex)
+7. nigga
+8. faggot
+9. /fag\b/i (regex)
+10. ͡° ͜ʖ ͡°
+11. ͜ʖ
+12. 卐
+13. /​/u (regex) (zero witdh space)
+14. /(.)[^ ]\1{14}/i (regex) (15 of the same character without spaces)
