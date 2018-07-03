@@ -13,3 +13,4 @@ Existing censors:
 12. 卐
 13. /​/u (regex) (zero witdh space)
 14. /(.)[^ ]\1{14}/i (regex) (15 of the same character without spaces)
+15. freetard
