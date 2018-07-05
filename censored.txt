@@ -14,3 +14,5 @@ Existing censors:
 13. /​/u (regex) (zero witdh space)
 14. /(.)[^ ]\1{14}/i (regex) (15 of the same character without spaces)
 15. freetard
+16. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word in a row)
+17. /(.|\n){1400}/ (regex) (1400 characters in one message)
