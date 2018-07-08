@@ -16,3 +16,4 @@ Existing censors:
 15. freetard
 16. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word in a row)
 17. /(.|\n){1400}/ (regex) (1400 characters in one message)
+18. retards
