@@ -7,7 +7,7 @@
       "fields": [
         {
           "name": "Restricted Words",
-          "value": "Messages containing Discord invite links and certain restricted words will automatically be deleted by <@134133271750639616>.\nPosts containing these words will result in a warning in <#227643567273672706>.\n[List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
+          "value": "Messages containing Discord invite links and certain restricted words will automatically be deleted by <@!134133271750639616>.\nPosts containing these words will result in a warning in <#227643567273672706>.\n[List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
         },
         {
           "name": "Verbal Warning",
