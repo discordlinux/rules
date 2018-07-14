@@ -9,9 +9,9 @@ Existing censors:
 8. ͡° ͜ʖ ͡°
 9. ͜ʖ
 10. 卐
-11. /​/u (regex)
-12. /(.)[^ =#.-]\1{14}/i (regex)
+11. /​/u (regex) (zero width space)
+12. /(.)[^ =#.-]\1{14}/i (regex) (15 characters repeated excluding spaces, '=','#', '.', and '-')
 13. freetard
 14. Nіggеr
-15. /((\b\S+\b)\s+\b)\1{9}\b/i (regex)
-16. /(.|\n){1400}/ (regex)
+15. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word repeated)
+16. /(.|\n){1400}/ (regex) (1400 characters in one message)
