@@ -15,7 +15,7 @@
         },
         {
           "name": "Users Role",
-          "value": "In order to upload files/images, embed links, and post reactions, you must have the `Users` role.  In order to obtain this role, just stick around the server for 48 hours and show that you can follow the rules above.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.  If you have gotten warning points or joined before this change was made, ask an online staff member with the <@&172524170779820032> role.\n​"
+          "value": "In order to upload files/images, embed links, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
         },
         {
           "name": "Invite Link",
