@@ -1,5 +1,5 @@
 Existing censors:
-1. discord.gg
+1. /^(?!.discord.gg/(?:discord-linux|discord-testers|discord-api|010z0Kw1A9ql5c1Qe|G8Z6TRX)).discord.gg/\w+.*/gi (regex) (invite links except allowed servers)
 2. discordapp.com/invite
 3. discord.me
 4. retarded
