@@ -2,17 +2,16 @@ Existing censors:
 1. /^(?!.discord.gg/(?:discord-linux|discord-testers|discord-api|010z0Kw1A9ql5c1Qe|G8Z6TRX)).discord.gg/\w+.*/gi (regex) (invite links except allowed servers)
 2. discordapp.com/invite
 3. discord.me
-4. /^(?!.*retard(?:ant|ants)).*retard.*/gi (regex) (exclude retardant(s))
+4. /^(?!.*retard(?:ant|ants)).*retard.*/gi (regex)
 5. nigger
 6. nigga
-7. faggot
-8. /fag\b/i (regex)
-9. ͡° ͜ʖ ͡°
-10. ͜ʖ
-11. 卐
-12. /​/u (regex)
-13. /(.)[^ =#.-]\1{14}/i (regex)
-14. freetard
-15. Nіggеr
-16. /((\b\S+\b)\s+\b)\1{9}\b/i (regex)
-17. /(.|\n){1400}/ (regex)
+7. /.*(fag|fags|f4g|f4gs|fagg|faggs|faggot|faggots|f4gg0t|f4agg0ts)\b/gi (regex)
+8. ͡° ͜ʖ ͡°
+9. ͜ʖ
+10. 卐
+11. /​/u (regex)
+12. /(.)[^ =#.-]\1{14}/i (regex)
+13. freetard
+14. Nіggеr
+15. /((\b\S+\b)\s+\b)\1{9}\b/i (regex)
+16. /(.|\n){1400}/ (regex)
