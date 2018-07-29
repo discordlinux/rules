@@ -26,7 +26,7 @@
           "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\n​"
         },
         {
-          "name": "Changelog for <#172522057291005953>",
+          "name": "Changelog for #rules",
           "value": "Check out [the Github page](https://github.com/discordlinux/rules/commits/master) to see what changes have been made to <#172522057291005953>\n​"
         }
       ]
