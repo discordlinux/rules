@@ -15,7 +15,7 @@
         },
         {
           "name": "Users Role",
-          "value": "In order to upload files/images, embed links, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
+          "value": "In order to upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
         },
         {
           "name": "Invite Link",
@@ -24,6 +24,10 @@
         {
           "name": "Now join a channel and get chatting!",
           "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\n​"
+        },
+        {
+          "name": "Changelog for <#172522057291005953>",
+          "value": "Check out [the Github page](https://github.com/discordlinux/rules/commits/master) to see what changes have been made to <#172522057291005953>\n​"
         }
       ]
     }]
