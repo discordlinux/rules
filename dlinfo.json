@@ -23,7 +23,7 @@
         },
         {
           "name": "Now join a channel and get chatting!",
-          "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\n​"
+          "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.​"
         },
         {
           "name": "Changelog for #rules",
