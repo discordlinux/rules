@@ -15,7 +15,7 @@
         },
         {
           "name": "Users Role",
-          "value": "In order to upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
+          "value": "In order to join roles with colors, upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
         },
         {
           "name": "Invite Link",
