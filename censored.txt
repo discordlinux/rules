@@ -6,9 +6,10 @@ Existing censors:
 5. /.*(fag|fags|f4g|f4gs|fagg|faggs|faggot|faggots|f4gg0t|f4agg0ts)\b/gi (regex)
 6. ͡° ͜ʖ ͡°
 7. ͜ʖ
-8. 卐͜ʖ
-9. 卐
-10. /​/u (regex) (zero width space)
-11. /(.)[^ =#.-]\1{14}/i (regex) (15 characters repeated excluding spaces, '=','#', '.', and '-')
-12. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word repeated)
-13. /(.|\n){1400}/ (regex) (1400 characters in one message)
+8. 卐
+9. /​/u (regex) (zero width space)
+10. /(.)[^ =#.-]\1{14}/i (regex) (15 characters repeated excluding spaces, '=','#', '.', and '-')
+11. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word repeated)
+12. /(.|\n){1400}/ (regex) (1400 characters in one message)
+13. /^(change my mind)\b/im (regex)
+14. /^(i use arch btw)\b/im (regex)
