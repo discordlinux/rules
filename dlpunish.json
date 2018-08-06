@@ -15,11 +15,11 @@
         },
         {
           "name": "Written Warning",
-          "value": "A staff member issues a warning to <#227643567273672706>.\nThe user will be muted for 1 hour automatically at 8 warnings.\n​"
+          "value": "A staff member issues a warning to <#227643567273672706>.\n​"
         },
         {
           "name": "Temporary Mute",
-          "value": "A staff member temporarily mutes the user.\n​"
+          "value": "A staff member temporarily mutes the user.\nThe user will be muted for 1 hour automatically after 8 warnings.\n​"
         },
         {
           "name": "Temporary Ban/Permanent Ban",
