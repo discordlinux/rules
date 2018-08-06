@@ -2,14 +2,17 @@ Existing censors:
 1. /^(?!.discord.gg/(?:discord-linux|discord-testers|discord-api|010z0Kw1A9ql5c1Qe|G8Z6TRX)).discord.gg/\w+.*/gi (regex) (invite links except allowed servers)
 2. /.*(discordapp.com/invite|discord.me)/gi (regex)
 3. /^(?!.*retard(?:ant|ants)).*retard.*/gi (regex)
-4. /.*(nigger|nigga|freetard)/gi (regex)
-5. /.*(fag|fags|f4g|f4gs|fagg|faggs|faggot|faggots|f4gg0t|f4agg0ts)\b/gi (regex)
+4. /.*(nigger|nigga|freetard|archfag)/gi (regex)
+5. /.*(fag|fags|f4g|f4gs|fagg|faggs|fagot|faggot|faggots|f4gg0t|f4agg0ts)\b/gi (regex)
 6. ͡° ͜ʖ ͡°
 7. ͜ʖ
-8. 卐
-9. /​/u (regex) (zero width space)
-10. /(.)[^ =#.-]\1{14}/i (regex) (15 characters repeated excluding spaces, '=','#', '.', and '-')
-11. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word repeated)
-12. /(.|\n){1400}/ (regex) (1400 characters in one message)
-13. /^(change my mind)\b/im (regex)
-14. /^(i use arch btw)\b/im (regex)
+8. 卍
+9. 卐
+10. ☭
+11. 𓂺 (Unicode penis. Requires Egyptian Unicode characters.)
+12. /​/u (regex) (zero width space)
+13. /(.)[^ =#.-]\1{14}/i (regex) (15 characters repeated excluding spaces, '=','#', '.', and '-')
+14. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (10 of the same word repeated)
+15. /(.|\n){1400}/ (regex) (1400 characters in one message)
+16. /^(change my mind)\b/im (regex)
+17. /^(i use arch btw)\b/im (regex)
