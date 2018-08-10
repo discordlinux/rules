@@ -18,16 +18,16 @@
           "value": "In order to join roles with colors, upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
         },
         {
-          "name": "Distributions That Are Not Supported"
-          "value": "The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivitive of Arch.\nThese distributions have a history of breaking important system packages and compatibility with software you install. The Discord Linux community will not offer support for any of these distributions.  Feel free to use them, but please do not ask for help with them here.\nSee `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info."
-        }
+          "name": "Distributions That Are Not Supported",
+          "value": "The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivitive of Arch.\nThese distributions have a history of breaking important system packages and compatibility with software you install. The Discord Linux community will not offer support for any of these distributions.  Feel free to use them, but please do not ask for help with them here.\nSee `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
+        },
         {
           "name": "Invite Link",
           "value": "[discord.gg/discord-linux](https://discord.gg/discord-linux)\n​"
         },
         {
           "name": "Now join a channel and get chatting!",
-          "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.​"
+          "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
         },
         {
           "name": "Changelog for #rules",
