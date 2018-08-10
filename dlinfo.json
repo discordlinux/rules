@@ -19,7 +19,7 @@
         },
         {
           "name": "Distributions That Are Not Supported",
-          "value": "The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivitive of Arch.\nThese distributions have a history of breaking important system packages and compatibility with software you install. The Discord Linux community will not offer support for any of these distributions.  Feel free to use them, but please do not ask for help with them here.\nSee `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
+          "value": "The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivative of Arch Linux.\nThese distributions have a history of breaking important system packages and compatibility with software you install. The Discord Linux community will not offer support for any of these distributions.  Feel free to use them, but please do not ask for help with them here.\nSee `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
         },
         {
           "name": "Invite Link",
