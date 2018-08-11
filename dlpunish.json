@@ -15,7 +15,7 @@
         },
         {
           "name": "Written Warning",
-          "value": "A staff member issues a warning to <#227643567273672706>.\nThe user will be muted for 1 hour automatically at 8 warnings.\n​"
+          "value": "A staff member issues a warning to <#227643567273672706>.\nThe user will be muted for 1 hour and have their `Users` role removed automatically at 8 warnings.\n​"
         },
         {
           "name": "Temporary Mute",
