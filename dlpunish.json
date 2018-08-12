@@ -19,7 +19,7 @@
         },
         {
           "name": "Temporary Mute",
-          "value": "A staff member temporarily mutes the user.\nThe user will be muted for 1 hour automatically after 8 warnings.\n​"
+          "value": "A staff member temporarily mutes the user.\nThe user will be muted for 1 hour and have their `Users` role removed automatically after 8 warnings.\n​"
         },
         {
           "name": "Temporary Ban/Permanent Ban",
