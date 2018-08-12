@@ -7,11 +7,11 @@
       "fields": [
         {
           "name": "Information",
-          "value": "<#172522057291005953> - You are here.\n\n<#220424374329671681> - Announcements related to Discord and/or Linux.\n\n<#349085517218054145> - Links to related Discord servers.\n\n<#453011360335265793> - RSS news feeds related to Linux.\n\n<#227643567273672706> - Logs of all moderation actions.\n​"
+          "value": "<#172522057291005953> - You are here.\n\n<#220424374329671681> - Announcements related to Discord, Linux, or the server itself.\n\n<#349085517218054145> - Links to related Discord servers.\n\n<#453011360335265793> - RSS news feeds related to Linux.\n\n<#227643567273672706> - Logs of all moderation actions.\n​"
         },
         {
           "name": "General Linux",
-          "value": "<#96230004047740928> - General discussion on Linux, computers and technology.\n\n<#173927645334077441> - Show off your desktop!\n\n<#96230043209981952> - Linux/computer-based support.\n\n<#162712517053775872> - Help and bug reporting for the official Discord client.\n​"
+          "value": "<#96230004047740928> - General discussion on Linux, computers and general technology.\n\n<#173927645334077441> - Show off your desktop!\n\n<#96230043209981952> - Linux/computer-based support, for supported distros. (See below)\n\n<#162712517053775872> - Help and bug reporting for the official Discord client.\n​"
         },
         {
           "name": "Offtopic",

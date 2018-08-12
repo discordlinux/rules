@@ -7,7 +7,7 @@
       "fields": [
         {
           "name": "Restricted Words",
-          "value": "Messages containing Discord invite links and certain restricted words will automatically be deleted by <@!134133271750639616>.\n** **\nPosts containing these words will result in a warning in <#227643567273672706>.\n[List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
+          "value": "Messages containing Discord invite links, certain restricted words and characters, and spam will automatically be deleted by <@!134133271750639616>.\n** **\nPosts containing these phrases will result in a warning in <#227643567273672706>.\n[List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
         },
         {
           "name": "Verbal Warning",
@@ -15,11 +15,11 @@
         },
         {
           "name": "Written Warning",
-          "value": "A staff member issues a warning to <#227643567273672706>.\n​"
+          "value": "A staff member issues a warning to <#227643567273672706>.\nWhen the user reaches 8 warnings, they will be muted for 1 hour and have their Users role revoked automatically.​"
         },
         {
           "name": "Temporary Mute",
-          "value": "A staff member temporarily mutes the user.\nThe user will be muted for 1 hour and have their `Users` role removed automatically after 8 warnings.\n​"
+          "value": "A staff member temporarily mutes the user.\n​"
         },
         {
           "name": "Temporary Ban/Permanent Ban",
