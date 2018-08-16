@@ -15,7 +15,7 @@
         },
         {
           "name": "Users Role",
-          "value": "In order to join roles with colors, upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  In order to obtain this role, go to <#174317464337776640> and type `sudo request users`.  If you haven't gotten any warning points after 48 hours, the Users role will be given automatically.\n​"
+          "value": "In order to join roles with colors, upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  After agreeing to the rules, the Users role will be given automatically if the user has not gotten any warnings after a 48 hour waiting period.\n​"
         },
         {
           "name": "Distributions That Are Not Supported",
@@ -26,8 +26,8 @@
           "value": "[discord.gg/discord-linux](https://discord.gg/discord-linux)\n​"
         },
         {
-          "name": "Now join a channel and get chatting!",
-          "value": "To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
+          "name": "Now get chatting!",
+          "value": "In order to view the rest of the channels, type `I agree to follow <#172522057291005953> and will not abuse the right to have the users role.` in the <#479497706234970115> channel. \nTo join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
         },
         {
           "name": "Changelog for #rules",
