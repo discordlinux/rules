@@ -124,7 +124,7 @@ Invite Link
 discord.gg/discord-linux
 ​
 Now get chatting!
-In order to view the rest of the channels, type I agr​ee to fol​low #rules and w​ill not abuse the right to have the U​sers role (do not copy and paste) in the #welcome channel. 
+In order to view the rest of the channels, type `sudo dis​cord-linux --user-h​as-read #rules --user-acc​epts #rules --user-reque​sts-role Users --pas​swd toor` (do not copy and paste) in the #welcome channel. 
 To join a distro role, head over to #bot-spam and use sudo listdistro to list the available distro roles and sudo joindistro <distro> to join that role. You can join as many roles as you like.
 To get a colored role, use sudo favdistro <distro> to join your favorite distro's role.
 ```
