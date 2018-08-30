@@ -7,23 +7,15 @@
       "fields": [
         {
           "name": "Information",
-          "value": "<#172522057291005953> - You are here.\n\n<#220424374329671681> - Announcements related to Discord and/or Linux.\n\n<#349085517218054145> - Links to related Discord servers.\n\n<#453011360335265793> - RSS news feeds related to Linux.\n\n<#227643567273672706> - Logs of all moderation actions.\n​"
+          "value": "<#479497706234970115> - Used for passphrase entry and showing new members.\n\n<#172522057291005953> - You are here.\n\n<#220424374329671681> - Announcements related to Discord and/or Linux.\n\n<#349085517218054145> - Links to related Discord servers.\n\n<#453011360335265793> - RSS news feeds related to Linux.\n\n<#227643567273672706> - Logs of all moderation actions.\n​"
         },
         {
-          "name": "General Linux",
-          "value": "<#96230004047740928> - General discussion on Linux and computers.\n\n<#173927645334077441> - Show off your desktop!\n\n<#96230043209981952> - Linux/computer-based support.\n\n<#162712517053775872> - Help and bug reporting for the official Discord client.\n​"
+          "name": "General",
+          "value": "<#96230004047740928> - General discussion on Linux and computers.\n\n<#166340424603009024> - Chat about ***almost*** anything; server rules still apply.\n\n<#234032525297582081> - Channel to chat about games.\n\n<#173927645334077441> - Show off your desktop!\n\n<#257592796704145429> - Place to discuss programming, game development, etc.\n​\n<#174317464337776640> - A place to play with the bots.\n​"
         },
         {
-          "name": "Offtopic",
-          "value": "<#166340424603009024> - Chat about ***almost*** anything; server rules still apply.\n\n<#234032525297582081> - Channel to chat about games.\n\n<#257592796704145429> - Place to discuss programming, game development, etc.\n​"
-        },
-        {
-          "name": "systemd",
-          "value": "<#174317464337776640> - A place to play with the bots.\n​"
-        },
-        {
-          "name": "Voice Channels",
-          "value": "<#360602450853363723>, <#360602628272422922> - Voice chat channels.​"
+          "name": "Support",
+          "value": "​<#96230043209981952> - Support for general Linux issues.\n\n<#484513714024874018> - Support for installing Linux distros.\n\n<#484512261382340638> - Support for games that run on Linux.\n\n<#162712517053775872> - Support for the official Discord client.\n\n<#484513481802907669> - Support for things that don't fit into the other support channels.\n​"
         }
       ]
     }]

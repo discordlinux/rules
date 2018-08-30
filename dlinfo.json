@@ -27,7 +27,7 @@
         },
         {
           "name": "Now get chatting!",
-          "value": "In order to view the rest of the channels, type `sudo dis​cord-linux --mark-read #rul​es --acc​ept #ru​les --re​que​st Us​ers` (do not copy and paste) in the <#479497706234970115> channel. \nTo join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
+          "value": "In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​r​e​q​u​e​s​t U​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel. \nTo join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
         },
         {
           "name": "Changelog for #rules",
