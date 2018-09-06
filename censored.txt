@@ -10,6 +10,6 @@ Existing censors:
 9. /​/u (regex) (zero width space for use against censor evasion) (0 warning points)
 10. /(.)[^ =#.-]\1{14}/i (regex) (anti-spam; 15 characters repeated excluding spaces, '=','#', '.', and '-') (1 warning point)
 11. /((\b\S+\b)\s+\b)\1{9}\b/i (regex) (anti-spam; 10 of the same word repeated) (1 warning point)
-12. /(.|\n){1400}/ (regex) (anti-spam; 1400 characters in one message) (1 warning point)
+12. /(.|\n){1100}/ (regex) (anti-spam; 1100 characters in one message) (0 warning points; message is automatically uploaded to blargbot website)
 13. /^(change my mind)\b/im (regex) (annoying meme phrase used to make people upset) (0 warning points)
 14. /^(i use arch btw|btw i use arch)\b/im (regex) (annoying, over-used meme phrase) (0 warning points)
