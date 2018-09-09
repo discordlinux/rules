@@ -11,15 +11,15 @@
         },
         {
           "name": "Pinging Staff",
-          "value": "Do not ping staff members unless you need their help.  For example, if someone is spamming the server, feel free to ping <@&457281742844330004>.  If you just have a question or need something else simple, ping an online staff member; not the entire <@&457281742844330004> role.\n​"
+          "value": "- Do not ping staff members unless you need their help.\n- For example, if someone is spamming the server, feel free to ping <@&457281742844330004>.\n- If you just have a question or need something else simple, ping an online staff member; not the entire <@&457281742844330004> role.\n​"
         },
         {
           "name": "Users Role",
-          "value": "In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.  After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.\n​"
+          "value": "- In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.\n- After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.\n​"
         },
         {
           "name": "Distributions That Are Not Supported",
-          "value": "The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivative of Arch Linux.\nThese distributions have a history of breaking important system packages and compatibility with software you install. The Discord Linux community will not offer support for any of these distributions.  Feel free to use them, but please do not ask for help with them here.\nSee `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
+          "value": "- The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivative of Arch Linux.\n- These distributions have a history of breaking important system packages and compatibility with software you install.\n- The Discord Linux community will not offer support for any of these distributions.\n- Feel free to use them, but please do not ask for help with them here.\n- See `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
         },
         {
           "name": "Invite Link",
@@ -27,11 +27,11 @@
         },
         {
           "name": "Now get chatting!",
-          "value": "In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​r​e​q​u​e​s​t U​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel. \nTo join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\nTo get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
+          "value": "- In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​r​e​q​u​e​s​t U​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel.\n- To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\n- To get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
         },
         {
           "name": "Changelog for #rules",
-          "value": "Check out [the Github page](https://github.com/discordlinux/rules/commits/master) to see what changes have been made to <#172522057291005953>\n​"
+          "value": "- Check out [the Github page](https://github.com/discordlinux/rules/commits/master) to see what changes have been made to <#172522057291005953>\n​"
         }
       ]
     }]
