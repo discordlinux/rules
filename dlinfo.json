@@ -15,7 +15,7 @@
         },
         {
           "name": "Users Role",
-          "value": "In order to join roles with colors, upload files/images, embed links, use bot commands, use external emojis, and post reactions, you must have the `Users` role.  After agreeing to the rules, the Users role will be given automatically if the user has not gotten any warnings after a 48 hour waiting period.\n​"
+          "value": "In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.  After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.\n​"
         },
         {
           "name": "Distributions That Are Not Supported",
