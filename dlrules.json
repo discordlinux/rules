@@ -15,7 +15,7 @@
         },
         {
           "name": "#3 - No spamming or irrelevant messages; English only",
-          "value": "- Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.\n- Posting large blocks of text may also be considered spam; please use the `sudo pastebin` command, [hastebin](https://hastebin.com/), or [paste.rs](https://paste.rs/web).\n- This is an English only server; refrain from chatting in other languages.\n​"
+          "value": "- Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.\n- Posting large blocks of text may also be considered spam; please use the `sudo pastebin` command, [hastebin](https://hastebin.com/), or [paste.rs](https://paste.rs/web).\n- Abusing bots is considered spam.\n- This is an English only server; refrain from chatting in other languages.\n​"
         },
         {
           "name": "#4 - Use the channels as intended",
