@@ -7,27 +7,27 @@
       "fields": [
         {
           "name": "Restricted Words",
-          "value": "Messages containing Discord invite links and certain restricted words will automatically be deleted by <@!134133271750639616>.\nPosts containing these words will result in a warning in <#227643567273672706>.\n[List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
+          "value": "- Messages containing Discord invite links and certain restricted words will automatically be deleted by <@!134133271750639616>.\n- Posts containing these words will result in a warning in <#227643567273672706>.\n- [List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)\n​"
         },
         {
           "name": "Verbal Warning",
-          "value": "A staff member asks the user to stop.\n​"
+          "value": "- A staff member asks the user to stop.\n​"
         },
         {
           "name": "Written Warning",
-          "value": "A staff member issues a warning to <#227643567273672706>.\nThe user will be muted for 1 hour and have their `Users` role removed automatically at 8 warnings.\n​"
+          "value": "- A staff member issues a warning to <#227643567273672706>.\n- The user will be muted for 1 hour and have their `Users` role removed automatically at 8 warnings.\n​"
         },
         {
           "name": "Temporary Mute",
-          "value": "A staff member temporarily mutes the user.\n​"
+          "value": "- A staff member temporarily mutes the user.\n​"
         },
         {
           "name": "Temporary Ban/Permanent Ban",
-          "value": "A staff member bans the user from the server either temporarily or permanently.\n​"
+          "value": "- A staff member bans the user from the server either temporarily or permanently.\n​"
         },
         {
           "name": "Please note:",
-          "value": "Staff members will determine the proper punishment based on the infraction.\nWarnings, mutes, and bans are logged to <#227643567273672706> for everyone to view."
+          "value": "- Staff members will determine the proper punishment based on the infraction.\n- Warnings, mutes, and bans are logged to <#227643567273672706> for everyone to view.\n"
         }
       ]
     }]
