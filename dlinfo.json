@@ -19,7 +19,7 @@
         },
         {
           "name": "Distributions That Are Not Supported",
-          "value": "- The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivative of Arch Linux.\n- These distributions have a history of breaking important system packages and compatibility with software you install.\n- The Discord Linux community will not offer support for any of these distributions.\n- Feel free to use them, but please do not ask for help with them here.\n- See `sudo distroinfo mint`, `sudo distroinfo solus`, `sudo distroinfo manjaro`, `sudo distroinfo antergos`, and `sudo tips archvariants` for more info.\n​"
+          "value": "- The following distributions are not supported in Discord Linux:\nLinux Mint, Solus, and any derivative of Arch Linux.\n- These distributions have a history of breaking important system packages and compatibility with software you install.\n- The Discord Linux community will not offer support for any of these distributions.\n- Feel free to use them, but please do not ask for help with them here.\n- See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo tips archvariants` for more info.\n​"
         },
         {
           "name": "Invite Link",
@@ -27,7 +27,7 @@
         },
         {
           "name": "Now get chatting!",
-          "value": "- In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​r​e​q​u​e​s​t u​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel.\n- To join a distro role, head over to <#174317464337776640> and use `sudo listdistro` to list the available distro roles and `sudo joindistro <distro>` to join that role.  You can join as many roles as you like.\n- To get a colored role, use `sudo favdistro <distro>` to join your favorite distro's role.\n​"
+          "value": "- In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​r​e​q​u​e​s​t u​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel.\n- To join a distro role, head over to <#174317464337776640> and use `sudo distro list` to list the available distro roles and `sudo distro join <distro>` to join that role.  You can join as many roles as you like.\n- To get a colored role, use `sudo distro fav <distro>` to join your favorite distro's role.\n​"
         },
         {
           "name": "Changelog for #rules",
