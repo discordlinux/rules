@@ -15,7 +15,7 @@
         },
         {
           "name": "#3 - No spamming or irrelevant messages; English only",
-          "value": "- Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.\n- Posting large blocks of text may also be considered spam; please use the `sudo pastebin` command, [hastebin](https://hastebin.com/), or [paste.rs](https://paste.rs/web).\n- Abusing bots is considered spam.\n- This is an English only server; refrain from chatting in other languages.\n​"
+          "value": "- Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.\n- Posting large blocks of text may also be considered spam; the bot will upload the message to its site if it is too large, however we would prefer that you use [hastebin](https://hastebin.com/) or [paste.rs](https://paste.rs/web).\n- Abusing bots is considered spam.\n- This is an English only server; refrain from chatting in other languages.\n​"
         },
         {
           "name": "#4 - Use the channels as intended",
@@ -26,7 +26,7 @@
           "value": "- If you want to spread the word about your server, do so elsewhere.\n- Server invites will be deleted automatically and result in a warning.\n​"
         },
         {
-          "name": "#6 - Don't use a selfbot",
+          "name": "#6 - Don't use selfbots",
           "value": "- Selfbotting is against Discord's Terms of Service.\n- More annoying than useful.\n- If you find <@!134133271750639616> lacking, feel free to make suggestions in <#166340424603009024>.\n​"
         },
         {
