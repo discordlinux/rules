@@ -15,12 +15,12 @@
 #### #2 -No NSFW or illegal content
 - Includes porn, gore, pirated software, talking about illegal activites, etc.
 
-#### #3 - No spamming or irrelevant messages{semi} English only
+#### #3 - No spamming or irrelevant messages; English only
 
 - Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.
-- Posting large blocks of text may also be considered spam{semi} please use the sudo pastebin command, hastebin, or paste.rs.
+- Posting large blocks of text may also be considered spam; please use the sudo pastebin command, hastebin, or paste.rs.
 - Abusing bots is considered spam.
-- This is an English only server{semi} refrain from chatting in other languages.
+- This is an English only server; refrain from chatting in other languages.
 
 #### #4 - Use the channels as intended
 
@@ -101,7 +101,7 @@
 
 - #tech - General discussion on Linux and computers.
 
-- #offtopic - Chat about almost anything{semi} server rules still apply.
+- #offtopic - Chat about almost anything; server rules still apply.
 
 - #games - Channel to chat about games.
 
@@ -141,7 +141,7 @@
 
 - Do not ping staff members unless you need their help.
 - For example, if someone is spamming the server, feel free to ping `@sudoers`.
-- If you just have a question or need something else simple, ping an online staff member{semi} not the entire `@sudoers` role.
+- If you just have a question or need something else simple, ping an online staff member; not the entire `@sudoers` role.
 
 #### Users Role
 
