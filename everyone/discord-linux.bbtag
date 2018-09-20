@@ -1,6 +1,17 @@
 {if;{channelid};==;479497706234970115;
 {switch;{args};
-["--accept <#172522057291005953> --request users --passcode {get;_{userid}passcode}"];
+["--accept <#172522057291005953> --mark-read <#172522057291005953> --request users"];
+{delete}
+{void;{roleremove;479497335596908569}}
+{void;{roleadd;486321901342425089}}
+You have entered the correct passphrase and unlocked access to the rest of the server, {usermention}! You will receive the `users` role in 48 hours if you have not gotten any warnings in that time.
+{timer;
+{if;{quiet}{usermention};==;;{//;User left};
+{if;{warnings};==;0;
+{void;{roleadd;428637054922915850}}Congratulations on earning the `users` role {usermention}!  Head over to <#174317464337776640>, and set your `distro fav`, setup your `profile`, and see other available commands using `sudo help`.  You can see how to use most commands with `sudo help command`.  Please remember to keep most command use in <#174317464337776640> :D;
+{usermention} you already have {warnings} warnings! Head over to <#174317464337776640> and type `sudo userrole` to apply for the `users` role again.
+{set;_{userid}failedusers;true}}};48h};
+["--accept <#172522057291005953> --request users --code {get;_{userid}passcode}"];
 {delete}
 {void;{roleremove;479497335596908569}}
 {void;{roleadd;486321901342425089}}
