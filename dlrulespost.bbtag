@@ -57,6 +57,7 @@ fields.inline:true;
 fields.name:{zws}{newline}**News**;
 fields.value:<#453011360335265793>{newline}• RSS feeds about Linux.
 <#492045641997090817>{newline}• RSS feeds about Arch.
+<#492192444209954826>{newline}• RSS feeds about Fedora.
 <#492030489750667277>{newline}• RSS feeds about openSUSE.
 <#492045689304383508>{newline}• RSS feeds about Ubuntu.;
 fields.inline:true;
