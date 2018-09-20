@@ -1,0 +1,9 @@
+{if;{args};==;;❌ No search term provided!{return}}
+{set;~request;{request;https://wikipedia.org/w/api.php?action=opensearch&search={uriencode;{flag;_}}&format=json&suggest=1&redirects=resolve}}
+{if;{jget;{get;~request};body.3.0};==;;❌ No search results for '{flag;_}'!{return}}
+{embed;{embedbuild;
+title:Wikipedia Results for '{jget;{get;~request};body.0}';
+color:6F86D8;
+url:{jget;{get;~request};body.3.0};
+description:{if;{length;{jget;{get;~request};body.2.0}};!=;0;__**Description**__:{newline}{jget;{get;~request};body.2.0}}{if;{jget;{get;~request};body.2.0};includes;may refer to:;{if;{length;{jget;{get;~request};body.2.1}};!=;0;{newline}- {jget;{get;~request};body.2.1}}{if;{length;{jget;{get;~request};body.2.2}};!=;0;{newline}- {jget;{get;~request};body.2.2}}{if;{length;{jget;{get;~request};body.2.3}};!=;0;{newline}- {jget;{get;~request};body.2.3}}{if;{length;{jget;{get;~request};body.2.4}};!=;0;{newline}- {jget;{get;~request};body.2.4}}{if;{length;{jget;{get;~request};body.2.5}};!=;0;{newline}- {jget;{get;~request};body.2.5}}}{newline}
+__**Related Articles**__:{newline}{if;{isarray;{jget;{get;~request};body.1}};==;true;{join;{jget;{get;~request};body.1};,{space}};}}}

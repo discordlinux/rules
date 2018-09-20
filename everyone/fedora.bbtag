@@ -1,0 +1,19 @@
+{embed;{embedbuild;
+  title:Fedora;
+  url:https://getfedora.org/;
+  color:294172;
+  thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/Fedora-logo.svg.png;
+  description:**• Basically a much more up-to-date CentOS or RHEL.
+• RPM-based using dnf as it's package manager.
+  - Relatively easy syntax
+  - Slower at installing packages than most other package managers
+• GNOME Desktop Environment is the main "spin" and is the only recommended way to use Fedora.
+  - Other than the Xfce spin, most Fedora spins are lackluster.
+• Ships with only open source and unencumbered software in the official repos, you'll need to enable third party repos for anything closed source or with resitrictive licensing.
+• 6-month release cycle with a 12-month support window.
+  - Desktop Environment and core applications typically only get updated with a new release.
+  - Kernel and mesa versions do get pushed frequently.
+• Not recommended for people new to Linux due to the release cycle and default partition setup.
+
+See `sudo tips fedora` for more info.
+[Download Fedora](https://getfedora.org)**}}

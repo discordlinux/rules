@@ -1,0 +1,60 @@
+{if;{flagset;h};**__Usage__**: `{prefix} {commandname} [user | flags <text>]`
+```
+Show information about user
+  
+Can also be used to setup the 'About {username}'
+section with the flags below (multiple flags may be used at once):
+  
+Flags
+-D - Favorite distro
+-w - Favorite DE/WM
+-b - Favorite browser
+-t - Favorite terminal
+-e - Favorite editor
+-l - Favorite language
+-s - Favorite shell
+-d - Short description about {username}
+```
+{return}}
+{if;{flagset;D};{set;~editmode;1}{set;@{userid}_distro;{flag;D}}{commit}}
+{if;{flagset;w};{set;~editmode;1}{set;@{userid}_dewm;{flag;w}}{commit}}
+{if;{flagset;b};{set;~editmode;1}{set;@{userid}_browser;{flag;b}}{commit}}
+{if;{flagset;t};{set;~editmode;1}{set;@{userid}_terminal;{flag;t}}{commit}}
+{if;{flagset;e};{set;~editmode;1}{set;@{userid}_editor;{flag;e}}{commit}}
+{if;{flagset;l};{set;~editmode;1}{set;@{userid}_proglang;{flag;l}}{commit}}
+{if;{flagset;s};{set;~editmode;1}{set;@{userid}_shell;{flag;s}}{commit}}
+{if;{flagset;d};{set;~editmode;1}{set;@{userid}_description;{flag;d}}{commit}}
+{if;{userid;{flag;_};quiet};==;;
+  ❌ '{flag;_}' not found in {guildname}{return}
+}
+{if;{get;~editmode};==;1;{set;~user;{userid}};{if;{argslength};==;0;{set;~user;{userid}};{set;~user;{userid;{args}}}}}
+{set;~eColor;[]}
+{set;~roles;{roles;{get;~user}}}
+{foreach;~color;{get;~roles};
+  {if;{rolecolor;{get;~color}};!=;000000;
+    {push;{get;~eColor};{rolecolor;{get;~color}}}
+  }
+}
+{if;{length;{get;~eColor}};==;0;
+  {set;~eColor;c1694f}
+}
+{embed;{embedbuild;title:{guildname} - {guildsize} members;
+fields.name:**__Account Information__**;
+fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
+**Nickname**: <@!{get;~user}>
+**ID**: {userid;{get;~user}}
+**Status**: {userstatus;{get;~user}}
+**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}};
+fields.name:**__About {username;{get;~user}}__**;
+fields.value:**Favorite distro**: {get;@{get;~user}_distro}
+**Favorite DE/WM**: {get;@{get;~user}_dewm}
+**Favorite browser**: {get;@{get;~user}_browser}
+**Favorite terminal**: {get;@{get;~user}_terminal}
+**Favorite editor**: {get;@{get;~user}_editor}
+**Favorite language**: {get;@{get;~user}_proglang}
+**Favorite shell**: {get;@{get;~user}_shell}
+**Description**: {get;@{get;~user}_description};
+thumbnail.url:{useravatar;{get;~user};quiet};
+color:{get;~eColor;0}}}

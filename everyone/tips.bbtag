@@ -1,0 +1,126 @@
+{if;{channelid};==;479497706234970115;{return}}
+{switch;{args;0};
+  ["-b","beginner","Beginner","beginners","Beginners"];
+  {embed;{embedbuild;
+    title:Beginner Tips;
+    description:;
+    fields.name:Beginner Distros;
+    fields.value:[KDE neon](https://neon.kde.org/)
+[Xubuntu](https://xubuntu.org)
+[Ubuntu MATE](https://ubuntu-mate.org)
+[openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Ubuntu Budgie](https://ubuntubudgie.org/);
+    fields.inline:true;
+    fields.name:Beginner Guides;
+    fields.value:[Virtualbox](https://linuxhint.com/install-kde-neon-oracle-virtualbox/)
+[KDE neon](https://userbase.kde.org/Installing_KDE_neon)
+[Xubuntu](https://docs.xubuntu.org/1804/user/en_GB/index.html)
+[Ubuntu with Windows](https://www.tecmint.com/install-ubuntu-alongside-with-windows/)
+[openSUSE Leap](https://doc.opensuse.org/documentation/leap/startup/html/book.opensuse.startup/art.opensuse.installquick.html);
+    fields.inline:true;}};
+  ["-a","advanced","Advanced"];
+  {embed;{embedbuild;
+    title:Advanced Tips;
+    description:[Arch Linux](https://wiki.archlinux.org/index.php/installation_guide)
+[openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed);}};
+  ["-c","customization","Customization"];
+  {embed;{embedbuild;
+    title:Customization Tips;
+    description:[Click here for the OCS-Store application which can be used to download and apply themes on any setup](https://www.opendesktop.org/p/1175480/);
+    fields.name:{zws};
+    fields.value:[Xfce](https://github.com/NicoHood/NicoHood.github.io/wiki/Xfce4-Desktop-Environment-Customization)
+[Openbox](https://ramsdenj.com/2016/03/28/building-a-custom-linux-environment-with-openbox.html)
+[MATE](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-mate-desktop/)
+[LXQt](https://github.com/simoniz0r/guides/wiki/LXQt-Customizaton)
+[KDE](https://userbase.kde.org/System_Settings#Workspace_Theme);
+    fields.inline:true;
+    fields.name:{zws};
+    fields.value:[GNOME](https://itsfoss.com/gnome-tricks-ubuntu/)
+[Enlightenment](https://wiki.archlinux.org/index.php/enlightenment)
+[Deepin](https://www.deepin.org/en/docs/for-everyone-the-deepin/personalization/)
+[Cinnamon](https://www.lifewire.com/customize-cinnamon-desktop-environment-linux-mint-2202086)
+[Budgie](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-budgie-desktop/);
+    fields.inline:true;}};
+  ["-cli","cli","CLI","commandline","Commandline"];
+  {embed;{embedbuild;
+    title:Commandline Tips;
+    description:[codecademy](https://www.codecademy.com/learn/learn-the-command-line)
+[tldp bash beginner guide](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
+[tldp bash advanced guide](http://www.tldp.org/LDP/abs/html/abs-guide.html)
+[Google script styling guide](https://google.github.io/styleguide/shell.xml)
+[Awesome Shell](https://github.com/alebcay/awesome-shell) (guides and tools)
+[SSH tutorial](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys);}};
+  ["-o","other","Other"];
+  {embed;{embedbuild;
+    title:Other Tips;
+    description:[Comparison of DEs](https://wiki.archlinux.org/index.php/Comparison_of_desktop_environments)
+[openSUSE docs](https://doc.opensuse.org/documentation/leap/reference/html/book.opensuse.reference/index.html);}};
+  ["-ost","ost","tumbleweed","Tumbleweed"];{exec;tumbleweed1};
+  ["-r","rolling","Rolling"];{embed;{embedbuild;
+    title:Rolling Release Tips;
+    description:Rolling release Linux distros are a great way to get the latest software, but that does not come without potential problems. Users should have a good understanding of Linux before attempting to use one as their main distro.
+**-** Rolling release means no set release schedule{semi} new software is released when it is ready.
+**-** Rolling release means always up to date.  Expect several relatively large updates per week.
+**-** Rolling release distros should be kept up to date.  Update checks should be ran *at least* once a week.
+**-** Rolling release means less time to test packages.  Be prepared for potential issues.
+**__Skills a User Should Have Before Using a Rolling Release Distro__**
+**-** Know how to troubleshoot problems.  Be familiar with the different logging systems for Linux and how to find useful output from them.
+**-** Know the general concept of how a package manager works on Linux.
+**-** Know how packages on Linux interact with eachother.  Be aware of how dependencies work.
+**-** Know how to properly partition a Linux drive.
+**-** Know how to work in a terminal.  Terminals give more useful output when managing packages.  Be prepared to work without a GUI at all in case something breaks.
+**-** Know how to work with drivers.  Frequent kernel updates can sometimes mean driver issues.  Know how to troubleshoot these issues.
+**__Recommended Rolling Release Distros__**
+**-** [openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed) (see `sudo distro info opensuse` and `sudo tips tumbleweed`)
+**-** [Arch Linux](https://archlinux.org) (see `sudo distro info arch`);}};
+  ["boot-repair","Boot-Repair","boot","-br"];{exec;boot-repair};
+  ["cht.sh","cheet","-cht"];{exec;cht.sh};
+  ["discord","Discord","-d"];{exec;discord-pkgs};
+  ["images","Images","-i"];{exec;images};
+  ["imagewriter","ImageWriter","Imagewriter","-iw"];{exec;imagewriter};
+  ["panda-wifi","Panda-wifi","-pw"];{exec;panda-wifi};
+  ["pastes","Pastes","-p"];{exec;pastes};
+  ["wifi","wifi-help","Wifi-help","-w"];{exec;wifi-help};
+  ["archvariants","ArchVariants","Archvariants","-av"];{exec;archvariants};
+  ["appbundlers","Appbundlers","-ab"];{exec;appbundlers};
+  ["Arch","arch","-A"];{exec;archtips};
+  ["fedora","Fedora","-fed"];{embed;{embedbuild;
+    title:Fedora Tips;
+    url:https://getfedora.org/;
+    color:294172;
+    thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/Fedora-logo.svg.png;
+    description:**__SELinux__**
+**-** This is a common barrier for new Fedora users.  SELinux is a security measure that many think over-steps it's boundaries.
+**-** The easiest solution if SELinux is blocking an application you need is to put it into permissive mode: `sudo setenforce 0`
+**__Fedy__**
+**-** [Fedy](https://www.folkswithhats.org/) essentially puts a list of some of the more common proprietary applications or harder to enable tweaks into a nice consise menu of one-click setups.
+**__Recommended Third-Party Repos__**
+**-** [RPM Fusion](https://rpmfusion.org/Configuration)
+  **\*** Where you'll likely find most of the applications and tools you need that aren't in the official repos.
+**-** [Negativo17](https://negativo17.org/repositories/)
+  **\***  If you'd rather enable one repo per application instead of one huge one, this is the route you should go.
+**-** [Flathub](https://flathub.org/home)
+  **\*** Not technically a third party repo but Fedora does have Flatpak enabled by default, so if all of the proprietary applications are available, it's worth trying out.
+  **\*** Flatpaks are sandboxes and typically come with tight file permissions, so some functions may not work or may require you to manually override file perms.}};
+  **__Usage:__** {prefix} {commandname} <argument>
+```Available tips arguments:
+advanced or -a
+appbundlers or -ab
+Arch or -A
+archvariants or -av
+beginner or -b
+boot-repair or -br
+cht.sh or -cht
+commandline or -cli
+customization or -c
+discord or -d
+fedora or -fed
+images or -i
+imagewriter or -iw
+other or -o
+panda-wifi or -pw
+pastes or -p
+rolling or -r
+tumbleweed or -ost
+wifi-help or -w
+```}

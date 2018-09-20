@@ -1,0 +1,50 @@
+{switch;{args;0};
+["-A","pacman"];{exec;pacman;{args;1;n}};
+["-a","aw","Aw","archwiki","Archwiki"];{exec;archwiki;{args;1;n}};
+["-D","apt-get"];{exec;ddg;!dpkg {args;1;n}};
+["-d","dw","Dw"];<https://wiki.debian.org/FrontPage?action=fullsearch&context=180&value={uriencode;{args;1;n}}&titlesearch=Titles>;
+["-F","dnf","Dnf"];{exec;ddg;!fedpack {args;1;n}};
+["-f","fw","Fw"];{exec;ddg;!fedora {args;1;n}};
+["-G","emerge","Emerge"];{exec;ddg;!genpkg {args;1;n}};
+["-g","gw","Gw"];{exec;ddg;!gwiki {args;1;n}};
+["-O","zyp","Zyp"];<https://software.opensuse.org/package/{uriencode;{args;1;n}}>;
+["-o","osw","Osw","OSW"];<https://en.opensuse.org/Special:Search/{uriencode;{args;1;n}}>;
+["-U","apt","Apt"];{exec;ddg;!puc {args;1;n}};
+["-u","uw","Uw"];<https://wiki.ubuntu.com/Home?action=fullsearch&context=180&value={uriencode;{args;1;n}}&titlesearch=Titles>;
+["-W","wine","Wine"];<https://www.winehq.org/search?q={uriencode;{args;1;n}}>;
+["urban","Urban"];{exec;urbandictionary;{args;1;n}};
+["-h","-H","help","Help","--help"];
+{embed;{embedbuild;
+title:{prefix} {commandname};
+description:**__Usage:__** `{prefix} {commandname} [arg] <search term>`
+Search the web or search for packages/wiki entries for Linux distros.
+If none of the arguments below are used, a ddg search will be ran.
+Available arguments:
+*pacman or -A*
+- Arch and AUR package search
+*aw or -a*
+- Arch wiki Search
+*apt-get or -D*
+- Debian package search
+*dw or -d*
+- Debian wiki search
+*dnf or -F*
+- Fedora package search
+*fw or -f*
+- Fedora wiki search
+*emerge or -G*
+- Gentoo package search
+*gw or -g*
+- Gentoo wiki search
+*zyp or -O*
+- openSUSE package search
+*osw or -o*
+- openSUSE wiki search
+*apt or -U*
+- Ubuntu package search
+*uw or -u* 
+- Ubuntu wiki search
+*wine or -W*
+- WineHQ search
+;}};
+{exec;ddg;{args}}}

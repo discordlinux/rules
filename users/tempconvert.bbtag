@@ -1,0 +1,14 @@
+{
+if;{argslength};==;0;**__Usage__**: `{prefix} {commandname} <flag> <temperature>`
+```
+Converts temperatures
+Flags
+-f - Fahrenheit -> Celsius
+-c - Celsius -> Fahrenheit
+```
+{return}
+}
+{if;{flagset;f};{math;/;{math;-;{args;1};32};1.8} °C{return}}
+{if;{flagset;F};{math;/;{math;-;{args;1};32};1.8} °C{return}}
+{if;{flagset;c};{math;+;{math;*;{args;1};1.8};32} °F{return}}
+{if;{flagset;C};{math;+;{math;*;{args;1};1.8};32} °F{return}}

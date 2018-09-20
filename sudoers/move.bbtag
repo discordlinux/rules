@@ -1,0 +1,8 @@
+{slowmode;20}
+{embed;{embedbuild;
+title:Move to #{channelname;{args;0}};
+color:9D2828;
+thumbnail.url:https://cdn.discordapp.com/emojis/230469900882280448.png?v=1;
+footer.text:Slowmode has been enabled in #{channelname} for 20 seconds.;
+description:**Please move the current discussion to {args;0}, thanks!**;}}
+{timer;{slowmode};20s}
