@@ -1,3 +1,10 @@
+{if;{channelid};!=;479497706234970115;
+{if;{channelid};!=;461299165100638228;
+{return}}}
+{set;_{userid}passcode;{randint;100000;999999}}
+
+{dump;### Welcome to Discord Linux
+
 #### Glory to the Tux
 
 - Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
@@ -160,6 +167,7 @@ Linux Mint, Solus, and any derivative of Arch Linux.
 
 #### Now get chatting!
 
+- In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​r​e​q​u​e​s​t u​s​e​r​s --passcode {get;_{userid}passcode}` (do not copy and paste) in the #welcome channel.
 - To join a distro role, head over to #bot-spam and use `sudo distro list` to list the available distro roles and `sudo distro join <distro>` to join a role. You can join as many roles as you like.
 
 #### [Changelog for #rules](https://github.com/discordlinux/rules/commits/master)
@@ -167,4 +175,4 @@ Linux Mint, Solus, and any derivative of Arch Linux.
 
 #### Invite Link
 
-- [discord.gg/discord-linux](https://discord.gg/discord-linux)
+- [discord.gg/discord-linux](https://discord.gg/discord-linux)}
