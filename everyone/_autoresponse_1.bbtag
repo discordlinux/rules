@@ -116,9 +116,6 @@ description:Slowmode enabled for repeated message spam!;}}}
 {if;{channelid};==;479497706234970115;
   {switch;{messagetext};
     {//;passphrase for welcome channel}
-    ["sudo discord-linux --accept <#172522057291005953> --mark-read <#172522057291005953> --request users"];
-    {//;do nothing and let discord-linux command handle this}
-    {sleep;0.5s};
     ["sudo discord-linux --accept <#172522057291005953> --request users --code {get;_{userid}passcode}"];
     {//;do nothing and let discord-linux command handle this}
     {sleep;0.5s};

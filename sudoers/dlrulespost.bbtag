@@ -115,7 +115,6 @@ Linux Mint, Solus, and any derivative of Arch Linux.
 • See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo tips archvariants` for more info.;
 fields.name:{zws};
 fields.value:**Now get chatting!**
-• In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​m​a​r​k​-​r​e​a​d #​r​u​l​e​s -​-​r​e​q​u​e​s​t u​s​e​r​s` (do not copy and paste) in the <#479497706234970115> channel.
 • To join a distro role, go to <#174317464337776640>, use `sudo distro list` to list the distro roles, and `sudo distro join <distro>` to join them.{newline}{zws}
 **Changelog for <#172522057291005953>**
 • [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws}
