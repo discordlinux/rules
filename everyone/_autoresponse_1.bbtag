@@ -2,11 +2,11 @@
 {//;Package search commands}
 {if;{userhasrole;428637054922915850};
 {if;{channelid};!=;479497706234970115;
-{if;{messagetext};startswith;apt{space}search{space};{exec;ddg;!puc {args;2;n}}{return}}
-{if;{messagetext};startswith;apt-get{space}search{space};{exec;ddg;!dpts {args;2;n}}{return}}
-{if;{messagetext};startswith;dnf{space}search{space};{exec;ddg;!fedpack {args;2;n}}{return}}
-{if;{messagetext};startswith;zyp{space}search{space};{send;{channelid};{exec;searcher;zyp {args;2;n}}}{return}}
-{if;{messagetext};startswith;zypper{space}search{space};{send;{channelid};{exec;searcher;zyp {args;2;n}}}{return}}
+{if;{messagetext};startswith;apt{space}search{space};{exec;searcher;apt {args;2;n}}{return}}
+{if;{messagetext};startswith;apt-get{space}search{space};{exec;searcher;apt-get {args;2;n}}{return}}
+{if;{messagetext};startswith;dnf{space}search{space};{exec;searcher;dnf {args;2;n}}{return}}
+{if;{messagetext};startswith;zyp{space}search{space};{exec;searcher;zyp {args;2;n}}{return}}
+{if;{messagetext};startswith;zypper{space}search{space};{exec;searcher;zyp {args;2;n}}{return}}
 {if;{messagetext};startswith;emerge{space}--search{space};{exec;ddg;!genpkg {args;2;n}}{return}}
 {if;{messagetext};startswith;pacman{space}-Ss{space};{exec;pacman;{args;2;n}}{return}}
 {//;##########################sandwich##############################}
