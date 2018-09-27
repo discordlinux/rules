@@ -142,7 +142,7 @@
 
 - `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@NanoDrive` `@simonizor` `@Vix`
 
-- `@trusted` - `@greyfade`
+- `@trusted` - `@greyfade @E5ten`
 
 - `@Discord Staff` - These are actual Discord employees. Please do not bother them.
 
@@ -169,7 +169,7 @@ Linux Mint, Solus, and any derivative of Arch Linux.
 
 #### Now get chatting!
 
-- In order to view the rest of the channels, type `s​u​d​o d​i​s​c​o​r​d​-​l​i​n​u​x -​-​a​c​c​e​p​t #​r​u​l​e​s -​-​r​e​q​u​e​s​t u​s​e​r​s --code {get;_{userid}passcode}` (do not copy and paste) in the #welcome channel.
+- In order to view the rest of the channels, type `s​u​d​o​ ​discord-linux​ ​-​-​a​c​c​e​p​t​ ​#​r​u​l​e​s​ ​-​-​r​e​q​u​e​s​t​ ​u​s​e​r​s​ ​-​-​c​o​d​e​ ​{get;_{userid}passcode}​` (do not copy and paste) in the #welcome channel.
 - To join a distro role, head over to #bot-spam and use `sudo distro list` to list the available distro roles and `sudo distro join <distro>` to join a role. You can join as many roles as you like.
 
 #### [Changelog for #rules](https://github.com/discordlinux/rules/commits/master)
