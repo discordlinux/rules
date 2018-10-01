@@ -109,7 +109,7 @@ fields.value:**Users Role**
 fields.name:{zws};
 fields.value:**Distributions That Are Not Supported**
 • The following distributions are not supported in Discord Linux:
-Linux Mint, Solus, and any derivative of Arch Linux.
+Kali Linux, Linux Mint, Solus, Manjaro, Antergos and any derivative of Arch Linux.
 • These distributions have a history of breaking important system packages and compatibility with software you install.
 • The Discord Linux community will not offer support for any of these distributions.
 • Feel free to use them, but please do not ask for help with them here.
@@ -121,5 +121,4 @@ fields.value:**Now get chatting!**
 • [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws}
 **Invite Link**
 • [discord.gg/discord-linux](https://discord.gg/discord-linux);
-image.url:https://discordapp.com/api/guilds/96230004047740928/widget.png?style=banner2;
 }}}
