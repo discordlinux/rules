@@ -46,7 +46,8 @@ fields.value:**Restricted Words**
 • A staff member bans the user from the server either temporarily or permanently.{newline}
 **Please note:**
 • Staff members will determine the proper punishment based on the infraction.
-• Warnings, mutes, and bans are logged to <#227643567273672706> for everyone to view.{newline}{zws};
+• Warnings, mutes, and bans are logged to <#227643567273672706> for everyone to view.
+• Violations of [Discord's Terms of Service](https://discordapp.com/terms) will not be tolerated.  See [Discord's Guidelines](https://discordapp.com/guidelines) for a simplified version.{newline}{zws};
 fields.name:__**Channels**__{newline}**Information**;
 fields.value:<#479497706234970115>{newline}• Show new member joins.
 <#172522057291005953>{newline}• You are here.

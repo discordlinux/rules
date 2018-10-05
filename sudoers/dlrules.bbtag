@@ -79,6 +79,7 @@
 
 - Staff members will determine the proper punishment based on the infraction.
 - Warnings, mutes, and bans are logged to #mod-logs for everyone to view.
+- Violations of [Discord's Terms of Service](https://discordapp.com/terms) will not be tolerated.  See [Discord's Guidelines](https://discordapp.com/guidelines) for a simplified version.
 
 ### Channels
 
@@ -142,7 +143,7 @@
 
 - `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@NanoDrive` `@simonizor` `@Vix`
 
-- `@trusted` - `@greyfade @E5ten`
+- `@trusted` - `@greyfade` `@E5ten`
 
 - `@Discord Staff` - These are actual Discord employees. Please do not bother them.
 
@@ -161,7 +162,7 @@
 #### Distributions That Are Not Supported
 
 - The following distributions are not supported in Discord Linux:
-Linux Mint, Solus, and any derivative of Arch Linux.
+ - Kali Linux, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
 - These distributions have a history of breaking important system packages and compatibility with software you install.
 - The Discord Linux community will not offer support for any of these distributions.
 - Feel free to use them, but please do not ask for help with them here.
@@ -181,4 +182,4 @@ Linux Mint, Solus, and any derivative of Arch Linux.
 
 #### Phone Verification
 
-- If you do not have access to a phone in order to verify your account with Discord, please fill out [this form](https://goo.gl/forms/DnXsw4yMhaQxLu2P2).  If Discord Linux staff decides to let you in, you will be given a temporary role which will allow you to input the passphrase in the #welcome channel.  A Google account is required in order to fill out the form to prevent spam.}
+- If you do not have access to a phone in order to verify your account with Discord, please fill out [this form](https://goo.gl/forms/DnXsw4yMhaQxLu2P2).  All submissions are manually reviewed, so please be patient.  If Discord Linux staff decides to let you in, you will be given a temporary role which will allow you to input the passphrase in the #welcome channel.  A Google account is required in order to fill out the form to prevent spam.}
