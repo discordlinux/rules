@@ -39,8 +39,9 @@ fields.value:**Restricted Words**
 • A staff member asks the user to stop.{newline}
 **Written Warning**
 • A staff member issues a warning to <#227643567273672706>.
-• The user will be muted for 1 hour and have their Users role removed automatically at 8 warnings.{newline}
-**Temporary Mute**
+• The user will be muted for 1 hour and have their Users role removed automatically at 8 warnings.;
+fields.name:{zws};
+fields.value:**Temporary Mute**
 • A staff member temporarily mutes the user.{newline}
 **Temporary Ban/Permanent Ban**
 • A staff member bans the user from the server either temporarily or permanently.{newline}
