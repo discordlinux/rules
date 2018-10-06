@@ -1,9 +1,9 @@
 {if;{channelid};!=;479497706234970115;
 {if;{channelid};!=;461299165100638228;
-{return}}}
-{set;_{userid}passcode;{randint;100000;999999}}
-
-{dump;### Welcome to Discord Linux
+{if;{channelid};!=;446379963059535877;
+{return}}}}
+{set;~rand1;{exec;randword}}{set;~rand2;{exec;randword}}{set;~rand3;{exec;randword}}{set;~rand4;{exec;randword}}{set;_{userid}passcode;{get;~rand1}-{get;~rand2}-{get;~rand3}-{get;~rand4}}{set;_{userid}fakepasscode;﻿{get;~rand1}﻿-﻿{get;~rand2}﻿-﻿{get;~rand3}﻿-﻿{get;~rand4}﻿}
+{dump;### Welcome to Discord Linux, {username}!
 
 #### Glory to the Tux
 
@@ -170,8 +170,8 @@
 
 #### Now get chatting!
 
-- In order to view the rest of the channels, type `s​u​d​o​ ​discord-linux​ ​-​-​a​c​c​e​p​t​ ​#​r​u​l​e​s​ ​-​-​r​e​q​u​e​s​t​ ​u​s​e​r​s​ ​-​-​c​o​d​e​ ​{get;_{userid}passcode}​` (do not copy and paste) in the #welcome channel.
 - To join a distro role, head over to #bot-spam and use `sudo distro list` to list the available distro roles and `sudo distro join <distro>` to join a role. You can join as many roles as you like.
+- In order to view the rest of the channels, type `s﻿u﻿d﻿o﻿ ﻿-﻿i﻿ ﻿{get;_{userid}fakepasscode}` (do not copy and paste) in the #welcome channel.  This indicates that you have read and agree to follow all of the rules stated above.
 
 #### [Changelog for #rules](https://github.com/discordlinux/rules/commits/master)
 - [Check out the Github page to see what changes have been made to #rules](https://github.com/discordlinux/rules/commits/master)

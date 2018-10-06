@@ -2,11 +2,11 @@
 {//;Package search commands}
 {if;{userhasrole;428637054922915850};
 {if;{channelid};!=;479497706234970115;
-{if;{messagetext};startswith;apt{space}search{space};{exec;searcher;apt {args;2;n}}{return}}
-{if;{messagetext};startswith;apt-get{space}search{space};{exec;searcher;apt-get {args;2;n}}{return}}
+{if;{messagetext};startswith;apt{space}search{space};{void;{send;{channelid};;{exec;apt;{args;2;n}}}}{return}}
+{if;{messagetext};startswith;apt-get{space}search{space};{void;{send;{channelid};;{exec;apt-get;{args;2;n}}}}{return}}
 {if;{messagetext};startswith;dnf{space}search{space};{exec;searcher;dnf {args;2;n}}{return}}
-{if;{messagetext};startswith;zyp{space}search{space};{exec;searcher;zyp {args;2;n}}{return}}
-{if;{messagetext};startswith;zypper{space}search{space};{exec;searcher;zyp {args;2;n}}{return}}
+{if;{messagetext};startswith;zyp{space}search{space};{void;{send;{channelid};;{exec;zyp;{args;2;n}}}}{return}}
+{if;{messagetext};startswith;zypper{space}search{space};{void;{send;{channelid};;{exec;zyp;{args;2;n}}}}{return}}
 {if;{messagetext};startswith;emerge{space}--search{space};{exec;ddg;!genpkg {args;2;n}}{return}}
 {if;{messagetext};startswith;pacman{space}-Ss{space};{exec;pacman;{args;2;n}}{return}}
 {//;##########################sandwich##############################}
@@ -118,6 +118,10 @@ description:Slowmode enabled for repeated message spam!;}}}
     {//;passphrase for welcome channel}
     ["sudo discord-linux --accept <#172522057291005953> --request users --code {get;_{userid}passcode}"];
     {//;do nothing and let discord-linux command handle this}
+    {sleep;0.5s}
+    {//;passphrase for welcome channel}
+    ["sudo -i {get;_{userid}passcode}"];
+    {//;do nothing and let discord-linux command handle this}
     {sleep;0.5s};
     {//;delete any other messages and output that incorrect passphrase was entered}
     {delete}
@@ -126,45 +130,6 @@ description:Slowmode enabled for repeated message spam!;}}}
     {sleep;15s}
     {delete;{get;~wrongpassid}}}}
 {set;_{userid}lastmessage;{time;X}}
-{//;##########################support###############################}
-{//;support channel stuffs}
-{//;This section probably needs to stay near the bottom due to users role checks}
-{//;If user does not have users role, check if they have chatted in support channels.  If not, output message telling them to check the pins}
-{if;{channelid};==;96230043209981952;
-{if;{get;_{userid}usedsupportlinux};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
-title:Read Me!;
-color:C7A031;
-description:This seems to be your first time in <#96230043209981952>!  Please see the pinned messages and follow the template when posting here so that others may get right to helping you.;}}}
-{set;_{userid}usedsupportlinux;true}}}
-{if;{channelid};==;484513714024874018;
-{if;{get;_{userid}usedsupportinstalls};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
-title:Read Me!;
-color:C7A031;
-description:This seems to be your first time in <#484513714024874018>!  Please see the pinned messages and follow the template when posting here so that others may get right to helping you.;}}}
-{set;_{userid}usedsupportinstalls;true}}}
-{if;{channelid};==;484512261382340638;
-{if;{get;_{userid}usedsupportgames};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
-title:Read Me!;
-color:C7A031;
-description:This seems to be your first time in <#484512261382340638>!  Please see the pinned messages and follow the template when posting here so that others may get right to helping you.;}}}
-{set;_{userid}usedsupportgames;true}}}
-{if;{channelid};==;162712517053775872;
-{if;{get;_{userid}usedsupportdiscord};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
-title:Read Me!;
-color:C7A031;
-description:This seems to be your first time in <#162712517053775872>!  Please see the pinned messages and follow the template when posting here so that others may get right to helping you.;}}}
-{set;_{userid}usedsupportdiscord;true}}}
-{if;{channelid};==;484513481802907669;
-{if;{get;_{userid}usedsupportother};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
-title:Read Me!;
-color:C7A031;
-description:This seems to be your first time in <#484513481802907669>!  Please see the pinned messages and follow the template when posting here so that others may get right to helping you.;}}}
-{set;_{userid}usedsupportother;true}}}
 {//;##########################bot-spam##############################}
 {//;bot-spam stuffs}
 {//;This section probably needs to stay near the bottom due to users role checks}
