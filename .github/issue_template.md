@@ -1,5 +1,3 @@
-## Discord Linux No Phone Request Form
-
 ### What is your username and discriminator?
 
 
