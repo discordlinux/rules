@@ -2,123 +2,43 @@
 {//;Package search commands}
 {if;{userhasrole;428637054922915850};
 {if;{channelid};!=;479497706234970115;
-{if;{messagetext};startswith;apt{space}search{space};{void;{send;{channelid};;{exec;apt;{args;2;n}}}}{return}}
-{if;{messagetext};startswith;apt-get{space}search{space};{void;{send;{channelid};;{exec;apt-get;{args;2;n}}}}{return}}
-{if;{messagetext};startswith;dnf{space}search{space};{exec;searcher;dnf {args;2;n}}{return}}
-{if;{messagetext};startswith;zyp{space}search{space};{void;{send;{channelid};;{exec;zyp;{args;2;n}}}}{return}}
-{if;{messagetext};startswith;zypper{space}search{space};{void;{send;{channelid};;{exec;zyp;{args;2;n}}}}{return}}
-{if;{messagetext};startswith;emerge{space}--search{space};{exec;ddg;!genpkg {args;2;n}}{return}}
-{if;{messagetext};startswith;pacman{space}-Ss{space};{exec;pacman;{args;2;n}}{return}}
-{//;##########################sandwich##############################}
-{//;Sandwich easter egg}
-{if;{messagetext};==;sudo make me a sandwich;{reactadd;{channelid};{messageid};🍔}{return}}
-}}
+{exec;autosearcher;{messagetext}}}}
 {//;################################################################}
 {//;Everything below here ignores the sudoers role entirely}
 {if;{userhasrole;457281742844330004};{return}}
+{exec;taggablenick}
 {//;##########################slowmode##############################}
 {//;enables slow mode for 60 seconds if a user has sent 5 or more messages in 5 seconds}
 {//;enables slow mode for 120 seconds last 5 {messagetext}s within 10 seconds in {channelid} match}
 {//;ignore #welcome}
-{if;{channelid};!=;479497706234970115;
-{//;if _{channelid}autoslowmode variable doesn't exist, creat it}
-{if;{get;_{channelid}autoslowmode};==;;{set;_{channelid}autoslowmode;disabled}}
-{//;set last user cap check time and cap if captime not found}
-{if;{get;_{userid}captime};==;;
-{set;_{userid}captime;{time;X}}
-{commit}
-{set;_{userid}cap;0}
-{commit}}
-{//;set last {channelid}global cap check time and cap if captime not found}
-{if;{get;_{channelid}globalcaptime};==;;
-{set;_{channelid}globalcaptime;{time;X}}
-{commit}
-{set;_{channelid}globalmsglast;{messagetext}}
-{commit}
-{set;_{channelid}globalcap;0}
-{commit}}
-{//;if last user cap check time was more than 5 seconds ago, reset cap variables}
-{if;{get;_{userid}captime};<=;{math;-;{time;X};5};
-{set;_{userid}captime;{time;X}}
-{commit}
-{set;_{userid}cap;0}
-{commit}}
-{//;if last cap {channelid}global check time was more than 10 seconds ago, reset cap variables}
-{if;{get;_{channelid}globalcaptime};<=;{math;-;{time;X};10};
-{set;_{channelid}globalcaptime;{time;X}}
-{commit}
-{set;_{channelid}globalmsglast;{messagetext}}
-{commit}
-{set;_{channelid}globalcap;0}
-{commit}}
-{//;if last user message was less than 5 seconds ago, add 20 to user's cap}
-{//;cap is increased by 20 each time so that 5 messages will trigger slowmode}
-{if;{get;_{channelid}autoslowmode};==;disabled;
-{if;{messagetime;X};>=;{math;-;{time;X};5};
-{set;_{userid}cap;{math;+;{get;_{userid}cap};20}}
-{commit}
-{set;_{userid}captime;{time;X}}
-{commit}}}
-{//;if last {channelid}global message was same as previous message, add 20 to gllobal cap}
-{//;cap is increased by 20 each time so that 5 messages will trigger slowmode}
-{if;{get;_{channelid}autoslowmode};==;disabled;
-{if;{messagetext};==;{get;_{channelid}globalmsglast};
-{set;_{channelid}globalmsglast;{messagetext}}
-{commit}
-{set;_{channelid}globalcap;{math;+;{get;_{channelid}globalcap};20}}
-{commit}
-{set;_{channelid}globalcaptime;{time;X}}
-{commit}}}
-{//;if user has reached 100 cap, turn on slow mode for 60 seconds and reset variables}
-{if;{get;_{channelid}autoslowmode};==;disabled;
-{if;{get;_{userid}cap};>=;100;
-{set;_{userid}cap;0}
-{set;_{channelid}globalcap;0}
-{commit}
-{//;send embed saying who triggered slowmode.  sending the embed also turns on slowmode}
-{set;~msgid;{send;{channelid};{slowmode;{channelid};15}
-{set;_{channelid}autoslowmode;enabled};
-{embedbuild;
-title:Slowmode enabled for 60 seconds!;
-thumbnail.url:https://cdn.discordapp.com/emojis/478322841083969558.png?v=1;
-color:D76F68;
-description:{usermention} has triggered slowmode!;}}}
-{//;sleep is broken in autoresponses apparently?}
-{//;seems to be 5 seconds regardless of time set, so we sleep 12 times lol}
-{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}
-{//;turn off slowmode}
-{slowmode}
-{set;_{channelid}autoslowmode;disabled}
-}}
-{//;if {channelid}global has reached 100 cap, turn on slowmode for 120 seconds and reset variables}
-{if;{get;_{channelid}autoslowmode};==;disabled;
-{if;{get;_{channelid}globalcap};>=;100;
-{set;_{channelid}globalcap;0}
-{set;_{userid}cap;0}
-{commit}
-{//;send embed saying why slowmode triggered.  sending the embed also turns on slowmode}
-{set;~msgid;{send;{channelid};{slowmode;{channelid};20}
-{set;_{channelid}autoslowmode;enabled};
-{embedbuild;
-title:Slowmode enabled for 2 minutes!;
-thumbnail.url:https://cdn.discordapp.com/emojis/478322841083969558.png?v=1;
-color:D76F68;
-description:Slowmode enabled for repeated message spam!;}}}
-{//;sleep is broken in autoresponses apparently?}
-{//;seems to be 5 seconds regardless of time set, so we sleep 24 times lol}
-{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}{sleep;5s}
-{//;turn off slowmode}
-{slowmode}
-{set;_{channelid}autoslowmode;disabled}
-}}}
+{if;{channelid};!=;479497706234970115;{exec;autoslowmode}}
 {//;##########################welcome###############################}
 {//;welcome channel stuffs}
 {if;{channelid};==;479497706234970115;
+  {if;{regextest;{messagetext};/﻿/u};{delete}
+    {set;~msgid;{send;{channelid};Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase {usermention}!}}
+    {sleep;5s}{sleep;5s}{sleep;5s}
+    {delete;{get;~msgid}}
+    {return}}
   {switch;{messagetext};
-    {//;passphrase for welcome channel}
-    ["sudo discord-linux --accept <#172522057291005953> --request users --code {get;_{userid}passcode}"];
-    {//;do nothing and let discord-linux command handle this}
-    {sleep;0.5s}
+    {//;old passphrase for welcome channel -- warn about potential alts}
+    ["sudo discord-linux --accept <#172522057291005953> --mark-read <#172522057291005953> --request users"];
+    {delete}
+    {void;{send;461299165100638228;Someone used the old password {usermention;149041922051145728}     {usermention;86201442112671744}!
+    Username: {username}
+    User ID: {userid}}}
+    {if;{get;_{userid}.pass.attempts};==;;
+    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
+    {if;{get;_{userid}.pass.attempts};>=;3;
+    {set;~wrongpassid;{send;{channelid};;{embedbuild;
+    title:READ!;
+    color:f99157;
+    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
+    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}};
+    {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}}
+    {sleep;5s}{sleep;5s}{sleep;5s}
+    {delete;{get;~wrongpassid}}
+    {return};
     {//;passphrase for welcome channel}
     ["sudo -i {get;_{userid}passcode}"];
     {//;do nothing and let discord-linux command handle this}
@@ -126,8 +46,16 @@ description:Slowmode enabled for repeated message spam!;}}}
     {//;delete any other messages and output that incorrect passphrase was entered}
     {delete}
     {//;message auto deletes after 15 seconds}
-    {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}
-    {sleep;15s}
+    {if;{get;_{userid}.pass.attempts};==;;
+    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
+    {if;{get;_{userid}.pass.attempts};>=;3;
+    {set;~wrongpassid;{send;{channelid};;{embedbuild;
+    title:READ!;
+    color:f99157;
+    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
+    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}};
+    {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}}
+    {sleep;5s}{sleep;5s}{sleep;5s}
     {delete;{get;~wrongpassid}}}}
 {set;_{userid}lastmessage;{time;X}}
 {//;##########################bot-spam##############################}
