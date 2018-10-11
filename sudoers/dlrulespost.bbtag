@@ -120,7 +120,7 @@ fields.name:{zws};
 fields.value:**Now get chatting!**
 • To join a distro role, go to <#174317464337776640>, use `sudo distro list` to list the distro roles, and `sudo distro join <distro>` to join them.{newline}{zws}
 **Changelog for <#172522057291005953>**
-• [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws}
-**Invite Link**
-• [discord.gg/discord-linux](https://discord.gg/discord-linux);
+• [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws};
 }}}
+{delete;172522057291005953;{get;_guild.info.msgid}}
+{set;_guild.info.msgid;{send;172522057291005953;;{exec;guildinfosend}}}
