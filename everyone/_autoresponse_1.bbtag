@@ -1,3 +1,11 @@
+{//;Ignore #moderator-chat}
+{if;{channelid};==;166335780124360704;{return}}
+{//;##########################emojistats############################}
+{foreach;~emoji;{emojis};
+{if;{messagetext};includes;{get;~emoji};
+{if;{get;_{get;~emoji}.used};==;;
+{set;_{get;~emoji}.used;1};
+{increment;_{get;~emoji}.used}}}}
 {//;##########################packages##############################}
 {//;Package search commands}
 {if;{userhasrole;428637054922915850};
@@ -16,9 +24,18 @@
 {//;welcome channel stuffs}
 {if;{channelid};==;479497706234970115;
   {if;{regextest;{messagetext};/﻿/u};{delete}
-    {set;~msgid;{send;{channelid};Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase {usermention}!}}
+    {if;{get;_{userid}.pass.attempts};==;;
+    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
+    {if;{get;_{userid}.pass.attempts};>=;3;
+    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
+    title:READ!;
+    color:f99157;
+    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
+    description:***If you're seeing this, you have failed to read. Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase!***}}}
+    {exec;readthis;{channelid};{get;~wrongpassid}};
+    {set;~wrongpassid;{send;{channelid};Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase {usermention}!}}}
     {sleep;5s}{sleep;5s}{sleep;5s}
-    {delete;{get;~msgid}}
+    {delete;{get;~wrongpassid}}
     {return}}
   {switch;{messagetext};
     {//;old passphrase for welcome channel -- warn about potential alts}
@@ -30,11 +47,12 @@
     {if;{get;_{userid}.pass.attempts};==;;
     {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
     {if;{get;_{userid}.pass.attempts};>=;3;
-    {set;~wrongpassid;{send;{channelid};;{embedbuild;
+    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
     title:READ!;
     color:f99157;
     thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
-    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}};
+    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}}
+    {exec;readthis;{channelid};{get;~wrongpassid}};
     {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}}
     {sleep;5s}{sleep;5s}{sleep;5s}
     {delete;{get;~wrongpassid}}
@@ -49,7 +67,7 @@
     {if;{get;_{userid}.pass.attempts};==;;
     {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
     {if;{get;_{userid}.pass.attempts};>=;3;
-    {set;~wrongpassid;{send;{channelid};;{embedbuild;
+    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
     title:READ!;
     color:f99157;
     thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
@@ -65,9 +83,10 @@
 {if;{channelid};==;174317464337776640;
 {if;{quiet}{userhasrole;428637054922915850};{return}}
 {if;{get;_{userid}usedbotspam};!=;true;
-{void;{send;{channelid};{usermention};{embedbuild;
+{set;~botspamid;{send;{channelid};{usermention};{embedbuild;
 title:Read Me!;
 color:C7A031;
 description:This seems to be your first time in <#174317464337776640>!  Please see `sudo help` for a list of commands you can use until you've earned your `users` role.;}}}
+{exec;readthis;{channelid};{get;~botspamid}}
 {set;_{userid}usedbotspam;true}}}
 {//;################################################################}
