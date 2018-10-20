@@ -1,6 +1,8 @@
-{void;{send;172522057291005953;;{embedbuild;
+{void;{delete;172522057291005953;{get;_rules.msgid1}}}
+{void;{delete;172522057291005953;{get;_rules.msgid2}}}
+{set;_rules.msgid1;{send;172522057291005953;;{embedbuild;
 title:Welcome to {guildname}!;
-color:6f86d8;
+color:7289DA;
 fields.name:{zws}{newline}__**Glory to the Tux**__;
 fields.value:• Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
 • If there are ever any issues with staff members, be sure to direct any and all complaints to <a:sans:499785148598845450> sans with a detailed description of the complaint.{newline}{zws};
@@ -77,9 +79,9 @@ fields.value:<#96230043209981952>{newline}• Support for general Linux issues.
 <#162712517053775872>{newline}• Support for the official Discord client.
 <#484513481802907669>{newline}• Support for things not related to Linux.{newline}{zws};
 fields.inline:true;}}}
-{void;{send;172522057291005953;;{embedbuild;
+{set;_rules.msgid2;{send;172522057291005953;;{embedbuild;
 title:__**Other Information**__;
-color:6f86d8;
+color:7289DA;
 fields.name:{zws};
 fields.value:**Lovely Sudoers (Staff)**
 <@&457281742844330004> 
