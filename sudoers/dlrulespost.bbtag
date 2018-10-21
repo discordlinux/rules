@@ -1,5 +1,6 @@
 {void;{delete;172522057291005953;{get;_rules.msgid1}}}
 {void;{delete;172522057291005953;{get;_rules.msgid2}}}
+{void;{delete;172522057291005953;{get;_rules.msgid3}}}
 {set;_rules.msgid1;{send;172522057291005953;;{embedbuild;
 title:Welcome to {guildname}!;
 color:7289DA;
@@ -80,7 +81,7 @@ fields.value:<#96230043209981952>{newline}• Support for general Linux issues.
 <#484513481802907669>{newline}• Support for things not related to Linux.{newline}{zws};
 fields.inline:true;}}}
 {set;_rules.msgid2;{send;172522057291005953;;{embedbuild;
-title:__**Other Information**__;
+title:__**Staff**__;
 color:7289DA;
 fields.name:{zws};
 fields.value:**Lovely Sudoers (Staff)**
@@ -96,11 +97,18 @@ fields.value:**Lovely Sudoers (Staff)**
 <a:simonizor:500907789108117515> simonizor
 <a:Vix:496131196628238336> Vix{newline}{zws}
 <@&457273166176321538>
-<a:greyfade:496130385340530709> greyfade
-<a:E5ten:499787830273507338> E5ten{newline}{zws}
+<a:E5ten:499787830273507338> E5ten
+<a:greyfade:496130385340530709> greyfade{newline}{zws}
+<@&502984660666679306>
+<a:EthanWeegee:503362574067433483> Ethan Weegee
+<a:snuggle:503337786007486465> Snuggle{newline}{zws}
 <@&106082717833113600>
-• These are actual Discord employees.  Please do not bother them.{newline}{zws}
-**Pinging Staff**
+• These are actual Discord employees.  Please do not bother them.{newline}{zws}}}}
+{set;_rules.msgid3;{send;172522057291005953;;{embedbuild;
+title:__**Other Information**__;
+color:7289DA;
+fields.name:{zws};
+fields.value:**Pinging Staff**
 • Do not ping staff members unless you need their help.
 • For example, if someone is spamming the server, feel free to ping <@&457281742844330004>.
 • f you just have a question or need something else simple, ping an online staff member{semi} not the entire <@&457281742844330004> role.;
