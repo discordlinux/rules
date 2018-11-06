@@ -141,9 +141,11 @@
 
 - `@root` - `@sans`
 
-- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@NanoDrive` `@simonizor` `@Vix`
+- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@simonizor` `@Vix`
 
-- `@trusted` - `@greyfade` `@E5ten`
+- `@trusted` - `@E5ten`
+
+- `@backup` - `@Ethan Weegee` `@Snuggle`
 
 - `@Discord Staff` - These are actual Discord employees. Please do not bother them.
 
@@ -166,7 +168,7 @@
 - These distributions have a history of breaking important system packages and compatibility with software you install.
 - The Discord Linux community will not offer support for any of these distributions.
 - Feel free to use them, but please do not ask for help with them here.
-- See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo tips archvariants` for more info.
+- See `sudo distro info kali`, `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo help archvariants` for more info.
 
 #### Now get chatting!
 
@@ -182,4 +184,4 @@
 
 #### Phone Verification
 
-- If you do not have access to a phone in order to verify your account with Discord, please fill out [this form](https://goo.gl/forms/DnXsw4yMhaQxLu2P2).  All submissions are manually reviewed, so please be patient.  If Discord Linux staff decides to let you in, you will be given a temporary role which will allow you to input the passphrase in the #welcome channel.  A Google account is required in order to fill out the form to prevent spam.}
+- If you do not have access to a phone in order to verify your account with Discord, please [fill out this form](https://github.com/discordlinux/rules/issues/new).  All submissions are manually reviewed, so please be patient.  If Discord Linux staff decides to let you in, you will be given a temporary role which will allow you to input the passphrase in the #welcome channel.}
