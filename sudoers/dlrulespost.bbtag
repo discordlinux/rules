@@ -1,12 +1,13 @@
 {void;{delete;172522057291005953;{get;_rules.msgid1}}}
 {void;{delete;172522057291005953;{get;_rules.msgid2}}}
 {void;{delete;172522057291005953;{get;_rules.msgid3}}}
+{delete;172522057291005953;{get;_guild.info.msgid}}
 {set;_rules.msgid1;{send;172522057291005953;;{embedbuild;
 title:Welcome to {guildname}!;
 color:7289DA;
 fields.name:{zws}{newline}__**Glory to the Tux**__;
 fields.value:• Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
-• If there are ever any issues with staff members, be sure to direct any and all complaints to <a:sans:499785148598845450> sans with a detailed description of the complaint.{newline}{zws};
+• If there are ever any issues with staff members, be sure to direct any and all complaints to <a:sans:507742392351326218> sans with a detailed description of the complaint.{newline}{zws};
 fields.name:__**General Rules**__;
 fields.value:**#1 - Be respectful**
 • Includes personal insults, demeaning behavior, and inflammatory language.
@@ -88,20 +89,20 @@ fields.value:**Lovely Sudoers (Staff)**
 <@&457281742844330004> 
 • Role to ping all Discord Linux staff (use with care){newline}{zws}
 <@&103845299490930688>
-<a:sans:499785148598845450> sans{newline}{zws}
+<a:sans:507742392351326218> sans{newline}{zws}
 <@&172524170779820032>
 <a:Ayakochan:496129985258455050> Ayakochan
-<a:Blank:499762229206581253> Blank
+<a:Blank:507744283055358013> Blank
 <a:ElizabethNoir:496130198987603998> ElizabethNoir
-<a:NanoDrive:499786563379658762> NanoDrive
-<a:simonizor:500907789108117515> simonizor
+<a:greyfade:496130385340530709> greyfade
+<a:NanoDrive:509495107955851265> NanoDrive
+<a:geeko:458902796801146881> simonizor
 <a:Vix:496131196628238336> Vix{newline}{zws}
 <@&457273166176321538>
-<a:E5ten:499787830273507338> E5ten
-<a:greyfade:496130385340530709> greyfade{newline}{zws}
+<a:E5ten:507742251418386436> E5ten{newline}{zws}
 <@&502984660666679306>
-<a:EthanWeegee:503362574067433483> Ethan Weegee
-<a:snuggle:503337786007486465> Snuggle{newline}{zws}
+<a:EthanWeegee:509494965563293699> Ethan Weegee
+<a:Snuggle:509495514941882399> Snuggle{newline}{zws}
 <@&106082717833113600>
 • These are actual Discord employees.  Please do not bother them.{newline}{zws}}}}
 {set;_rules.msgid3;{send;172522057291005953;;{embedbuild;
@@ -125,12 +126,11 @@ Kali Linux, Linux Mint, Solus, Manjaro, Antergos and any derivative of Arch Linu
 • These distributions have a history of breaking important system packages and compatibility with software you install.
 • The Discord Linux community will not offer support for any of these distributions.
 • Feel free to use them, but please do not ask for help with them here.
-• See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo tips archvariants` for more info.;
+• See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo help archvariants` for more info.;
 fields.name:{zws};
 fields.value:**Now get chatting!**
 • To join a distro role, go to <#174317464337776640>, use `sudo distro list` to list the distro roles, and `sudo distro join <distro>` to join them.{newline}{zws}
 **Changelog for <#172522057291005953>**
 • [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws};
 }}}
-{delete;172522057291005953;{get;_guild.info.msgid}}
 {set;_guild.info.msgid;{send;172522057291005953;;{exec;guildinfosend}}}
