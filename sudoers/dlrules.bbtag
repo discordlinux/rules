@@ -13,37 +13,19 @@
 
 ### General Rules
 
-#### #1 - Be respectful
-
-- Includes personal insults, demeaning behavior, and inflammatory language.
-- Know when a debate has turned into an argument.
-- Above all else, listen and cooperate with staff members.
-
-#### #2 -No NSFW or illegal content
-- Includes porn, gore, pirated software, talking about illegal activites, etc.
-
-#### #3 - No spamming or irrelevant messages{semi} English only
-
-- Sending an unreasonable amount of messages in a short time or messages that are unrelated/unwanted is considered spam.
-- Posting large blocks of text may also be considered spam{semi} please use the sudo pastebin command, hastebin, or paste.rs.
-- Abusing bots is considered spam.
-- This is an English only server{semi} refrain from chatting in other languages.
-
-#### #4 - Use the channels as intended
-
-- Please read the channel topics before using them.
-- If the conversation you are having is more suited to another channel, please move it there.
-
-#### #5 - Don't link to or advertise other servers
-
-- If you want to spread the word about your server, do so elsewhere.
-- Server invites will be deleted automatically and result in a warning.
-
-#### #6 - Don't use a selfbot
-
-- Selfbotting is against Discord's Terms of Service.
-- More annoying than useful.
-- If you find `@sudobot` lacking, feel free to make suggestions in #offtopic.
+####  #1 - No harassment, personal insults, or insulting language.
+####  #2 - Know when a debate has turned into an argument.
+####  #3 - No NSFW or illegal content what-so-ever.
+####  #4 - No invite links or advertising other servers.
+####  #5 - No spamming.
+####  #6 - No shitposting or memes.
+####  #7 - No huge messages. See `sudo help pastebin`.
+####  #8 - Do not abuse the bot. Keep most command use in #bot-spam.
+####  #9 - English only.
+#### #10 - Use the channels as intended.
+#### #11 - No selfbots what-so-ever.
+#### #12 - Do not discuss things that break [Discord's Terms of Service](https://discordapp.com/terms).
+#### #13 - Cooperate with Discord Linux staff members.
 
 #### Moderators have final say in the enforcement of these rules or other infractions.
 
@@ -55,8 +37,8 @@
 #### Restricted Words
 
 - Messages containing Discord invite links and certain restricted words will automatically be deleted by `@sudobot`.
-- Posts containing these words will result in a warning in #mod-logs.
-- [List of restricted words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)
+- Using most of these words will result in a warning in #mod-logs.
+- [List of censored words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)
 
 #### Verbal Warning
 
@@ -79,7 +61,43 @@
 
 - Staff members will determine the proper punishment based on the infraction.
 - Warnings, mutes, and bans are logged to #mod-logs for everyone to view.
-- Violations of [Discord's Terms of Service](https://discordapp.com/terms) will not be tolerated.  See [Discord's Guidelines](https://discordapp.com/guidelines) for a simplified version.
+
+### Other Information
+
+#### Pinging Staff
+
+- Do not ping staff members unless you need their help.
+- For example, if someone is spamming the server, feel free to ping `@sudoers`.
+- If you just have a question or need something else simple, ping an online staff member{semi} not the entire `@sudoers` role.
+
+#### Users Role
+
+- In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.
+- After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.
+- To get a colored role, use `sudo distro fav <distro>` to join your favorite distro's role after earning the `users` role.
+
+#### Distributions That Are Not Supported
+
+- The following distributions are not supported in Discord Linux:
+ - Kali Linux, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
+- These distributions have a history of breaking important system packages and compatibility with software you install.
+- The Discord Linux community will not offer support for any of these distributions.
+- Feel free to use them, but please do not ask for help with them here.
+- See `sudo distro info kali`, `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo help archvariants` for more info.
+
+#### Lovely Sudoers (Staff)
+
+- `@sudoers` - Role to ping all Discord Linux staff (use with care)
+
+- `@root` - `@sans`
+
+- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@simonizor` `@Vix`
+
+- `@trusted` - `@E5ten`
+
+- `@backup` - `@Ethan Weegee` `@Snuggle`
+
+- `@Discord Staff` - These are actual Discord employees. Please do not bother them.
 
 ### Channels
 
@@ -132,43 +150,6 @@
 - #support-discord - Support for the official Discord client.
 
 - #support-other - Support for things that don't fit into the other support channels.
-
-### Other Information
-
-#### Lovely Sudoers (Staff)
-
-- `@sudoers` - Role to ping all Discord Linux staff (use with care)
-
-- `@root` - `@sans`
-
-- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@simonizor` `@Vix`
-
-- `@trusted` - `@E5ten`
-
-- `@backup` - `@Ethan Weegee` `@Snuggle`
-
-- `@Discord Staff` - These are actual Discord employees. Please do not bother them.
-
-#### Pinging Staff
-
-- Do not ping staff members unless you need their help.
-- For example, if someone is spamming the server, feel free to ping `@sudoers`.
-- If you just have a question or need something else simple, ping an online staff member{semi} not the entire `@sudoers` role.
-
-#### Users Role
-
-- In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.
-- After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.
-- To get a colored role, use `sudo distro fav <distro>` to join your favorite distro's role after earning the `users` role.
-
-#### Distributions That Are Not Supported
-
-- The following distributions are not supported in Discord Linux:
- - Kali Linux, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
-- These distributions have a history of breaking important system packages and compatibility with software you install.
-- The Discord Linux community will not offer support for any of these distributions.
-- Feel free to use them, but please do not ask for help with them here.
-- See `sudo distro info kali`, `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo help archvariants` for more info.
 
 #### Now get chatting!
 
