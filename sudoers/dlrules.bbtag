@@ -79,7 +79,7 @@
 #### Distributions That Are Not Supported
 
 - The following distributions are not supported in Discord Linux:
- - Kali Linux, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
+ - Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
 - These distributions have a history of breaking important system packages and compatibility with software you install.
 - The Discord Linux community will not offer support for any of these distributions.
 - Feel free to use them, but please do not ask for help with them here.
