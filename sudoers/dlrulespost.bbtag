@@ -56,7 +56,7 @@ Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Anterg
 • These distributions have a history of breaking important system packages and compatibility with software you install.
 • The Discord Linux community will not offer support for any of these distributions.
 • Feel free to use them, but please do not ask for help with them here.
-• See `sudo distro info mint`, `sudo distro info solus`, `sudo distro info manjaro`, `sudo distro info antergos`, and `sudo help archvariants` for more info.;}}}
+• See `sudo info mint`, `sudo info solus`, `sudo info manjaro`, `sudo info antergos`, and `sudo info archvariants` for more info.;}}}
 {set;{if;{flagset;t};;_}rules.msgid2;{send;{get;~chan};;{embedbuild;
 title:__**Lovely Sudoers (Staff)**__;
 color:7289DA;
