@@ -36,7 +36,8 @@ fields.value:**Restricted Words**
 • A staff member asks the user to stop.
 **Written Warning**
 • A staff member issues a warning to <#227643567273672706>.
-• The user will be muted for 1 hour and have their Users role removed automatically at 8 warnings.
+• The user will be muted for 15 minutes at 3 warnings.
+• The user will be muted for 1 hour and have their <@&428637054922915850> role removed automatically at 8 warnings.
 **Temporary Mute**
 • A staff member temporarily mutes the user.
 **Temporary Ban/Permanent Ban**
