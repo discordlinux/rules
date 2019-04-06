@@ -10,4 +10,5 @@ Existing censors:
 9. /(.|\n){1100}/ (regex) (anti-spam; 1100 characters in one message) (0 warning points; message is automatically uploaded to blargbot website)
 10. /^(change my mind)\b/im (regex) (annoying meme phrase used to make people upset) (0 warning points)
 11. /^(i use arch btw|btw i use arch)\b/im (regex) (annoying, over-used meme phrase) (0 warning points)
-12. /^(oof)/gmi (regex) (annoying, over-used meme) (0 warning points)
+12. oof (regex) (annoying, over-used meme) (0 warning points)
+13. ||spoilers|| (any message containing spoilers) (0 warning points)
