@@ -1,0 +1,8 @@
+{if;{numformat;{flag;w};};!=;NaN;{set;~w;{flag;w}};{set;~w;0}}
+{if;{numformat;{flag;h};};!=;NaN;{set;~h;{flag;h}};{set;~h;0}}
+{embed;{embedbuild;
+color:lightblue;
+author.name:Pixabay Image Search;
+author.url:https://pixabay.com/en/photos/{uriencode;{flag;_}}/;
+image.url:{fallback;{exec;fakeimg;No results found}}{regexreplace;{jget;{exec;getjson;https://pixabay.com/api/?key=11271742-33a566c0c1c7f46aed43d4354&q={uriencode;{flag;_}}&min_width={get;~w}&min_height={get;~h}&safesearch=true};hits.0.largeImageURL};/\s/g;};
+footer.text:Result for '{args}';}}

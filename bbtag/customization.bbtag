@@ -1,0 +1,18 @@
+{embed;{embedbuild;
+color:{get;*blurple};
+title:Help for customization;
+description:[Click here for the OCS-Store application which can be used to download and apply themes on any setup](https://www.opendesktop.org/p/1175480/);
+fields.name:{zws};
+fields.value:[Xfce](https://github.com/NicoHood/NicoHood.github.io/wiki/Xfce4-Desktop-Environment-Customization)
+[Openbox](https://ramsdenj.com/2016/03/28/building-a-custom-linux-environment-with-openbox.html)
+[MATE](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-mate-desktop/)
+[LXDE](https://medium.com/@LakshyAAAgrawal/tweak-your-lubuntu-appearance-like-a-pro-7fdff72cb2ff)
+[LXQt](https://github.com/simoniz0r/guides/wiki/LXQt-Customizaton);
+fields.inline:true;
+fields.name:{zws};
+fields.value:[KDE](https://userbase.kde.org/System_Settings#Workspace_Theme)
+[GNOME](https://itsfoss.com/gnome-tricks-ubuntu/)
+[Enlightenment](https://wiki.archlinux.org/index.php/enlightenment)
+[Cinnamon](https://www.lifewire.com/customize-cinnamon-desktop-environment-linux-mint-2202086)
+[Budgie](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-budgie-desktop/);
+fields.inline:true;}}

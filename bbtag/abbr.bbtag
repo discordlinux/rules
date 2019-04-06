@@ -1,0 +1,18 @@
+{if;{flag;_};==;;{embed;{embedbuild;
+title:Help for {exec;commandname;abbr};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;abbr} <abbreviation>`
+Uses [abbreviations.com](https://www.abbreviations.com) to find the meaning of abbreviations.}};
+{set;~abbr;{uriencode;{flag;_}}}
+{fallback;}
+{set;~url;{jget;{filter;~link;{exec;getlinks;https://www.abbreviations.com/{get;~abbr}};{regextest;{get;~link};/(\/term\/)/g}};0}}
+{if;{get;~url};==;;
+{embed;{embedbuild;
+color:red;
+title:No results found for '{flag;_}';
+footer.text:Powered by abbreviations.com;}};
+{embed;{embedbuild;
+url:{get;~url};
+image.url:{replace;{get;~url};term;images}_{upper;{flag;_}}.png;
+color:16799A;}}}}
+{fallback}

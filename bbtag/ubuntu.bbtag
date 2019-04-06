@@ -1,0 +1,25 @@
+{switch;{lower;{flag;_}};
+["verify","sums","check","iso"];{exec;ubuntu-verify};
+["based"];{exec;ubuntu-based};
+["flavors","mate","budgie"];{exec;ubuntu-flavors};
+{embed;{embedbuild;
+author.name:Ubuntu;
+author.url:https://ubuntu.com;
+author.icon_url:https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png;
+color:e95420;
+description:**• Has two release cycles:
+- LTS releases (always EvenNumber.04) which are released every two years with point releases in between.
+- Testing releases which are supported for 9 months and not recommended for normal use.
+• Uses the apt package manager which is relatively intuitive and works well under most situations.
+• Can use PPAs (Personal Package Archives) for installing packages not in the default repos or updating packages to newer versions.
+• Has two rolling kernel branches on the LTS releases which can be used to keep the kernel more up to date than the standard kernel branch.
+• Most applications and games that are created for Linux are tested and built for Ubuntu first and other distros later (if ever).
+• Has a huge community with tons of information that is easy to find through your favorite search engine.**
+**__NOTE__**:
+• ***Stock Ubuntu*** **ships with the GNOME Desktop Environment which may be too heavy on resources for some users.
+• GNOME is not easy to customize without installing extensions.
+• Most other DEs can be made to function very similarly while using about half the amount of RAM.
+• Instead of installing** ***Stock Ubuntu***, **you may wish to install an Ubuntu flavor instead** ***(see `{prefix} {commandname}{if;{messagetext};includes;distro{space}info;{space}info} ubuntu flavors`)***.
+
+**[Download Ubuntu](https://www.ubuntu.com/download/desktop)**;
+}}}

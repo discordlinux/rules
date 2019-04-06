@@ -1,0 +1,170 @@
+{//;Function to output help in plain text}
+{function;help;__**Usage**__: `{prefix} ticket <description|arg [number]> [-s #channel]`
+Create and view tickets for the support channels.  **The default action is to create a new ticket.**  Tickets can only be posted to the support channels.
+
+**Available arguments**
+```
+-h / help{zws} {zws} - Show this help output.
+-i / info{zws} {zws} - Show number of stored tickets.
+-l / list{zws} {zws} - List open support tickets by ticket #.
+-v / view{zws} {zws} - View specified ticket.
+-e / edit{zws} {zws} - Edit specified ticket.
+-c / close - Close an open ticket.
+-o / open{zws} {zws} - Open a closed ticket.
+-s {zws} {zws} {zws} {zws} {zws} {zws} {zws} {zws} - Set the support channel to post the ticket when creating or editing.
+```
+**Use the template below for creating tickets**:
+```
+Distribution: KDE neon
+Version: 18.04
+Description: Program A fails to run when doing action X.  I have tried solutions Y and Z, but Program A still crashes.
+
+Links to error logs: https://paste.rs/fakelink
+Links to screenshots: https://ibin.co/fakepic.png
+```
+}
+{if;{flag;_};startswith;{newline};{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}
+{if;{flagset;H};{func.help};
+{//;Set _ticket.number to 0 if not set}
+{if;{get;_ticket.number};==;;{set;_ticket.number;0}}
+{//;Detect argument input}
+{switch;{lower;{args;0}};
+{//;Output help}
+["help","-h"];{embed;{embedbuild;description:{func.help}}};
+{//;Show how many tickets exist}
+["info","-i"];{embed;{embedbuild;
+description:There are currently {get;_ticket.number} tickets stored.  Use `{prefix} {commandname} view <number>` to view the contents of the ticket.}};
+{//;Show currently open ticket numbers}
+["list","-l"];{set;~opentickets;{for;~ticket;1;<=;{get;_ticket.number};{if;{get;_ticket.{get;~ticket}.status};==;open;`{get;~ticket}`{zws} {zws}}}}
+{if;{get;~opentickets};==;;No open tickets!{return}}
+{embed;{embedbuild;
+title:Open Support Tickets;
+color:green;
+description:*Listed by ticket number*
+{get;~opentickets}}};
+{//;View tickets}
+["view","-v"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+{embed;{embedbuild;
+title:Ticket {args;1};
+footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:__**Status**__: {get;_ticket.{args;1}.status}
+__**Channel**__: {get;_ticket.{args;1}.channel}
+__**Description**__:
+{get;_ticket.{args;1}.text}
+{newline}__**[Jump to post](https://discordapp.com/channels/{guildid}/{regexreplace;{get;_ticket.{args;1}.channel};/[<#>]/g;}/{get;_ticket.{args;1}.messageid})**__;}}
+{return};
+{//;Mark ticket as closed}
+["close","-c"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+{//;Only original user or sudoers allowed}
+{if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
+You cannot close tickets you didn't create {usermention}!{return}}}
+{set;_ticket.{args;1}.status;closed}Ticket `{args;1}` marked as closed.;
+{//;Reopen ticket}
+["open","-o"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+{//;Only original user or sudoers allowed}
+{if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
+You cannot open tickets you didn't create {usermention}!{return}}}
+{set;_ticket.{args;1}.status;open}Ticket `{args;1}` marked as open.;
+{//;Delete ticket}
+["delete","-d"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+{//;Only sudoers allowed}
+{if;{userhasrole;457281742844330004};
+Ticket `{args;1}` deleted.
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{set;_ticket.{args;1}.channel;}
+{set;_ticket.{args;1}.text;}
+{set;_ticket.{args;1}.date;}
+{set;_ticket.{args;1}.userid;}
+{set;_ticket.{args;1}.status;}
+{if;{args;1};==;{get;_ticket.number};
+{set;_ticket.number;{math;-;{get;_ticket.number};1}}{commit}};
+Only `sudoers` can delete tickets {usermention}!};
+{//;Edit ticket text}
+["edit","-e"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+{//;Only original user or sudoers allowed}
+{if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
+You cannot edit tickets you didn't create {usermention}!{return}}}
+{//;Detect arguments and set variables}
+{if;{flagset;s};
+{switch;{flag;s};
+["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
+Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
+}
+{set;_ticket.{args;1}.channel;{flag;s}}Ticket channel changed to {flag;s}.  Description must be edited separately.
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
+title:Ticket {args;1};
+footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:__**Status**__: {get;_ticket.{args;1}.status}
+__**Channel**__: {get;_ticket.{args;1}.channel}
+__**Description**__:
+{get;_ticket.{args;1}.text};}}}
+{return}}
+{set;~ticket.text;{args;2;n}}{set;~ticket.channel;{get;_ticket.{args;1}.channel}}
+{//;If ticket text does not follow template; output template and return}
+{switch;{lower;{args;2}};
+  ["distro:","distribution:","topic:","distro","distribution","topic"];{//;Do nothing, correct input};{if;{args;2};startswith;```;;
+{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}}
+{//;Detect unsupported distros}
+{if;{lower;{get;~ticket.text}};includes;manjaro;{delete}Sorry, Manjaro is not supported in this server.  See `sudo distro info manjaro` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;solus;{delete}Sorry, Solus is not supported in this server.  See `sudo distro info solus` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;mint;{delete}Sorry, Linux Mint is not supported in this server.  See `sudo distro info mint` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;kali;{delete}Sorry, Kali is not supported in this server.  See `sudo distro info kali` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;antergos;{delete}Sorry, Antergos is not supported in this server.  See `sudo distro info antergos` for more info {usermention}.{return}}
+{//;Detect channel input and see if it's a support channel}
+{switch;{get;~ticket.channel};
+  ["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
+  Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
+}
+{sleep;5s}
+{if;{messagetext;{messageid}};==;`No message found`;Message containing ticket was deleted!{return};
+{set;_ticket.{args;1}.channel;{get;~ticket.channel}}
+{set;_ticket.{args;1}.text;{get;~ticket.text}}
+{delete}
+Ticket `{args;1}` edited.
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+    {set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
+title:Ticket {args;1};
+footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:__**Status**__: {get;_ticket.{args;1}.status}
+__**Channel**__: {get;_ticket.{args;1}.channel}
+__**Description**__:
+{get;_ticket.{args;1}.text};}}}};
+{//;############Create ticket############}
+{//;Detect arguments and set variables}
+{if;{flagset;s};
+{set;~ticket.text;{flag;_}}{set;~ticket.channel;{flag;s}};
+{set;~ticket.text;{args}}{set;~ticket.channel;<#{channelid}>}}
+{//;If ticket text does not follow template; output template and return}
+{switch;{lower;{args;0}};
+  ["distro:","distribution:","topic:","distro","distribution","topic"];{//;Do nothing, correct input};{if;{args;0};startswith;```;;
+{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}}
+{//;Detect unsupported distros}
+{if;{lower;{get;~ticket.text}};includes;manjaro;{delete}Sorry, Manjaro is not supported in this server.  See `sudo distro info manjaro` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;solus;{delete}Sorry, Solus is not supported in this server.  See `sudo distro info solus` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;mint;{delete}Sorry, Linux Mint is not supported in this server.  See `sudo distro info mint` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;kali;{delete}Sorry, Kali is not supported in this server.  See `sudo distro info kali` for more info {usermention}.{return}}
+{if;{lower;{get;~ticket.text}};includes;antergos;{delete}Sorry, Antergos is not supported in this server.  See `sudo distro info antergos` for more info {usermention}.{return}}
+{//;Detect channel input and see if it's a support channel}
+{switch;{get;~ticket.channel};
+  ["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
+  Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
+}
+{sleep;5s}
+{if;{messagetext;{messageid}};==;`No message found`;Message containing ticket was deleted!{return};
+{set;_ticket.number;{math;+;{get;_ticket.number};1}}{commit}
+{set;_ticket.{get;_ticket.number}.channel;{get;~ticket.channel}}
+{set;_ticket.{get;_ticket.number}.text;{get;~ticket.text}}
+{set;_ticket.{get;_ticket.number}.date;{time;X}}
+{set;_ticket.{get;_ticket.number}.userid;{userid}}
+{set;_ticket.{get;_ticket.number}.status;open}
+Your ticket has been stored.  Your ticket number is {get;_ticket.number} {usermention}!
+{delete}
+{set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
+title:Ticket {get;_ticket.number};
+footer.text:Posted by {username;{get;_ticket.{get;_ticket.number}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{get;_ticket.number}.date};X};
+description:__**Status**__: {get;_ticket.{get;_ticket.number}.status}
+__**Channel**__: {get;_ticket.{get;_ticket.number}.channel}
+__**Description**__:
+{get;_ticket.{get;_ticket.number}.text};}}}}
+}}

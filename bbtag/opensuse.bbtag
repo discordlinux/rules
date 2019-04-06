@@ -1,0 +1,64 @@
+{set;~releases;**• Two main releases:
+- openSUSE Leap is the LTS release with upgrades every 32-46 months and point releases about every 6-12 months.
+- openSUSE Tumbleweed is a "rolling release" which receives updates as soon as they are tested to be stable.
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo distro info tumbleweed)***}
+
+{set;!~packages;**• Provides a more stable, less experimental solution than most other Linux distributions.
+• Uses the zypper package manager which is very intuitive to use while still being fast and versatile.
+• Easy to have an install with a completely custom set of packages using the custom install option.
+• Uses the [YaST](http://yast.opensuse.org/) configuration utility which can run in both TUI and GUI modes.  YaST provides easy to access configuration options for many utilities such as systemd, boot loaders, networking, firewall, VPNs, and much more.
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo info tumbleweed)***}
+{set;~zypper;{get;~packages}}
+{set;~yast;{get;~packages}}
+
+{set;~openqa;**• Uses an automated testing system called [openqa](https://openqa.opensuse.org) to ensure that packages are stable before release.  New packages are added to the Factory repositories which are tested using openqa until they pass testing.  After packages pass testing, a snapshot is released to the Tumbleweed and eventually Leap repositores.
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo info tumbleweed)***}
+
+{set;!~obs;**• Uses the [openSUSE Build Service](https://build.opensuse.org). Many packages for openSUSE can be found on the OBS and installed easily from the [openSUSE software site](https://software.opensuse.org/search).  The OBS makes it easy to create your own packages or modify existing packages which are all built automatically and hosted in an OBS repo.  The OBS can also easily build packages for Arch, Ubuntu, Fedora, and many other distros!
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo info tumbleweed)***}
+{set;~build%20service;{get;~obs}}
+
+{set;!~btrfs;**__IMPORTANT NOTE__**:
+**• openSUSE uses the BTRFS file system by default.  For personal use, it is suggested to use the guided partitioning option to change the default setup to a single ext4 partition without a separate home partition.
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo info tumbleweed)***}
+{set;~file%20system;{get;~btrfs}}
+{set;~filesystem;{get;~btrfs}}
+{//;detect input}
+{if;{args};==;;{//;do nothing};
+{set;~match;{jget;{filter;~cat;["releases","packages","zypper","yast","openqa","obs","build%20service","btrfs","file%20system","filesystem"];{bool;{uriencode;{lower;{args}}};includes;{get;~cat}}};0}}}
+{if;{get;~match};!=;;{output;{embed;{embedbuild;
+author.name:openSUSE;
+author.icon_url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/openSUSE.png;
+author.url:https://www.opensuse.org;
+color:73BA25;
+description:{get;~{get;~match}};
+footer.text:See 'sudo info opensuse' for more info.;}}};
+{embed;{embedbuild;
+author.name:openSUSE;
+author.icon_url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/openSUSE.png;
+author.url:https://www.opensuse.org;
+color:73BA25;
+description:**• Two main releases:
+- openSUSE Leap is the LTS release with upgrades every 32-46 months and point releases about every 6-12 months.
+- openSUSE Tumbleweed is a "rolling release" which receives updates as soon as they are tested to be stable.
+• Provides a more stable, less experimental solution than most other Linux distributions.
+• Uses the zypper package manager which is very intuitive to use while still being fast and versatile.
+• Easy to have an install with a completely custom set of packages using the custom install option.
+• Uses the [YaST](http://yast.opensuse.org/) configuration utility which can run in both TUI and GUI modes.  YaST provides easy to access configuration options for many utilities such as systemd, boot loaders, networking, firewall, VPNs, and much more.
+• Uses an automated testing system called [openqa](https://openqa.opensuse.org) to ensure that packages are stable before release.
+• Uses the [openSUSE Build Service](https://build.opensuse.org). Many packages for openSUSE can be found on the OBS and installed easily from the [openSUSE software site](https://software.opensuse.org/search).  The OBS makes it easy to create your own packages or modify existing packages which are all built automatically and hosted in an OBS repo.  The OBS can also easily build packages for Arch, Ubuntu, Fedora, and many other distros!**
+**__IMPORTANT NOTE__**:
+**• openSUSE uses the BTRFS file system by default.  For personal use, it is suggested to use the guided partitioning option to change the default setup to a single ext4 partition without a separate home partition.
+
+[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** ***(see sudo info tumbleweed)***;}}}

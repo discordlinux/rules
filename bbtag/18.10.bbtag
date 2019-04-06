@@ -1,0 +1,5 @@
+{embed;{embedbuild;
+title:Non LTS Ubuntu Releases;
+color:orange;
+description:**Please only use non LTS Ubuntu releases for testing purposes.**  Non LTS Ubuntu releases are only supported for 9 months and will never be updated after that.  It is also not at all uncommon to have issues upgrading from a non LTS Ubuntu release to the next release.
+**LTS releases will always be `EvenNumber.04` (14.04, 16.04, 18.04)!**}}

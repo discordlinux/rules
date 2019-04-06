@@ -1,0 +1,26 @@
+{set;!~aptgetmsg;{output;{embed;{embedbuild;
+color:{exec;distrocolors;debian};
+title:Searching Debian package repositories for '{flag;_}'...;
+thumbnail.url:{exec;linuxhacker};}}}}
+{set;!~pkg.url;{jget;{filter;~pkg.res;{exec;getlinks2;https://packages.debian.org/search?suite=stretch&searchon=names&keywords={uriencode;{flag;_}}};{bool;{get;~pkg.res};startswith;https://packages.debian.org/stretch/}};0}}
+{if;{get;~pkg.url};startswith;https://packages.debian.org/stretch/;
+{set;!~info;{exec;metadata3;{get;~pkg.url}}}
+{edit;{channelid};{get;~aptgetmsg};{embedbuild;
+author.name:Debian Package Search;
+author.url:https://packages.debian.org;
+author.icon_url:https://cdn.discordapp.com/emojis/503654717188997131.png?v=1;
+color:{exec;distrocolors;debian};
+title:{pop;{split;{get;~pkg.url};/}};
+thumbnail.url:http://screenshots.debian.net/screenshot/{pop;{split;{get;~pkg.url};/}};
+url:{get;~pkg.url};
+footer.text:Content Copyright © 1997 - 2019 SPI Inc.{semi} See license terms. Debian is a trademark of SPI Inc.;
+description:**Name**: {pop;{split;{get;~pkg.url};/}}
+**Version**: {jget;{split;{jget;{get;~info};meta.Keywords};,};5}
+**Repository**: {join;{slice;{split;{jget;{get;~info};meta.Keywords};,};0;4};,{space}}
+**Description**: {jget;{get;~info};meta.Description};}};
+{edit;{channelid};{get;~aptgetmsg};{embedbuild;
+author.name:Debian Package Search;
+author.url:https://packages.debian.org;
+author.icon_url:https://cdn.discordapp.com/emojis/503654717188997131.png?v=1;
+color:{exec;distrocolors;debian};
+title:No results found for '{flag;_}';}}}

@@ -1,0 +1,25 @@
+{function;help;__**Usage**__: `{prefix} kick <user> [flags]`
+Kicks a user.  Sends a DM to the user explaining why they were kicked and who kicked them.  If mod-logging is enabled, the kick will be logged.
+**Available flags**
+`-r` - The reason for the kick.
+`-t` - If provided, the user will be unbanned after the period of time.
+}
+{if;{flagset;H};{func.help}{return}}
+{set;~user;{userid;{args;0}}}
+{if;{userid;{get;~user};quiet};==;;
+{throw;No user found}{return}}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{void;{dm;{get;~user};**You have been kicked from {guildname} by {username}!**{newline}**Reason**: {get;~reason}}}
+{set;~banned;{ban;{get;~user};0;{get;~reason};0s}}
+{if;{get;~banned};!=;false;{usernick;{embed;{embedbuild;
+title:User Kicked;
+color:orange;
+description:{username;{get;~user}} has been kicked!;}}}
+{if;{guildid};==;96230004047740928;
+{execcc;modlog;Kick;{get;~user};{userid};{get;~reason};orange}}
+;{embed;{embedbuild;
+title:Kick Failed;
+color:Maroon;
+description:Failed to kick `{get;~user}` !;}}}

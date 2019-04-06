@@ -1,0 +1,1 @@
+{fallback;}https://youtu.be/{jget;{split;{jget;{split;{jget;{exec;motyar;https://www.youtube.com/results?search_query={uriencode;{args}};-x /html/body/script[9]};body.0.html};"videoId":};1};"};1}

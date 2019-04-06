@@ -1,0 +1,12 @@
+{if;{args};==;;{set;~user;{userid}};
+{if;{exec;usercheck;{userid;{args;0}}};==;false;{throw;User not found.}{return};
+{set;~user;{userid;{args;0}}}}}
+{if;{warnings;{get;~user}};==;0;
+{set;~thumb;https://cdn.discordapp.com/emojis/478441196755091461.png?size=40};
+{set;~thumb;https://cdn.discordapp.com/emojis/478322841083969558.png?size=40}}
+{embed;{embedbuild;
+author.name:{usernick;{get;~user}};
+author.icon_url:{useravatar;{get;~user}};
+thumbnail.url:{get;~thumb};
+color:{if;{exec;usercolor;{get;~user}};==;;{exec;blurple};{exec;usercolor;{get;~user}}};
+description:{usernick;{get;~user}} has {warnings;{get;~user}} warning{if;0{warnings;{get;~user}};!=;1;s}.;}}

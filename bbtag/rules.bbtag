@@ -1,0 +1,33 @@
+{if;{lower;{args;0}};==;help;{embed;{embedbuild;
+title:Help for rules;
+color:yellow;
+description:__**Usage**__: `{exec;commandname;rules} [all|rule to show]`
+Displays a message telling someone to read <#172522057291005953>.  Can also show the entire list of rules using the `all` argument or a specific rule from the list that matches the text input.
+
+**Examples**:
+{repeat;`;3}
+{exec;commandname;rules} all
+{exec;commandname;rules} 1
+{exec;commandname;rules} spam
+{repeat;`;3}}};
+{set;~rules;filler;#1  - No harassment, personal insults, or insulting language.;#2  - Know when a debate has turned into an argument.;#3  - No NSFW or illegal content what-so-ever.;#4  - No invite links or advertising other servers.;#5  - No spamming.;#6  - No shitposting or memes.;#7  - No huge messages. See 'sudo help pastebin'.;#8  - Do not abuse the bot. Keep most command use in #bot-spam.;#9  - English only.;#10 - Use the channels as intended.;#11 - No selfbots what-so-ever.;#12 - Do not discuss things that break Discord's Terms of Service.;#13 - Cooperate with Discord Linux staff members.;Distributions That Are Not Supported
+• The following distros are not supported in Discord Linux:
+Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Antergos and any derivative of Arch Linux.
+• These distributions have a history of breaking important system packages and compatibility with software you install.
+• The Discord Linux community will not offer support for any of these distributions.
+• Feel free to use them, but please do not ask for help with them here.
+• See `sudo info mint`, `sudo info solus`, `sudo info manjaro`, `sudo info antergos`, and `sudo info arch variants` in <#174317464337776640> for more info.}
+{set;~default;**Please read the entirety of <#172522057291005953>.**
+**-** Yes, even if you've read them already.
+**-** Yes, this means all the messages in that channel.
+**-** Please read them ***very carefully***.}
+{embed;{embedbuild;
+title:Discord Linux Rules;
+color:{exec;blurple};
+thumbnail.url:https://ibin.co/4BC8J99LwFJy.png;
+description:{if;{args};==;;{get;~default};{if;{args;0};startswith;<@;{get;~default};{if;{lower;{args;0}};==;all;{join;{slice;{get;~rules};1};{newline}};
+{if;{jget;{filter;~rule;~rules;{bool;{lower;{get;~rule}};includes;{lower;{args;0}}}};0};==;;{repeat;`;3}md
+{join;{slice;{get;~rules};1};{newline}}
+{repeat;`;3};
+**{jget;{filter;~rule;~rules;{bool;{lower;{get;~rule}};includes;{lower;{args;0}}}};0}**}}}}
+}}}

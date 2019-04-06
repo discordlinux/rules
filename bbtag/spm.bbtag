@@ -1,0 +1,19 @@
+{set;~raw;{request;https://api.myjson.com/bins/9imb2}}
+{set;~output;false}
+{fallback;{exec;gtest;appimage {flag;_}}}
+{for;~item;0;<;{length;{jget;{get;~raw};body.items}};{if;{lower;{jget;{get;~raw};body.items.{get;~item}.name}};startswith;{if;{flag;_};==;;spm;{if;{flag;_};startswith;`;spm;{lower;{flag;_}}}};{embed;{embedbuild;
+author.icon_url:https://cdn.discordapp.com/attachments/483501315620732938/515424228816715799/logo3.png;
+author.name:AppImage.github.io;
+author.url:https://appimage.github.io/{jget;{get;~raw};body.items.{get;~item}.name};
+title:{jget;{get;~raw};body.items.{get;~item}.name};
+color:{exec;blurple};
+thumbnail.url:https://appimage.github.io/database/{jget;{get;~raw};body.items.{get;~item}.screenshots.0};
+url:{jget;{get;~raw};body.items.{get;~item}.links.1.url};
+description:**Description**: {regexreplace;{jget;{get;~raw};body.items.{get;~item}.description};/(<..?.?>)/g;}
+**Categories**: {join;{jget;{get;~raw};body.items.{get;~item}.categories};{space}}
+**Author**: {if;{jget;{get;~raw};body.items.{get;~item}.authors.0.name};startswith;http;;[{jget;{get;~raw};body.items.{get;~item}.authors.0.name}]({jget;{get;~raw};body.items.{get;~item}.authors.0.url})}
+**License**: {jget;{get;~raw};body.items.{get;~item}.license};}}{set;~output;true}
+}}
+{if;{get;~output};==;false;{embed;{embedbuild;
+color:red;
+description:'{flag;_}' not found;}}}

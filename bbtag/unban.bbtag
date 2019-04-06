@@ -1,0 +1,22 @@
+{if;{flag;_};==;;
+{throw;You have to tell me who to unban!}
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{set;~user;{userid;{flag;_}}}
+{if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
+{//;Warning the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{set;~unban;{unban;{get;~user};{get;~reason}}}
+{if;{get;~unban};!=;false;
+{embed;{embedbuild;
+title:User Unbanned;
+color:CornflowerBlue;
+description:{username;{get;~user}} has been unbanned!;}}
+{execcc;modlog;Unban;{get;~user};{userid};{get;~reason};CornflowerBlue};
+{embed;{embedbuild;
+title:Unban Failed;
+color:Maroon;
+description:Failed to unban `{get;~user}`!;}}}

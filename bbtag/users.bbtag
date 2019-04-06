@@ -1,0 +1,8 @@
+{embed;{embedbuild;
+title:Info for users;
+color:{rolecolor;428637054922915850};
+description:<@&428637054922915850> role
+• To set join a colored role, upload images, embed links, use most bot commands, use external emojis, and post reactions, you must have the users role.
+• After agreeing to the rules, the users role will be given automatically if you have no warnings after a 48 hour waiting period.
+• If you joined before the users role was given automatically, use `sudo usermod -a users` in <#174317464337776640>.
+• To get a colored role, use `sudo usermod -c <distro>` in <#174317464337776640> to join your favorite distro's role after earning the <@&428637054922915850> role.;}}

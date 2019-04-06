@@ -1,8 +1,0 @@
-{suppresslookup}
-{if;{userid;{args;0}};==;;
-❌ {args;0} not found in {guildname}!
-{return}}
-{set;@{userid;{flag;_}}ssurl;}
-{set;@{userid;{flag;_}}ssdesc;}
-{set;_{userid;{flag;_}}ssrating;0}
-Reset screenshot storage for `{usernick;{args;0}}`!

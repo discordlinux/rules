@@ -1,0 +1,83 @@
+{if;{args};==;;{embed;{embedbuild;
+title:Help for {exec;commandname;react};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;react} <reaction> [flag]`
+Outputs a gif reaction from Tenor related to the input.
+**Available flags**:
+```
+-t    message text
+      Sets the text to send in the reaction embed.
+-i    number
+      Sets the gif number to display.
+```
+**Predefined reactions**:
+```
+$teach or $fish
+    https://ibin.co/4I01dL18rmoZ.png
+$getout
+    Hogwell embed
+$facepalm
+    https://tenor.com/TToG.gif
+$imout
+    Bailing out embed
+$no
+    https://tenor.com/y41e.gif
+$what
+    https://tenor.com/uZJZ.gif
+$whats
+    https://tenor.com/tmmj.gif
+$whoop
+    https://tenor.com/yMmN.gif
+$why
+    https://tenor.com/Lhwu.gif{if;{guildid};==;96230004047740928;{newline}{newline}See 'bash -c $' for more gifs set as variables.}
+```;}}
+{return}}
+{exec;libbash}
+{switch;{lower;{args;0}};
+["teach","fish","$fish","$teach"];{set;~url;https://fakeimg.pl}
+{set;~gif;https://fakeimg.pl/2500x400/?retina=1&text=Give%20a%20man%20a%20fish%2C%20you%20feed%20him%20for%20a%20day.%0ATeach%20a%20man%20how%20to%20fish%2C%20you%20feed%20him%20for%20a%20lifetime.&font=noto};
+["getout","$getout"];{delete}{exec;getout;{if;{flagset;t};{flag;t}}}
+{return};
+["$whats"];
+{set;~url;https://tenor.com/tmmj.gif}
+{set;~gif;https://media.tenor.com/images/e89546f9a2234771c7e4bdea33758b6e/tenor.gif};
+["$facepalm"];
+{set;~url;https://tenor.com/TToG.gif}
+{set;~gif;https://media.tenor.com/images/98a8ddcc59bef326799cee86d809ccc9/tenor.gif};
+["$no"];
+{set;~url;https://tenor.com/y41e.gif}
+{set;~gif;https://media.tenor.com/images/e5551bc8cbebc6874e3d8ad6dc30460e/tenor.gif};
+["$what"];
+{set;~url;https://tenor.com/uZJZ.gif}
+{set;~gif;https://media.tenor.com/images/e38e04290a9a67671c662c36b563bf1e/tenor.gif};
+["$whoop"];
+{set;~url;https://tenor.com/yMmN.gif}
+{set;~gif;https://media.tenor.com/images/0e266d0d1a69757dedd4e0ce7b8d6df0/tenor.gif};
+["$why"];
+{set;~url;https://tenor.com/Lhwu.gif}
+{set;~gif;https://media.tenor.com/images/fab0bbf2eb62ed8b58ff9ae70a1ec3ee/tenor.gif};
+["$imout"];{delete}
+{exec;imout;{if;{flagset;t};{flag;t}}}
+{return}
+}
+{sleep;0.2s}
+{if;{messagetext;{messageid}};==;`No message found`;{return}}
+{delete}
+{set;~color;{exec;usercolor}}
+{if;{func.echo;{flag;_}};startswith;http;{set;!~gif;{func.echo;{flag;_}}}{set;~url;{get;~gif}}}
+{if;{func.echo;{flag;_}};startswith;https://giphy.com/gifs;{set;!~gif;{exec;metadata;{func.echo;{flag;_}};-i}}{set;~url;{get;~gif}}}
+{if;{func.echo;{flag;_}};startswith;https://tenor.co;{set;!~gif;{exec;metadata;{func.echo;{flag;_}};-i}}{set;~url;{get;~gif}}}
+{if;{func.echo;{flag;_}};startswith;https://www.tenor.co;{set;!~gif;{exec;metadata;{func.echo;{flag;_}};-i}}{set;~url;{get;~gif}}}
+{if;{get;~gif};==;;
+{set;~request;{request;https://api.tenor.com/v1/search?q={regexreplace;{flag;_};/ /g;-}&contentfilter=high&media_filter=minimal&limit=5&key=LIVDSRZULELA}}
+{fallback;{exec;fakeimg;No results found.}}
+{set;~url;{jget;{get;~request};body.results.0.url}}
+{set;~gif;{jget;{get;~request};body.results.{if;{flagset;i};{math;-;{flag;i};1};0}.media.0.tinygif.url}}}
+{embed;{embedbuild;
+footer.text:{if;{func.echo;{flag;_}};startswith;http;;Powered by Tenor{space}•{space}}"{substring;{flag;_};0;35}{if;{length;{flag;_}};>;35;...}"{if;{func.echo;{flag;_}};startswith;http;;{space}•{space}gif{space}#{if;{flagset;i};{flag;i};1}};
+author.name:{usernick} says;
+author.icon_url:{useravatar};
+color:{if;{get;~color};==;;{exec;blurple};{get;~color}};
+author.url:{get;~url};
+image.url:{get;~gif};
+{if;{flagset;t};description:{flag;t}}}}

@@ -1,0 +1,67 @@
+{if;{flag;C};==;;
+{set;!~ecolor;4285F4};
+{set;!~ecolor;{flag;C}}}
+{set;!~gssmsg;{output;{embed;{embedbuild;
+color:{get;~ecolor};
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+description:Searching for `{flag;_}`...}}}}
+{set;!~rawm;{exec;motyar;https://google.com/search?q={uriencode;{flag;_}};-x //*[@id="res"]}}
+{set;!~request;{htmldecode;{jget;{filter;~r;{split;{jget;{get;~rawm};body.0.html};"};{bool;{get;~r};startswith;http}};0}}}
+{//;{if;{regextest;{get;~request};/(^http.*)/};==;false;
+{set;!~request;{exec;gtest;{flag;_}}}}}
+{if;{get;~request};startswith;https://www.yout;
+{edit;{channelid};{get;~gssmsg};<:google:505934787496902656>: {get;~request};_delete};
+{if;{get;~request};==;;
+{set;!~request;https://google.com/search?q={uriencode;{flag;_}}}
+{set;!~thumb;{exec;fakeimg;No results found.}}
+{set;!~title;No results found for '{flag;_}'};
+{set;!~rawmeta;{exec;metadata3;{get;~request}}}
+{fallback;}
+{if;{jget;{get;~rawmeta};meta.theme-color};!=;;
+{set;!~ecolor;{jget;{get;~rawmeta};meta.theme-color}}}
+{set;!~desc;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.og:description}}}}
+{if;{get;~desc};==;;
+{set;!~desc;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.description}}}}}
+{if;{get;~desc};==;;
+{set;!~desc;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.Description}}}}}
+{if;{get;~desc};==;;
+{set;!~desc;{htmldecode;{jget;{exec;motyar;https://www.google.com/search?q={uriencode;{flag;_}};-x //*[@id="rso"]/div[1]/div/div[1]/div/div[1]/div[2]/div[1]/div/span};body.0.text}}}}
+{if;{get;~desc};==;;
+{set;!~desc;{htmldecode;{jget;{exec;motyar;https://www.google.com/search?q={uriencode;{flag;_}};-x //*[@id="rso"]/div[1]/div/div[1]/div/div[1]/div[2]/div[2]};body.0.text}}}}
+{if;{get;~desc};==;;
+{set;!~desc;{regexreplace;{replace;{htmldecode;{join;{slice;{split;{jget;{regexsplit;{jget;{split;{substring;{jget;{get;~rawm};body.0.text};0;2000};Cached};1};/(\.[a-z][a-z]|\.[a-z]\s|https?:)/i};0};.};0;3};.}};Similar;}.;/(\s\.\.?\.?)/;...}}}
+{if;{get;~desc};==;;
+{set;!~desc;}}
+{if;{get;~desc};==;.;
+{set;!~desc;}}
+{set;!~title;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.og:title}}}}
+{if;{get;~title};==;;
+{set;!~title;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.title}}}}}
+{if;{get;~title};==;;
+{set;!~title;{htmldecode;{htmldecode;{jget;{get;~rawmeta};meta.Title}}}}}
+{if;{get;~title};==;;
+{set;!~title;{htmldecode;{jget;{exec;motyar;https://www.google.com/search?q={uriencode;{flag;_}};-x //*[@id="rso"]/div[1]/div/div/div/div/div[1]/a/h3};body.0.text}}}}
+{if;{get;~title};==;;
+{set;!~title;{htmldecode;{jget;{split;{jget;{split;{jget;{get;~rawm};body.0.text};Links};1};http};0}}}
+{if;{get;~title};==;;
+{set;!~title;{htmldecode;{jget;{split;{jget;{split;{jget;{get;~rawm};body.0.text};Web{space}results};1};http};0}}}}
+{if;{get;~title};==;;
+{set;!~title;Search Result for '{flag;_}'}}}
+{if;{get;~title};startswith;`;
+{set;!~title;Search Result for '{flag;_}'}}
+{set;!~thumb;{jget;{get;~rawmeta};meta.og:image}}
+{if;{get;~thumb};startswith;/;
+{set;!~thumb;{get;~request}{get;~thumb}}}
+{if;{get;~thumb};==;;
+{set;!~thumb;{exec;getimg;{get;~request}}}}}
+{fallback;{get;~request}}
+{edit;{channelid};{get;~gssmsg};{embedbuild;
+title:{get;~title};
+url:{get;~request};
+color:{get;~ecolor};
+author.icon_url:https://cdn.discordapp.com/emojis/505934787496902656.png?size=20;
+author.name:Result via Google;
+author.url:https://google.com/search?q={uriencode;{flag;_}};
+footer.text:{get;~request};
+thumbnail.url:{get;~thumb};
+description:{substring;{get;~desc};0;900};}}}

@@ -1,0 +1,40 @@
+{switch;{lower;{args;0}};
+["view"];{if;{args;1};==;;{throw;No user provided}{return}}
+{if;{userid;{args;1}};==;;{throw;Invalid user provided}{return};
+{set;~user;{userid;{args;1}}}}
+{if;{get;_{get;~user}.messages};==;;{set;_{get;~user}.messages;[]}}
+{if;{flagset;c};{set;~output;{foreach;~message;{get;_{get;~user}.messages};{if;{get;~message};startswith;{exec;chanid;{flag;c}} - ;{get;~message}{newline}}}}
+{if;{length;{get;~output}};>=;2000;{dump;{get;~output}}.txt;{repeat;`;3}
+{get;~output}
+{repeat;`;3}};
+{if;{length;{join;{get;_{get;~user}.messages};{newline}}};>=;2000;{dump;{join;{get;_{get;~user}.messages};{newline}}}.txt;{repeat;`;3}
+{join;{get;_{get;~user}.messages};{newline}}
+{repeat;`;3}}};
+["search"];{if;{args;1};==;;{throw;No user provided}{return}}
+{if;{userid;{args;1}};==;;{throw;Invalid user provided}{return};
+{set;~user;{userid;{args;1}}}}
+{set;~output;{foreach;~message;{get;_{get;~user}.messages};{if;{get;~message};includes;{args;2;n};{get;~message}{newline}}}}
+{if;{length;{get;~output}};>=;2000;{dump;{get;~output}}.txt;{repeat;`;3}
+{get;~output}
+{repeat;`;3}};
+{embed;{embedbuild;
+title:Help for {exec;commandname;messages};
+color:CD5C5C;
+description:__**Usage**__: `{exec;commandname;messages} <arg> <userid> [flags|search terms]`
+Shows all messages from a user in all channels or a specific channel with the `-c` flag.  Also can be used to search for messages containing the search query.  Only the latest 2000 messages from a user are stored.
+
+**Available arguments**
+{repeat;`;3}
+view
+- View all messages from a user.
+- The '-c' flag may be used to specify a channel to get messages from.
+- Ex: '{exec;commandname;messages} view {username}'
+- Ex: '{exec;commandname;messages} view {username} -c #{channelname}'
+
+search
+- Search for messages containing the search query from a user.
+- To get messages from a specific date, include the date in the format used in the messsage logs in the search query.
+- Ex: '{exec;commandname;messages} search {username} search query here'
+- Ex: '{exec;commandname;messages} search {username} {time;YYYY-MMM-DD} search query here'
+{repeat;`;3}}}
+}

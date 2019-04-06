@@ -1,0 +1,105 @@
+{exec;prefix.test}
+{//;Function to output help}
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;quote};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;quote} [channel] <message id|link to message> [flag <text>]`
+Quotes messages in a nice embed.  Can be used to quote text messages or embeded messages.  A reply may also be sent with the `-r` flag.
+
+**Available flags**
+```
+-r    Add a reply to the quote
+      Ex: '{exec;commandname;quote} 525517875243646988 -r some reply'
+```;}}}
+{//;Function to embed quoted message}
+{function;quote;{embed;{apply;embedbuild;{get;~embed};{get;~fields}}}}
+{//;Function to get info for text quotes}
+{function;textquote;{set;~user;{messagesender;{get;~chan};{get;~msg}}}
+{set;~embed;author.name:{usernick;{get;~user}};author.icon_url:{useravatar;{get;~user}};description:__**[Quote Link](https://discordapp.com/channels/{guildid}/{get;~chan}/{get;~msg})**__{newline}{newline}{zws}❝ {messagetext;{get;~chan};{get;~msg}} ❞;timestamp:{messagetime;{get;~chan};{get;~msg};YYYY-MM-DDTHH:mm:ssZ};color:{if;{exec;usercolor;{get;~user}};==;;{exec;blurple};{exec;usercolor;{get;~user}}};{if;{messageattachments;{get;~chan};{get;~msg}};!=;[];image.url:{jget;{messageattachments;{get;~chan};{get;~msg}};0}}}}
+{//;Function to get info for embed quotes}
+{function;embedquote;{set;~embed;[]}
+{set;~msgembed;{messageembeds;{get;~chan};{get;~msg}}}
+{//;Color}
+{push;~embed;color:{exec;dectohex;{jget;{get;~msgembed};v.0.color}}}
+{//;Author name}
+{if;{jget;{get;~msgembed};v.0.author.name};startswith;`Cannot;
+{if;{messagesender;{get;~chan};{get;~msg}};!=;`No message found`;
+{push;~embed;author.name:{username;{messagesender;{get;~chan};{get;~msg}}}};
+{push;~embed;author.name:Bot}};
+{push;~embed;author.name:{jget;{get;~msgembed};v.0.author.name}}}
+{//;Author icon url}
+{if;{jget;{get;~msgembed};v.0.author.icon_url};startswith;`Cannot;
+{if;{messagesender;{get;~chan};{get;~msg}};!=;`No message found`;
+{push;~embed;author.icon_url:{useravatar;{messagesender;{get;~chan};{get;~msg}}}};
+{push;~embed;author.icon_url:https://cdn.discordapp.com/emojis/478073442311077889.gif?v=1}};
+{push;~embed;author.icon_url:{jget;{get;~msgembed};v.0.author.icon_url}}}
+{//;Author url}
+{if;{jget;{get;~msgembed};v.0.author.url};!=;;
+{if;{jget;{get;~msgembed};v.0.author.url};startswith;`Cannot;;
+{push;~embed;author.url:{jget;{get;~msgembed};v.0.author.url}}}}
+{//;Title}
+{if;{jget;{get;~msgembed};v.0.title};!=;;
+{if;{jget;{get;~msgembed};v.0.title};startswith;`Cannot;;
+{push;~embed;title:{jget;{get;~msgembed};v.0.title}}}}
+{//;Description}
+{if;{jget;{get;~msgembed};v.0.description};!=;;
+{if;{jget;{get;~msgembed};v.0.description};startswith;`Cannot;
+{push;~embed;description:__**[Quote Link](https://discordapp.com/channels/{guildid}/{get;~chan}/{get;~msg})**__};
+{push;~embed;description:__**[Quote Link](https://discordapp.com/channels/{guildid}/{get;~chan}/{get;~msg})**__{newline}{newline}{zws}{jget;{get;~msgembed};v.0.description}}};
+{push;~embed;description:__**[Quote Link](https://discordapp.com/channels/{guildid}/{get;~chan}/{get;~msg})**__}}
+{//;Url}
+{if;{jget;{get;~msgembed};v.0.url};!=;;
+{if;{jget;{get;~msgembed};v.0.url};startswith;`Cannot;;
+{push;~embed;url:{jget;{get;~msgembed};v.0.url}}}}
+{//;Footer text}
+{if;{jget;{get;~msgembed};v.0.footer.text};!=;;
+{if;{jget;{get;~msgembed};v.0.footer.text};startswith;`Cannot;
+{if;{messagetext;{get;~chan};{get;~msg}};!=;;
+{push;~embed;footer.text:{substring;{messagetext;{get;~chan};{get;~msg}};0;200}}};
+{push;~embed;footer.text:{jget;{get;~msgembed};v.0.footer.text}}};
+{if;{messagetext;{get;~chan};{get;~msg}};!=;;
+{push;~embed;footer.text:{substring;{messagetext;{get;~chan};{get;~msg}};0;200}}}}
+{//;Footer icon url}
+{if;{jget;{get;~msgembed};v.0.footer.icon_url};!=;;
+{if;{jget;{get;~msgembed};v.0.footer.icon_url};startswith;`Cannot;;
+{push;~embed;footer.icon_url:{jget;{get;~msgembed};v.0.footer.icon_url}}}}
+{//;Timestamp}
+{if;{jget;{get;~msgembed};v.0.timestamp};!=;;
+{if;{jget;{get;~msgembed};v.0.timestamp};startswith;`Cannot;
+{push;~embed;timestamp:{messagetime;{get;~chan};{get;~msg};YYYY-MM-DDTHH:mm:ssZ}};
+{push;~embed;timestamp:{jget;{get;~msgembed};v.0.timestamp}}};
+{push;~embed;timestamp:{messagetime;{get;~chan};{get;~msg};YYYY-MM-DDTHH:mm:ssZ}}}
+{//;Thumbnail url}
+{if;{jget;{get;~msgembed};v.0.thumbnail.url};!=;;
+{if;{jget;{get;~msgembed};v.0.thumbnail.url};startswith;`Cannot;;
+{push;~embed;thumbnail.url:{jget;{get;~msgembed};v.0.thumbnail.url}}}}
+{//;Image url}
+{if;{jget;{get;~msgembed};v.0.image.url};!=;;
+{if;{jget;{get;~msgembed};v.0.image.url};startswith;`Cannot;;
+{push;~embed;image.url:{jget;{get;~msgembed};v.0.image.url}}}}
+{//;Fields}
+{if;{jget;{get;~msgembed};v.0.fields};!=;;
+{if;{jget;{get;~msgembed};v.0.fields};startswith;`Cannot;;{set;~fields;[]}
+{for;~f;0;<;{length;{jget;{get;~msgembed};v.0.fields}};{push;~fields;fields.name:{jget;{get;~msgembed};v.0.fields.{get;~f}.name};fields.value:{jget;{get;~msgembed};v.0.fields.{get;~f}.value};fields.inline:{jget;{get;~msgembed};v.0.fields.{get;~f}.inline}}}}}}
+{//;Detect argument input}
+{if;{args;0};includes;discordapp.com/channels/{guildid}/;
+{set;~chan;{jget;{split;{args;0};/};5}}
+{set;~msg;{jget;{split;{args;0};/};6}};
+{switch;{regexreplace;{args;0};/(<|#|>)/g;};
+{channels};{set;~chan;{regexreplace;{args;0};/(<|#|>)/g;}}
+{set;~msg;{args;1}};
+{set;~chan;{channelid}}
+{set;~msg;{args;0}}}}
+{if;{get;~msg};==;;{func.help};
+{if;{get;~msg};==;`Not enough arguments`;{func.help};
+{if;{messageembeds;{get;~chan};{get;~msg}};!=;[];
+{func.embedquote};
+{func.textquote}}
+{if;{get;~embeds};==;;{set;~embeds;[]}
+{push;~embeds;color:red;description:Error quoting message '{flag;_}'}}
+{if;{flagset;r};
+{if;{flag;r};!=;;
+{delete}
+{if;{get;~fields};==;;{set;~fields;[]}}
+{push;~fields;fields.name:Reply from {usernick};fields.value:{flag;r};fields.inline:false}}}
+{func.quote}}}

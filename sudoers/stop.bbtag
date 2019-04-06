@@ -1,8 +1,0 @@
-{slowmode;120}
-{embed;{embedbuild;
-title:Stop, Drop, and Roll;
-color:9D2828;
-thumbnail.url:https://i.imgur.com/HJoCgcw.png;
-footer.text:Slowmode has been enabled in #{channelname} for 30 seconds.;
-description:**Please drop the current discussion and move on, thanks!**;}}
-{timer;{slowmode};30s}

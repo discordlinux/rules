@@ -1,0 +1,11 @@
+{set;~mwjson;{exec;metadata3;https://www.merriam-webster.com/dictionary/{uriencode;{flag;_}}}}
+{set;~title;{jget;{get;~mwjson};meta.og:title}}
+{if;{get;~title};==;;{set;~title;'{flag;_}' Not Found}}
+{set;~def;{jget;{get;~mwjson};meta.description}}
+{embed;{embedbuild;
+author.name:Merriam-Webster;
+author.icon_url:https://www.merriam-webster.com/assets/mw/static/app-standalone-images/MW_logo.png;
+title:{get;~title};
+color:2D5F7C;
+url:https://www.merriam-webster.com/dictionary/{uriencode;{flag;_}};
+description:{capitalize;{regexreplace;{jget;{split;{get;~def};definition is -{space}};1};/(How to use .* in a sentence\.|Synonym Discussion of .*\.|Did You Know\?.*)/g;}};}}

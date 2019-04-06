@@ -1,0 +1,13 @@
+{embed;{embedbuild;
+author.name:Gentoo Linux;
+author.icon_url:https://www.gentoo.org/assets/img/logo/gentoo-logo.png;
+author.url:https://gentoo.org/;
+color:7a5ada;
+description:**• The most well-known source-based distribution (packages are built on the user's machine).
+• Most notable feature is USE flags, which allow users to not only pick which packages are installed on their machine, but also what each package will support.
+• Supports "overlays", custom repositories, over the official repository.
+• Supports OpenRC and systemd as init systems. One is chosen during install and can be changed later.
+• Package installation and updates can take a long time for big applications. These applications may also have a binary option, but you lose the configurability of USE flags by opting to use binary packages.
+• Not beginner friendly. The community is willing to help those who show that they have put effort into solving a problem, but those who cannot/do not have the knowledge to help themselves should stay away.
+    
+[Download Gentoo Linux](https://www.gentoo.org/downloads/)**;}}

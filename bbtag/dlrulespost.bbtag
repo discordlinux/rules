@@ -1,0 +1,117 @@
+{if;{flagset;t};{set;~chan;{channelid}};{set;~chan;172522057291005953}
+{void;{delete;172522057291005953;{get;_rules.msgid1}}}
+{void;{delete;172522057291005953;{get;_rules.msgid2}}}
+{void;{delete;172522057291005953;{get;_rules.msgid3}}}
+{delete;172522057291005953;{get;_guild.info.msgid}}}
+{set;{if;{flagset;t};;_}rules.msgid1;{send;{get;~chan};;{embedbuild;
+title:Welcome to {guildname}!;
+color:7289DA;
+fields.name:{zws}{newline}__**Glory to the Tux**__;
+fields.value:• Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
+• If there are ever any issues with staff members, be sure to direct any and all complaints to <a:sans:507742392351326218> sans with a detailed description of the complaint.{newline}{zws};
+fields.name:__**General Rules**__;
+fields.value:{zws} **#1** - No harassment, personal insults, or insulting language.
+{zws} **#2** - Know when a debate has turned into an argument.
+{zws} **#3** - No NSFW or illegal content what-so-ever.
+{zws} **#4** - No invite links or advertising other servers.
+{zws} **#5** - No spamming.
+{zws} **#6** - No shitposting or memes.
+{zws} **#7** - No huge messages. See `sudo help pastebin`.
+{zws} **#8** - Do not abuse the bot. Keep most command use in <#174317464337776640>.
+{zws} **#9** - English only.
+**#10** - Use the channels as intended.
+**#11** - No selfbots what-so-ever.
+**#12** - Do not discuss things that break [Discord's Terms of Service](https://discordapp.com/terms).
+**#13** - Cooperate with Discord Linux staff members.
+
+**Moderators have final say in the enforcement of these rules or other infractions.**
+• Don't attempt to loophole or use semantics to get around these rules.
+• Respect the intent behind them, not the literal text.{newline}{zws};
+fields.name:__**Punishment System**__;
+fields.value:**Restricted Words**
+• Messages containing Discord invite links and certain restricted words will automatically be deleted by <@!134133271750639616>.
+• Using most of these words will result in a warning in <#227643567273672706>.
+• [List of censored words](https://github.com/discordlinux/rules/raw/master/censored.txt)
+**Verbal Warning**
+• A staff member asks the user to stop.
+**Written Warning**
+• A staff member issues a warning to <#227643567273672706>.
+• The user will be muted for 15 minutes at 3 warnings.
+• The user will be muted for 1 hour and have their <@&428637054922915850> role removed automatically at 8 warnings.
+**Temporary Mute**
+• A staff member temporarily mutes the user.
+**Temporary Ban/Permanent Ban**
+• A staff member bans the user from the server either temporarily or permanently.{newline}
+**Please note:**
+• Staff members will determine the proper punishment based on the infraction.
+• Warnings, mutes, and bans are logged to <#227643567273672706> for everyone to view.{newline}{zws};
+fields.name:__**Other Information**__;
+fields.value:**Pinging Staff**
+• Do not ping staff members unless you need their help.
+• For example, if someone is spamming the server, feel free to ping <@&457281742844330004>.
+• If you just have a question or need something else simple, ping an online staff member{semi} not the entire <@&457281742844330004> role.;
+fields.name:{zws};
+fields.value:**Distributions That Are Not Supported**
+• The following distributions are not supported in Discord Linux:
+Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Antergos and any derivative of Arch Linux.
+• These distributions have a history of breaking important system packages and compatibility with software you install.
+• The Discord Linux community will not offer support for any of these distributions.
+• Feel free to use them, but please do not ask for help with them here.
+• See `sudo info mint`, `sudo info solus`, `sudo info manjaro`, `sudo info antergos`, and `sudo info archvariants` for more info.;}}}
+{set;{if;{flagset;t};;_}rules.msgid2;{send;{get;~chan};;{embedbuild;
+title:__**Lovely Sudoers (Staff)**__;
+color:7289DA;
+description:<@&457281742844330004> 
+• Role to ping all Discord Linux staff (use with care){newline}{zws}
+<@&103845299490930688>
+<a:sans:507742392351326218> sans{newline}{zws}
+<@&172524170779820032>
+<a:Ayakochan:496129985258455050> Ayakochan
+<a:Blank:507744283055358013> Blank
+<a:ElizabethNoir:496130198987603998> ElizabethNoir
+<a:greyfade:496130385340530709> greyfade
+<a:NanoDrive:509495107955851265> NanoDrive
+<a:geeko:458902796801146881> simonizor
+<a:Vix:496131196628238336> Vix{newline}{zws}
+<@&457273166176321538>
+<a:E5ten:507742251418386436> E5ten{newline}{zws}
+<@&502984660666679306>
+<a:EthanWeegee:509494965563293699> Ethan Weegee
+<a:Snuggle:509495514941882399> Snuggle{newline}{zws}
+<@&106082717833113600>
+• These are actual Discord employees.  Please do not bother them.{newline}{zws};
+fields.name:__**Channels**__{newline}**Information**;
+fields.value:<#479497706234970115>{newline}• Show new member joins.
+<#172522057291005953>{newline}• You are here.
+<#220424374329671681>{newline}• News about the server.
+<#349085517218054145>{newline}• Related Discord server links.
+<#227643567273672706>{newline}• Logs of moderation actions.{newline}{zws};
+fields.inline:true;
+fields.name:{zws}{newline}**News**;
+fields.value:<#453011360335265793>{newline}• RSS feeds about Linux.
+<#492045641997090817>{newline}• RSS feeds about Arch.
+<#492192444209954826>{newline}• RSS feeds about Fedora.
+<#492030489750667277>{newline}• RSS feeds about openSUSE.
+<#492045689304383508>{newline}• RSS feeds about Ubuntu.;
+fields.inline:true;
+fields.name:**General**;
+fields.value:<#96230004047740928>{newline}• Linux/computer/other tech chat.
+<#166340424603009024>{newline}• Stuff that fits nowhere else.
+<#234032525297582081>{newline}• Things related to gaming.
+<#173927645334077441>{newline}• Share \*nix screenshots and configs.
+<#257592796704145429>{newline}• Programming related things.{newline}{zws};
+fields.inline:true;
+fields.name:**Support**;
+fields.value:<#96230043209981952>{newline}• Support for general Linux issues.
+<#484513714024874018>{newline}• Support for installing Linux distros.
+<#484512261382340638>{newline}• Support for games that run on Linux.
+<#162712517053775872>{newline}• Support for the official Discord client.
+<#484513481802907669>{newline}• Support for things not related to Linux.{newline}{zws};
+fields.inline:true;
+fields.name:{zws};
+fields.value:**Now get chatting!**
+• To join a role, go to <#174317464337776640>, use `sudo usermod` to list the roles, and `sudo usermod -a <role>` to join them.{newline}{zws}
+**Changelog for <#172522057291005953>**
+• [Check out the Github page](https://github.com/discordlinux/rules/commits/master) for <#172522057291005953> changelog.{newline}{zws};
+}}}
+{set;{if;{flagset;t};;_}guild.info.msgid;{send;{get;~chan};;{exec;guildinfosend}}}

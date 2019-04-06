@@ -1,0 +1,91 @@
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;issues};
+color:fa8072;
+description:**__Usage:__** `{exec;commandname;issues} <arg> <issue number|user> [text|user]`
+Add comments to and close issues in the Discord Linux no phone request repo.
+
+**Available arguments**:
+{repeat;`;3}
+comment
+- Add a comment to the specified issue.
+- Ex: {exec;commandname;issues} comment 1 Example text
+
+open
+- Open the specified issue.
+- Ex: {exec;commandname;issues} open 1
+
+close
+- Close the specified issue.
+- Ex: {exec;commandname;issues} close 1
+
+state
+- Set the state of the specified issue.  Valid options are 'open' and 'closed'.
+- Ex: {exec;commandname;issues} state 1 closed
+
+approve or right
+- Add a predefined comment to the specified issue and give the specified user the 'Other' role.
+- Ex: {exec;commandname;issues} approve 1 {userid}
+
+disapprove or wrong
+- Add a predefined comment to the specified issue letting the user know the passphrase given is not correct.
+- Ex: {exec;commandname;issues} disapprove 1
+
+verified or phone
+- Add a predefined comment to the specified issue letting the user know that the form is only for users who do not have a phone to verify with Discord.
+- Ex: {exec;commandname;issues} verified 1
+
+passphrase or pass
+- Check the passphrase of a given user.
+- Ex: {exec;commandname;issues} passphrase {randuser}
+{repeat;`;3}
+;}}}
+{//;Function to set state of issues}
+{function;state;{set;~request;{request;https://api.github.com/repos/discordlinux/rules/issues/{params;0}?access_token={get;@dl.issues.token};{jset;;method;PATCH;create};{jset;;state;{params;1};create}}}
+{fallback;http://github.com}
+{switch;{lower;{jget;{get;~request};statusText}};
+["ok"];{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>};
+{embed;{embedbuild;
+title:State Change Status;
+color:red;
+description:{jget;{get;~request};status} {jget;{get;~request};statusText}}}}}
+{//;Function to add comments}
+{function;comment;{set;~request;{request;https://api.github.com/repos/discordlinux/rules/issues/{params;0}/comments?access_token={get;@dl.issues.token};{jset;;method;POST;create};{jset;;body;**From {username}#{userdiscrim}** ![avatar]({regexreplace;{useravatar};/=.*/;=20}):{newline}{params;1;n};create}}}
+{fallback;http://github.com}
+{switch;{lower;{jget;{get;~request};statusText}};
+["created"];{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>};
+{embed;{embedbuild;
+title:Comment Creation Status;
+color:red;
+description:{jget;{get;~request};status} {jget;{get;~request};statusText}}}}}
+{//;Detect arguments}
+{switch;{lower;{args;0}};
+["comment"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{if;{args;2};==;;{throw;Missing comment text.}{return}}
+{func.comment;{args;1};{args;2;n}};
+["close"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{func.state;{args;1};closed};
+["open"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{func.state;{args;1};open};
+["state"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{switch;{lower;{args;2}};
+["open","closed"];{//;Do nothing, valid states};
+{throw;Invalid state specified.  Valid states are 'open' and 'closed'.}{return}}
+{func.state;{args;1};{args;2}};
+["approve","right","correct"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{if;{exec;usercheck;{args;2}};==;false;{throw;Invalid user specified.}{return};
+{set;~usr;{userid;{args;2}}}}
+{func.comment;{args;1};Looks good.  I've given you a temporary role so that you can enter the passphrase in the welcome channel.}
+{func.state;{args;1};closed}
+{void;{roleadd;247153454429110273;{get;~usr}}};
+["verified","phone"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{func.comment;{args;1};This form is only for people who do not have a phone to verify with Discord. Please read the message that mentions you in the welcome channel.}
+{func.state;{args;1};closed};
+["wrong","disapprove"];{if;{numformat;{args;1};};==;NaN;{throw;Invalid issue number specified.}{return}}
+{func.comment;{args;1};The passphrase you have entered is not correct.  Please check the message that mentions you in the welcome channel to find your passphrase.};
+["passphrase","pass"];{fallback;}
+{if;{exec;usercheck;{args;1}};==;false;
+{fallback}
+{throw;User not found in {guildname}};
+{fallback}
+{throw;{get;_{userid;{args;1}}passcode}}};
+{func.help}}

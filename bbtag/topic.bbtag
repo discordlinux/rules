@@ -1,0 +1,34 @@
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;topic};
+color:yellow;
+description:Get or set the topic for a channel.
+
+**Available arguments**
+{repeat;`;3}
+set
+- Set the description for a channel.
+- User must be staff to set channel topics!
+- Ex: '{exec;commandname;topic} set Some topic'
+- Ex: '{exec;commandname;topic} set #somechannel Some topic'
+{repeat;`;3}}}}
+{switch;{lower;{args;0}};
+["set"];{fallback;}
+{if;{isstaff;{userid}};
+{if;{args;1};==;;{func.help};
+{switch;{exec;chanid;{args;1}};
+{channels};{set;~chan;{exec;chanid;{args;1}}};
+{set;~chan;{channelid}}}
+{set;_channel.topic.{get;~chan};{switch;{exec;chanid;{args;1}};{channels};{args;2;n};{args;1;n}}}
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}};
+{output;`Only staff may set channel topics, {usernick}!`}};
+{//;Default}
+{if;{lower;{args}};==;help;{func.help};
+{switch;{exec;chanid;{args;0}};
+{channels};{set;~chan;{exec;chanid;{args;0}}};
+{set;~chan;{channelid}}}
+{if;{get;_channel.topic.{get;~chan}};==;;{output;`No topic set for #{channelname;{get;~chan}}.`};
+{embed;{embedbuild;
+color:{exec;blurple};
+thumbnail.url:{regexreplace;{guildicon};/(\?size=512)/;?size=40};
+description:**Topic for <#{get;~chan}>**
+{get;_channel.topic.{get;~chan}};}}}}}

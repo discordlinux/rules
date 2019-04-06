@@ -1,0 +1,28 @@
+{set;~emojis;[]}
+{foreach;~emoji;{emojis};{if;{get;_{get;~emoji}.used};==;;{set;_{get;~emoji}.used;0}}{push;~emojis;{realpad;{get;_{get;~emoji}.used};6;0;left}( {get;~emoji} )}}
+{//; Sort all emojis }
+{sort;~emojis;descending}
+{if;{flagset;r};{repeat;`;3}
+{foreach;~emoji;{get;~emojis};{set;~emoji;{jget;{regexreplace;{match;{get;~emoji};/ <a?:.*[0-9]> /};/ /g;};0}}{set;~emojin;{match;{get;~emoji};/:([a-z]|[A-Z]).*([a-z]|[A-Z]|[0-9]):/}}{realpad;{jget;{get;~emojin};v.0};15;{space}} - {get;_{get;~emoji}.used}{newline}}
+{repeat;`;3}
+{return}}
+{set;~full;{get;~emojis}}
+{set;~full2;{get;~emojis}}
+{set;~full3;{get;~emojis}}
+{set;~emojis1;{splice;{get;~emojis};0;25}}
+{if;{length;{emojis}};>=;26;{set;~emojis2;{splice;{get;~full};25;25}}}
+{if;{length;{emojis}};>=;51;{set;~emojis3;{splice;{get;~full2};50;25}}}
+{if;{length;{emojis}};>=;76;{set;~emojis4;{splice;{get;~full2};75;25}}}
+{embed;{embedbuild;
+title:{guildname} Emote Stats{if;{length;{emojis}};>=;76;{newline}1-25};
+color:7289DA;
+footer.text:See '{prefix}{if;{iscc};;t} {commandname} -r' for a raw list of emotes;
+fields.name:{if;{length;{emojis}};>=;76;26-50;1-25};
+fields.value:{set;~loops;0}{foreach;~emoji;{if;{length;{emojis}};>=;76;{get;~emojis2};{get;~emojis1}};{set;~emoji;{regexreplace;{jget;{match;{get;~emoji};/ <a?:.*[0-9]> /};0};/ /g;}}{get;~emoji}•`{realpad;{get;_{get;~emoji}.used};4;0;left}{void;{increment;~loops}}{commit}{switch;{get;~loops};["5","10","15","20"];`{newline};25;`;`•}};
+fields.name:{if;{length;{emojis}};>=;26;{if;{length;{emojis}};>=;76;51-75;26-50};{zws}};
+fields.value:{set;~loops;0}{if;{length;{emojis}};>=;26;{foreach;~emoji;{if;{length;{emojis}};>=;76;{get;~emojis3};{get;~emojis2}};{set;~emoji;{regexreplace;{jget;{match;{get;~emoji};/ <a?:.*[0-9]> /};0};/ /g;}}{get;~emoji}•`{realpad;{get;_{get;~emoji}.used};4;0;left}{void;{increment;~loops}}{commit}{switch;{get;~loops};["5","10","15","20"];`{newline};25;`;`•}}};
+fields.name:{if;{length;{emojis}};>=;51;{if;{length;{emojis}};>=;76;76-100;51-75};{zws}};
+fields.value:{set;~loops;0}{if;{length;{emojis}};>=;51;{foreach;~emoji;{if;{length;{emojis}};>=;76;{get;~emojis4};{get;~emojis3}};{set;~emoji;{regexreplace;{jget;{match;{get;~emoji};/ <a?:.*[0-9]> /};0};/ /g;}}{get;~emoji}•`{realpad;{get;_{get;~emoji}.used};4;0;left}{void;{increment;~loops}}{commit}{switch;{get;~loops};["5","10","15","20"];`{newline};25;`;`•}}};
+{if;{length;{emojis}};>=;76;
+description:{set;~loops;0}{foreach;~emoji;{get;~emojis1};{set;~emoji;{regexreplace;{jget;{match;{get;~emoji};/ <a?:.*[0-9]> /};0};/ /g;}}{get;~emoji}•`{realpad;{get;_{get;~emoji}.used};4;0;left}{void;{increment;~loops}}{commit}{switch;{get;~loops};["5","10","15","20"];`{newline};25;`;`•}}}
+}}

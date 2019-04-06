@@ -1,0 +1,90 @@
+{if;{flag;_};==;;{throw;Usage: {lb}exec{semi}_censor{semi}<messageid>{rb}};
+{fallback;}
+{if;{messagetext;{flag;_}};==;;{throw;Message not found};
+{//;ignore messages that go to pastebin}
+{if;{messagetext;{flag;_}};startswith;su pastebin;{//;do nothing};
+{if;{messagetext;{flag;_}};startswith;sudo pastebin;{//;do nothing};
+{//;ignore messages for ticket system}
+{if;{messagetext;{flag;_}};startswith;sudo ticket;{//;do nothing};
+{if;{messagetext;{flag;_}};startswith;su ticket;{//;do nothing};
+{//;ignore welcome channel}
+{if;{channelid};!=;479497706234970115;
+{//;bullshit video about Discord closing down}
+{if;{messagetext;{flag;_}};includes;d-BCRCuXR6U;
+{delete}
+{output;Stop posting the bullshit youtube video about Discord shutting down please and thank you, {usernick}.}
+{return}}
+{//;spoiler tags}
+{if;{length;{split;{messagetext;{flag;_}};||}};>=;3;
+{if;{messagetext;{flag;_}};includes;```;{//;do nothing};
+{delete}
+{output;No spoilers here, {usernick}.}}}
+{if;{jget;{messageattachments;{flag;_}};0};includes;SPOILER_;
+{delete}
+{output;No spoilers here, {usernick}.}}
+{//;longer than 1100 characters}
+{//;upload message to write.as}
+{if;{length;{messagetext;{flag;_}}};>=;1100;
+{output;{exec;blargpaste;{messagetext;{flag;_}}}}
+{return}}
+{//;15 of the same character repeated}
+{//;delete message and output 'Spam detected'}
+{if;{regextest;{lower;{messagetext;{flag;_}}};/([a-z])\1{15}/g};
+{delete}
+{output;Spam detected from {usernick}}
+{return}}
+{//;change my mind}
+{//;delete message and output 'We don't play the meme game here'}
+{if;{length;{messagetext;{flag;_}}};<;50;
+{if;{lower;{messagetext;{flag;_}}};includes;change my mind;
+{delete}
+{output;We don't play the meme game here, {usernick}.}
+{return}}
+{//;i use arch btw/btw i use arch}
+{//;delete message and output 'btw I use <a:banhammer:410524669138042881>'}
+{if;{lower;{messagetext;{flag;_}}};includes;i use arch btw;
+{delete}
+{output;btw I use <a:banhammer:410524669138042881>, {usernick}.}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;btw i use arch;
+{delete}
+{output;btw I use <a:banhammer:410524669138042881>, {usernick}.}
+{return}}
+{//;oof}
+{//;add glare reaction}
+{if;{lower;{messagetext;{flag;_}}};includes;oof;
+{reactadd;{channelid};{flag;_};<:glare:501195158688104448>}
+{return}}}
+{//;support channel stuff}
+{if;{channelcategory};==;484511388685959179;
+{//;ignore certain messages}
+{if;{lower;{messagetext;{flag;_}}};includes;sudo info;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;su info;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;sudo rules;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;su rules;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;don't;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;do not;{//;do nothing};
+{if;{lower;{messagetext;{flag;_}}};includes;mint;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;solus;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;manjaro;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;antergos;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;kali;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;parrot;
+{output;{exec;unsupported}}
+{return}}
+{if;{lower;{messagetext;{flag;_}}};includes;parrotos;
+{output;{exec;unsupported}}
+{return}}
+}}}}}}}
+{fallback}
+}}}}}}}

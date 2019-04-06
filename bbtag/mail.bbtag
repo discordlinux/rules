@@ -1,0 +1,6 @@
+{embed;{embedbuild;
+title:Info for {rolename;496063229156392970};
+color:{exec;blurple};
+description:<@&496063229156392970> role
+This role mentions members when there is a new post in <#220424374329671681>.
+Use `sudo usermod -a {rolename;496063229156392970}` to join this role.;}}

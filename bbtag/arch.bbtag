@@ -1,0 +1,23 @@
+{embed;{embedbuild;
+author.name:Arch Linux;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://archlinux.org;
+color:0256A7;
+description:**• Installed as a base system with no GUI, configured by the user upon which their own ideal environment is assembled by installing only what is required or desired for their unique purposes.
+• Strives to stay bleeding edge, and typically offers the latest stable versions of most software.
+• Uses Pacman package manager, which couples simple binary packages with an easy-to-use package build system.
+• The Arch base package set resides in the core repository. In addition, the official extra, community, and testing repositories provide several thousand high-quality, packages to meet your software demands.
+• Arch also offers an unsupported section in the Arch Linux User Repository (AUR), which contains over 9,000 build scripts, for compiling installable packages from source using the Arch Linux makepkg application.
+- The Arch Linux AUR has packages for just about everything a user would need.
+- AUR package quality is completely dependant on the package creator.  The AUR does not prevent extremely sloppy and/or not at all working packages from existing.
+- AUR security** ***could*** **be easily compromised due to the way orphaned packages work.  Users should always check PKGBUILDs for changes on updates.
+
+If you are not experienced with Linux, we highly recommend installing an Long Term Support release distro first.  See `sudo info recommended` for a list of recommended beginner distros.
+
+If you think you are ready for a rolling release distro, see `sudo info rolling`.
+
+[Arch Installation Guide](https://wiki.archlinux.org/index.php/Installation_Guide)
+[Installing packages from the AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)
+[makepkg](https://wiki.archlinux.org/index.php/Makepkg)
+[PKGBUILDs](https://wiki.archlinux.org/index.php/PKGBUILD)
+[AUR helpers](https://wiki.archlinux.org/index.php/AUR_helpers)**;}}

@@ -1,0 +1,30 @@
+{set;~zypmsg;{output;{embed;{embedbuild;
+color:{exec;distrocolors;opensuse};
+thumbnail.url:{exec;linuxhacker};
+description:Searching openSUSE Build Service for '{flag;_}'...;}}}}
+{set;~request;{exec;motyar;https://discordlinux:{get;@simon.OBS}@api.opensuse.org/search/published/binary/id?match=%40name%3D%27{if;{flag;_};==;;zyp;{uriencode;{flag;_}}}%27;-x /collection/binary[@project=%22openSUSE:Factory%22]}}
+{if;{jget;{get;~request};body};==;null;{set;~request;{exec;motyar;https://discordlinux:{get;@simon.OBS}@api.opensuse.org/search/published/binary/id?match=%40name%3D%27{if;{flag;_};==;;zyp;{uriencode;{flag;_}}}%27;-x /collection/binary[@repository=%22openSUSE_Factory%22]}}}
+{if;{jget;{get;~request};body};==;null;{set;~request;{exec;motyar;https://discordlinux:{get;@simon.OBS}@api.opensuse.org/search/published/binary/id?match=%40name%3D%27{if;{flag;_};==;;zyp;{uriencode;{flag;_}}}%27;-x /collection/binary[@repository=%22openSUSE_Tumbleweed%22]}}}
+{set;~pkg;{jget;{get;~request};body.0}}
+{if;{get;~pkg};startswith;`;{edit;{channelid};{get;~zypmsg};{embedbuild;
+author.name:openSUSE Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/367083761227005953.png?v=1;
+title:**'{flag;_}' not found.**;
+color:{exec;distrocolors;opensuse};
+description:**Matching Search Results**:
+{foreach;~rres;{slice;{filter;~link;{exec;getlinks2;https://software.opensuse.org/search?utf8=%E2%9C%93&q={uriencode;{flag;_}}};{bool;{get;~link};startswith;https://software.opensuse.org/package/}};0;20};{if;{get;~rres};endswith;.png;{//;do nothing};{if;{get;~last};!=;{jget;{split;{substring;{get;~rres};38};?};0};{jget;{split;{substring;{get;~rres};38};?};0}{newline}{set;~last;{jget;{split;{substring;{get;~rres};38};?};0}}}}}}};
+{set;~meta;{regexreplace;{jget;{exec;motyar;https://discordlinux:{get;@simon.OBS}@api.opensuse.org/published/{jget;{get;~pkg};project}/{jget;{get;~pkg};repository}/{jget;{get;~pkg};arch}/{jget;{get;~pkg};package}?view=ymp;-x /metapackage/group/software/item/description};body.0.text};/(\n)/gm;{space}}}
+{edit;{channelid};{get;~zypmsg};{embedbuild;
+author.name:openSUSE Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/367083761227005953.png?v=1;
+title:__**{jget;{get;~pkg};name}**__;
+color:{exec;distrocolors;opensuse};
+thumbnail.url:https://software.opensuse.org/package/thumbnail/{jget;{get;~pkg};name}.png;
+url:https://software.opensuse.org/package/{jget;{get;~pkg};name};
+description:**Name**: {jget;{get;~pkg};name}
+**Version**: {jget;{get;~pkg};version}
+**Project**: {jget;{get;~pkg};project}
+**Repository**: {jget;{get;~pkg};repository}{if;{get;~meta};startswith;`;;{newline}**Description**: {regexreplace;{htmldecode;{get;~meta}};/^\s*\n/gm;}{if;{jget;{get;~pkg};name};==;zyp;{newline}To install `zyp`, run the following commands **as root**:
+• `zypper ar -f obs://home:simonizor:zyp home_simonizor_zyp`
+• `zypper ref home_simonizor_zyp`
+• `zypper in zyp`}}}}}

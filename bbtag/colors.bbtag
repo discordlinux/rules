@@ -1,0 +1,7 @@
+{exec;libbash}
+{if;{args};==;;{throw;Missing hex color input}{return}}
+{set;~colors;[]}
+{foreach;~color;{split;{func.echo;{flag;_}};{space}};{push;~colors;{color;{get;~color};hex}}}
+{embed;{embedbuild;
+color:{get;~colors;0};
+image.url:https://www.colorcombos.com/combomaker_image.php?design=squares.png&colors={join;{get;~colors};,}&background_color={if;{flagset;b};{func.echo;{flag;b}};{if;{length;{get;~colors}};==;1;{get;~colors;0};FFFFFF}}&output_width={if;{length;{get;~colors}};==;1;400;3000};}}

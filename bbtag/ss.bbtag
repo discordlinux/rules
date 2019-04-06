@@ -1,0 +1,204 @@
+{exec;prefix.test}
+{//;Function to get user's role color}
+{function;rolecolor;
+{//;Initialize our Arrays of colors and roles the user is a part of:}
+{set;~eColor;[]}
+{set;~roles;{roles;{params;0}}}
+
+{//;Check each one of the user's roles from Highest priority to Lowest to make sure they aren't Discord's default color. The highest priority *Colored* roles will be added to our Color Array:}
+{foreach;~color;{get;~roles};
+  {if;{rolecolor;{get;~color}};!=;000000;
+    {push;{get;~eColor};{rolecolor;{get;~color}}}
+  }
+}
+
+{//;If the user's highest priority colored role is Discord's default color (our Color array is empty), then we use our own Custom Color:}
+{if;{length;{get;~eColor}};==;0;
+{//;Our default color:}
+  {set;~eColor;{exec;blurple}}
+}
+{get;~eColor;0}
+}
+{//;Function to embed screenshot and description}
+{function;embedss;
+{//;params 0 = userid}
+{embed;{embedbuild;
+author.name:{usernick;{params;0}} ({params;0});
+author.icon_url:{useravatar;{params;0}};
+color:{func.rolecolor;{params;0}};
+description:{fallback;Description not set}{get;@{params;0}.ss.description};
+image.url:{get;@{params;0}.ss};
+footer.text:User Rating: {math;-;{length;{get;_{params;0}.ss.upvotes}};{length;{get;_{params;0}.ss.downvotes}}};
+}}
+}
+{set;~EID;}
+{//;Get argument input}
+{switch;{lower;{jget;{split;{flag;_};{space}};0}};
+["","help","--help","-h"];{//;help ouput}
+{delete}
+{set;~HID;{output;{embed;{embedbuild;
+title:Help for {exec;commandname;ss};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;ss} <user|arg <text>>`
+Set your screenshot, display other user's screenshots, and vote on other user's screenshots.  https://imgbox.com/ is recommended for good quality, permanent image hosting.
+
+**Available arguments**:
+```
+username or usernick or userid or $RANDOM
+- Display the screenshot of the given user.
+- Ex: '{exec;commandname;ss} {username}'
+- Ex: '{exec;commandname;ss} $RANDOM' (view a random ss)
+
+set url or desc <ss url|description of ss>
+- Sets your screenshot or description.
+- Ex: '{exec;commandname;ss} set url https://ibin.co/4Hr196kl7c60.png'
+- Ex: '{exec;commandname;ss} set desc Distro: Some Linux'
+
+list or ls
+- Output a link listing all stored screenshots ordered by rank.
+
+upvote or up <username|usernick|userid>
+- Upvote a user's screenshot.
+- Ex '{exec;commandname;ss} upvote {usernick;{randuser}}'
+
+downvote or down <username|usernick|userid>
+- Downvote a user's screenshot.
+- Ex '{exec;commandname;ss} downvote {usernick;{randuser}}'
+
+unvote or un <username|usernick|userid>
+- Remove your vote from a user's screenshot.
+- Ex '{exec;commandname;ss} unvote {usernick;{randuser}}'
+```;}}}}
+{if;{channelid};==;173927645334077441;{sleep;60s}
+{void;{delete;{get;~HID}}}};
+["reset"];{//;reset the user's ss}
+{if;{userhasrole;457281742844330004};
+{if;{exec;usercheck;{userid;{args;1}}};==;false;
+{throw;User not found in {guildname}};
+{set;~user;{userid;{args;1}}}
+{set;@{get;~user}.ss;}
+{throw;Reset the ss for {usernick;{get;~user}}!}};
+{throw;Only sudoers can reset other user's screenshots, {usernick}!}};
+["set"];{//;set the user's ss or ss description}
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{return}}}
+{//;detect argument input}
+{switch;{lower;{args;1}};
+["ss","screenshot","url"];{//;add a screenshot to the user's storage slots}
+{delete}
+{//;check if arguments are valid}
+{if;{args;2};endswith;.png;;{set;~EID;{output;{throw;Invalid ss url.  Must end in '.png'.}}}}
+{if;{args;2};==;{get;@{userid}.ss};{set;~EID;{output;{throw;'{args;2}' is the same as your current ss URL!.}}}}
+{//;return if ~EID is set}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{//;reset ss votes}
+{set;_{userid}.ss.upvotes;[]}
+{set;_{userid}.ss.downvotes;[]}
+{set;@{userid}.ss;{args;2}}
+{throw;{usernick} changed their screenshot!}
+{func.embedss;{userid}};
+["desc","description"];{//;set the description of the latest screenshot}
+{//;check if arguments are valid}
+{if;{args;2};startswith;`;{set;~EID;{output;{throw;Missing description input.}}}}
+{//;return if ~EID is set}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{sleep;1s}
+{if;{messagetext;{messageid}};==;;{set;~EID;{output;{throw;Missing description input.}}}}
+{delete}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{set;@{userid}.ss.description;{args;2;n}}
+{usernick} set their description to:
+{repeat;`;3}
+{get;@{userid}.ss.description}
+{repeat;`;3};
+{set;~EID;{output;{throw;Invalid arguments.  Usage: '{exec;commandname;ss} set <url|desc> <ss url|description of ss>'}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}};
+["list","ls"];{//;list stored screenshots by rating}
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{return}}}
+{delete}
+{set;~msg.wait;{output;{throw;Generating list of screenshots sorted by rank...}}}
+{suppresslookup}
+{//;filter users to get users with stored screenshots}
+{set;!~userarray;{filter;~user;{guildmembers};{if;{get;@{get;~user}.ss};==;;false;true}}}
+{//;setup array with user ratings}
+{set;~ratedarray;[]}
+{foreach;~usr;~userarray;{push;~ratedarray;{math;-;{length;{get;_{get;~usr}.ss.upvotes}};{length;{get;_{get;~usr}.ss.downvotes}}}{space}\{get;~usr}}}
+{sort;~ratedarray;descending}
+{set;~i;0}
+{edit;{channelid};{get;~msg.wait};_delete;{embedbuild;
+title:Stored Screenshots Sorted by Rating;
+color:{exec;blurple};
+url:{exec;writeas;{foreach;~u;~ratedarray;### {increment;~i} - {usernick;{join;{slice;{split;{get;~u};\};1};}}
+#### Rating: {replace;{join;{slice;{split;{get;~u};\};0;1};};\;}
+#### Description:
+{get;@{join;{slice;{split;{get;~u};\};1};}.ss.description}{newline}
+<img src="{get;@{join;{slice;{split;{get;~u};\};1};}.ss}" width="720"/>{newline}{newline}}}.md;}};
+["upvote","up","<:upvote:466042779273920514>"];{//;upvote another user's screenshot}
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{return}}}
+{delete}
+{suppresslookup}
+{//;check if user exists}
+{if;{exec;usercheck;{userid;{args;1}}};==;false;{set;~EID;{output;{throw;'{args;1}' not found in {guildname}!}}};
+{set;~user;{userid;{args;1}}}}
+{if;{get;@{get;~user}.ss};==;;{set;~EID;{output;{throw;'{usernick;{get;~user}}' does not have a screenshot stored!}}}}
+{if;{get;~user};==;{userid};{set;~EID;{output;{throw;You cannot upvote your own screenshot!}}}}
+{if;{filter;~up;{get;_{get;~user}.ss.upvotes};{bool;{get;~up};==;{userid}}};==;["{userid}"];{set;~EID;{output;{throw;You have already upvoted '{usernick;{get;~user}}'!}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{set;_{get;~user}.ss.downvotes;{filter;~down;{get;_{get;~user}.ss.downvotes};{if;{get;~down};==;{userid};false;true}}}
+{push;_{get;~user}.ss.upvotes;{userid}}
+{commit}
+{usernick} upvoted {usernick;{get;~user}}!  {usernick;{get;~user}} now has a rating of {math;-;{length;{get;_{get;~user}.ss.upvotes}};{length;{get;_{get;~user}.ss.downvotes}}}!;
+["downvote","down","<:downvote:466042848454770730>"];{//;downvote another user's screenshot}
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{return}}}
+{delete}
+{suppresslookup}
+{if;{exec;usercheck;{userid;{args;1}}};==;false;{set;~EID;{output;{throw;'{args;1}' not found in {guildname}!}}};
+{set;~user;{userid;{args;1}}}}
+{if;{get;@{get;~user}.ss};==;;{set;~EID;{output;{throw;'{usernick;{get;~user}}' does not have a screenshot stored!}}}}
+{if;{get;~user};==;{userid};{set;~EID;{output;{throw;You cannot downvote your own screenshot!}}}}
+{if;{filter;~down;{get;_{get;~user}.ss.downvotes};{bool;{get;~down};==;{userid}}};==;["{userid}"];{set;~EID;{output;{throw;You have already downvoted '{usernick;{get;~user}}'!}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{set;_{get;~user}.ss.upvotes;{filter;~up;{get;_{get;~user}.ss.upvotes};{if;{get;~up};==;{userid};false;true}}}
+{push;_{get;~user}.ss.downvotes;{userid}}
+{commit}
+{usernick} downvoted {usernick;{get;~user}}!  {usernick;{get;~user}} now has a rating of {math;-;{length;{get;_{get;~user}.ss.upvotes}};{length;{get;_{get;~user}.ss.downvotes}}}!
+Please give some constructive criticism, {usermention}!;
+["unvote","un"];{//;remove rating from another user's screenshot}
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{return}}}
+{delete}
+{suppresslookup}
+{//;check if user exists}
+{if;{exec;usercheck;{userid;{args;1}}};==;false;{set;~EID;{output;{throw;'{args;1}' not found in {guildname}!}}};
+{set;~user;{userid;{args;1}}}}
+{if;{get;@{get;~user}.ss};==;;{set;~EID;{output;{throw;'{usernick;{get;~user}}' does not have a screenshot stored!}}}}
+{if;{get;~user};==;{userid};{set;~EID;{output;{throw;You cannot unvote your own screenshot!}}}}
+{if;{filter;~down;{get;_{get;~user}.ss.downvotes};{bool;{get;~down};==;{userid}}};==;["{userid}"];{set;_{get;~user}.ss.downvotes;{filter;~down;{get;_{get;~user}.ss.downvotes};{if;{get;~down};==;{userid};false;true}}};
+{if;{filter;~up;{get;_{get;~user}.ss.upvotes};{bool;{get;~up};==;{userid}}};==;["{userid}"];{set;_{get;~user}.ss.upvotes;{filter;~up;{get;_{get;~user}.ss.upvotes};{if;{get;~up};==;{userid};false;true}}};{set;~EID;{output;{throw;You have not voted on '{usernick;{get;~user}}'!}}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{commit}
+{usernick} removed their rating from {usernick;{get;~user}}!  {usernick;{get;~user}} now has a rating of {math;-;{length;{get;_{get;~user}.ss.upvotes}};{length;{get;_{get;~user}.ss.downvotes}}}!;
+{if;{guildid};==;96230004047740928;{if;{channelid};!=;173927645334077441;`{commandname}` only works in <#173927645334077441>, {usermention}!{delete}{return}}}
+{delete}
+{suppresslookup}
+{//;check if user exists}
+{if;{args;0};==;$RANDOM;
+{set;!~userarray;{filter;~usr;{guildmembers};{if;{get;@{get;~usr}.ss};==;;false;true}}}
+{func.embedss;{randchoose;{get;~userarray}}};
+{if;{exec;usercheck;{userid;{args;0}}};==;false;{set;~EID;{output;{throw;'{args;0}' not found in {guildname}!}}};
+{set;~user;{userid;{args;0}}}}
+{if;{get;@{get;~user}.ss};==;;{set;~EID;{output;{throw;'{usernick;{get;~user}}' does not have a screenshot stored!}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{commit}
+{if;{get;~user};==;{userid};
+{if;{get;@{get;~user}.ss};==;;{set;~EID;{output;{throw;'{usernick;{get;~user}}' does not have a screenshot stored!}}}}
+{if;{get;~EID};!=;;{sleep;10s}{void;{delete;{get;~EID}}}{return}}
+{embed;{embedbuild;
+title:Link to {usernick}'s screenshot and description;
+url:{dump;### {usernick}
+#### Rating: {math;-;{length;{get;_{get;~user}.ss.upvotes}};{length;{get;_{get;~user}.ss.downvotes}}}
+#### Description:
+{get;@{userid}.ss.description}{newline}
+<img src="{get;@{userid}.ss}" width="600"/>};
+color:{func.rolecolor;{userid}};}};
+{func.embedss;{get;~user}}}
+}
+}

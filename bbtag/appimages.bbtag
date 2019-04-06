@@ -1,0 +1,12 @@
+{embed;{embedbuild;title:Help for AppImages;
+thumbnail.url:https://u.teknik.io/rEZBa.gif;
+color:yellow;
+description:**-** Portable, self-contained, universal package type for Linux.
+**-** To use an AppImage, just download it, make it executable (either through your file manager or using `chmod +x`), and run it.  
+  **\*** No install required.  
+  **\*** No package manager required.
+**-** Include all dependencies needed to run the target program that would not be found on the average Linux system.
+**-** Not sandboxed, but are completely self-contained.
+**-** Some AppImages can update themselves (but won't do so without telling the user).
+**-** [appimagehub](https://appimage.github.io/apps/) is the official listing of available AppImages.
+**-** Although no package manager is required, [spm](https://github.com/simoniz0r/spm) can be used to install, update, and manage a variety of AppImages.}}

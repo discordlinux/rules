@@ -1,0 +1,1 @@
+{if;{args};==;;{throw;Missing expression to evaluate}{return}}{exec;rawhtml;http://api.mathjs.org/v4/?expr={uriencode;{uriencode;{args}}}&precision=10}

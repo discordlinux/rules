@@ -1,0 +1,48 @@
+{set;~sol1;{embedbuild;
+  title:__**Solus**__;
+  thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/solus.png;
+  color:3D6BA2;
+  description:**• Not a recommended Linux distro due to being a "rolling release" (not actually rolling{semi} only updates on Friday) that presents itself as being usable by everyone. Rolling distros should only be used by people who have a good understanding of Linux. 
+• No dkms. Cannot automatically rebuild modules for drivers not in the repos.
+• Almost no conflicting packages. For example, wine-staging cannot be in the repos.
+
+If you are not experienced with Linux, we highly recommend installing an Long Term Support release distro first. See `sudo info recommended` for a list of recommended beginner distros.
+
+If you think you are ready for a rolling release distro, see `sudo info rolling`.**;
+footer.text:Page 1/2;}}
+
+{set;~sol2;{embedbuild;
+  title:__**Solus**__;
+  thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/solus.png;
+  color:3D6BA2;
+  description:**• Ignores commonly used standards. For example, revision numbers stay with the release of the distro and not the version of the package.
+• Has a version number as a rolling distro. Version 3.996?? wut??
+• No recommended deps. Any package that is kind of needed is required.
+• eopkg is generally not as good as other package managers.
+• Patreon for paid beta releases. Instead of offering open beta testing, Patreon has been used in the past for beta releases.
+
+If you are not experienced with Linux, we highly recommend installing an Long Term Support release distro first. See `sudo info recommended` for a list of recommended beginner distros.
+
+If you think you are ready for a rolling release distro, see `sudo info rolling`.**;
+footer.text:Page 2/2;}}
+
+{set;~p;1}
+{set;~maxp;2}
+{set;~msgid;{output;{embed;{get;~sol1}}}}
+{set;~used;0}
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;60}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{edit;{get;~msgid};{zws};{get;~sol1}};
+➡;{edit;{get;~msgid};{zws};{get;~sol2}};
+{edit;{get;~msgid};{zws};{get;~sol2}}
+};
+10
+}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}

@@ -1,0 +1,20 @@
+{embed;{embedbuild;
+title:A comparison of Linux app bundlers;
+color:54b7e5;
+description:**There are several different app bundlers available for Linux, such as Snaps, Flatpaks, and AppImages.**
+**Each of these creates an executable that includes its own libraries.**
+
+**__Snaps__**
+**• Sandbox applications.**
+**• Update automatically without user interaction, which can unfortunately cause breakage with no clear indicators.**
+  
+**__Flatpaks__**
+**• Don't follow system themes, you must have a flatpak installed for the theme.**
+**• The flatpak package manager has also been known to have issues with dependencies.**
+  
+**__AppImages__**
+**• Not sandboxed, but are completely self-contained.**
+**• Each AppImage can update itself (but won't do so without telling the user).**
+**• This means that AppImages don't require a package manager or additional software, making them completely portable.**
+
+**Because of these comparative features, if you need to use a bundled application we recommend using AppImages if possible.**}}

@@ -1,0 +1,26 @@
+{if;{flagset;r};{set;~entry;{math;-;{flag;r};1}};{set;~entry;0}}
+{if;{flag;_};==;;Missing search term!{return}}
+{set;~request;{jget;{request;http://api.urbandictionary.com/v0/define?term={uriencode;{flag;_}}};body.list.{get;~entry}}}
+{if;{get;~request};==;;No results found for '{flag;_}'!{return}}
+{embed;{embedbuild;
+title:__**Urban Dictionary definition for '{jget;{get;~request};word}'**__;
+url:{jget;{get;~request};permalink};
+color:1D2439;
+description:{regexreplace;{jget;{get;~request};definition};/[\[\]]/g;};
+fields.name:__**Example**__:;
+fields.value:{regexreplace;{jget;{get;~request};example};/[\[\]]/g;};
+fields.inline:false;
+fields.name:✍;
+fields.value:{jget;{get;~request};author};
+fields.inline:true;
+fields.name:👍;
+fields.value:{jget;{get;~request};thumbs_up};
+fields.inline:true;
+fields.name:👎;
+fields.value:{jget;{get;~request};thumbs_down};
+fields.inline:true;
+fields.name:📅;
+fields.value:{jget;{get;~request};written_on};
+fields.inline:true;
+footer.text:Use '{prefix}{if;{logic;!;{iscc}};t{space}}{if;{commandname};==;se;{space}{commandname}{space}urban;{commandname}} {flag;_} -r <number>' to see more results.;
+}}

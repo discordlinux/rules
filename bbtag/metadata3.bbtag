@@ -1,0 +1,5 @@
+{set;~raw;{exec;motyar;{flag;_};-x /meta}}
+{set;~elements;[]}{set;~values;[]}
+{for;~i;0;<;{length;{jget;{get;~raw};body}};{if;{jget;{get;~raw};body.{get;~i}.http-equiv};!=;;{push;~elements;{jget;{get;~raw};body.{get;~i}.http-equiv}}{push;~values;{jget;{get;~raw};body.{get;~i}.content}}}{if;{jget;{get;~raw};body.{get;~i}.name};!=;;{push;~elements;{jget;{get;~raw};body.{get;~i}.name}}{push;~values;{jget;{get;~raw};body.{get;~i}.content}}}{if;{jget;{get;~raw};body.{get;~i}.property};!=;;{push;~elements;{jget;{get;~raw};body.{get;~i}.property}}{push;~values;{jget;{get;~raw};body.{get;~i}.content}}}{if;{jget;{get;~raw};body.{get;~i}.itemprop};!=;;{push;~elements;{jget;{get;~raw};body.{get;~i}.itemprop}}{push;~values;{jget;{get;~raw};body.{get;~i}.content}}}}
+{set;~json;{jset;;meta;;create}}
+{for;~I;0;<;{length;{get;~elements}};{jset;~json;meta.{get;~elements;{get;~I}};{get;~values;{get;~I}};create}}{jsonstringify;{get;~json}}

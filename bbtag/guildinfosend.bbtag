@@ -1,0 +1,19 @@
+{embedbuild;
+color:7289DA;
+title:__**{guildname} Information**__;
+fields.name:Invite Link;
+fields.value:{if;{get;_guild.invite.link};==;;Set guild invite link with `{prefix} {if;{iscc};cc;t} test {lb}set{semi}_guild.invite.link{semi}http://discord.gg/yourguildhere{rb}`;{get;_guild.invite.link}};
+fields.name:Owner;
+fields.value:{usernick;{guildownerid}};
+fields.inline:true;
+fields.name:Creation Date;
+fields.value:{guildcreatedat;YYYY/MM/DD HH:mm:ss};
+fields.inline:true;
+fields.name:Members;
+fields.value:{guildsize};
+fields.inline:true;
+fields.name:Total Roles;
+fields.value:{length;{roles}};
+fields.inline:true;
+thumbnail.url:{guildicon};
+}

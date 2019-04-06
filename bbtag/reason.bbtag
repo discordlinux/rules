@@ -1,0 +1,21 @@
+{//;Detect arguments and set variables}
+{if;{length;{args}};<=;1;{throw;Not enough arguments}{return}}
+{switch;{args;0};
+["latest"];{set;~log;{get;_modlog.number}};
+{set;~log;{args;0}}}
+{if;{get;_modlog.{get;~log}.reason};==;;modlog `{get;~log}` not found!{return}}
+{set;_modlog.{get;~log}.reason;{args;1;n}}
+{set;_modlog.{get;~log}.date;{time}}
+{set;_modlog.{get;~log}.modid;{userid}}
+{edit;{get;_modlog.channel};{get;_modlog.{get;~log}.messageid};_delete;{embedbuild;
+author.icon_url:{useravatar;{get;_modlog.{get;~log}.userid}};
+author.name:{username;{get;_modlog.{get;~log}.userid}}#{userdiscrim;{get;_modlog.{get;~log}.userid}} ({get;_modlog.{get;~log}.userid});
+color:{get;_modlog.{get;~log}.color};
+timestamp:{get;_modlog.{get;~log}.date};
+title:Case {get;~log};
+description:**Type**: {get;_modlog.{get;~log}.action}
+**Reason**: {get;_modlog.{get;~log}.reason}{if;{get;_modlog.{get;~log}.field3};!=;;{newline}{get;_modlog.{get;~log}.field3}};
+footer.icon_url:{useravatar;{get;_modlog.{get;~log}.modid}};
+footer.text:{username;{get;_modlog.{get;~log}.modid}};}}
+modlog `{get;~log}` edited with text:
+{get;_modlog.{get;~log}.reason}

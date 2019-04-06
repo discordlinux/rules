@@ -1,0 +1,12 @@
+{embed;{embedbuild;
+author.name:Windows;
+author.icon_url:http://cdn.shopify.com/s/files/1/1694/1769/products/windows_10_logo_grande.png?v=1499972776;
+color:02AEF0;
+description:**• Tracking and embedded advertisements that are hard/impossible to disable and turn themselves back on after an update.
+• Preloaded with sponsored apps and games.
+• Costs money to download and use beyond the trial period.
+- Enterprise and LTSB editions cannot be used for more than one hour at a time after trial expires
+• Customization of user experience is extremely limited.
+• No real package manager out of the box.
+
+See `sudo info recommended` for a list of recommended Linux distros.**;}}

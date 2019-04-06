@@ -1,0 +1,14 @@
+{embed;{embedbuild;
+color:{get;*blurple};
+title:Applications to Write ISOs to USBs;
+fields.name:ROSA Image Writer;
+fields.value:[Get ROSA Image Writer](http://wiki.rosalab.ru/en/index.php/ROSA_ImageWriter#Where_can_I_take_it.3F)
+Easy to use with no install.  Just extract it, make it executable, and run it.  Click 3 buttons and done.  Recommended for use on Linux and macOS only as it sometimes has issues writing from Windows.;
+fields.name:Etcher;
+fields.value:[Get Etcher](https://github.com/balena-io/etcher/releases)
+Easy to use with no install necessary.  Click 3 buttons and done.  Works on Linux, Windows, and macOS.;
+fields.name:Rufus;
+fields.value:[Get Rufus](http://rufus.akeo.ie/)
+Slightly confusing UI, but reliable.  Only works on Windows.  Can also write Windows ISOs.;
+fields.name:{zws};
+fields.value:__Note__: Unetbootin is not recommended.  Unetbootin modifies the bootloader of the ISO as it is written, replacing it with a CD bootloader which usually doesn't work correctly with modern ISOs.;}}

@@ -1,0 +1,68 @@
+{exec;libbash}
+{if;{get;_bash.aliases};==;;{set;_bash.aliases;["!@#$%"]}}
+{function;bashhelp;{embed;{embedbuild;
+title:Help for bash;
+color:yellow;
+description:__**Usage**__: `bash{if;{commandname};startswith;{lb};{space}-c} <arg> <text>`
+A simple bash shell-like command that allows for exporting and fetching variables in bash style syntax.  Any arguments not listed below will attempt to run an existing alias.  If an alias does not exist and only one argument is passed, a cht.sh search will be ran on the argument.  If an alias does not exist and more than one argument is passed, the arguments will be executed using the Rextester API.
+
+**Available arguments**
+{repeat;`;3}bash
+alias
+- Set an alias to execute another tag or custom command.
+- USER MUST BE STAFF TO SET ALIASES!
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} alias myalias=exec sometag'
+- Output: No output unless error setting alias
+
+echo
+- Return the input text and replace any bash style variables with existing values.
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} echo some text, "$VAR"'
+- Output: 'some text, some thing'
+
+exec
+- Execute a command using the Rextester API.
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} exec echo "bob" | sed 's/b/d/g''
+- Output: 'dod'
+
+export
+- Set the value of a variable using bash style syntax.
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} export VAR="some thing"'
+- Output: No output unless error exporting variable
+
+env
+- View all set variables.
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} env'
+- Output: 'list of set variables here'
+
+type
+- Interpret how input would be used as a command name.
+- Ex: 'bash{if;{commandname};startswith;{lb};{space}-c} type bash'
+- Output: 'bash is /bin/bash'
+{repeat;`;3}{if;{length;{get;_bash.aliases}};>;1;{newline}
+**Aliases**
+{repeat;`;3}
+{join;{sort;{slice;{get;_bash.aliases};1}};,{space}}
+{repeat;`;3}};}}}
+{switch;{lower;{args;0}};["export"];{output;{func.export;{args;1;n}}};
+["unset"];{output;{func.export;{jget;{split;{args;1;n};=};0}=}};
+["echo"];{output;{if;{args;1};includes;$;{exec;rextester-bash;echo "{func.echo;{args;1;n}}"};{exec;rextester-bash;echo {args;1;n}}}};
+["exec","test"];{//;{switch;{guildid};["204061452707954688","96230004047740928"];
+{output;{func.test;{args;1;n}}};
+{exec;cht.sh;{args;0}}}}{output;{exec;rextester-bash;{args;1;n}}};
+["alias"];{output;{func.alias;{args;1;n}}}
+{if;{get;_bash.aliases};includes;{jget;{split;{args;1};=};0};{//;do nothing};
+{push;_bash.aliases;{jget;{split;{args;1};=};0}}};
+["unalias"];{output;{func.alias;{jget;{split;{args;1;n};=};0}=}}
+{set;_bash.aliases;{filter;~a;{get;_bash.aliases};
+{if;{get;~a};==;{jget;{split;{args;1};=};0};false;true}}};
+["type"];{output;{if;{func.type;{args;1}};!=;`{args;1} not found`;{func.type;{args;1}};{exec;rextester-bash;{args}}}};
+["$","env"];{output;{if;{length;{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}};<;2000;{repeat;`;3}bash{newline}{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}{repeat;`;3};{exec;writeas;{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}}.txt}};
+["help","--help","-h","helpmenow"];{output;{func.bashhelp}};
+{if;{commandname};==;help;{func.bashhelp};
+{if;{args};==;;{output;{func.bashhelp}};
+{if;{func.type;{args;0}};!=;`{args;0} not found`;{output;{func.exec;{args;0};{if;{length;{argsarray}};>=;2;{args;1;n}}}};
+{//;{switch;{guildid};["204061452707954688","96230004047740928"];
+{if;{length;{argsarray}};<=;1;{exec;cht.sh;{args;0}};{output;{func.test;{args}}}};
+{exec;cht.sh;{args;0}}}}{if;{length;{argsarray}};<=;1;{exec;cht.sh;{args;0}};{output;{exec;rextester-bash;{args}}}}}}}}
+{//;{switch;{lower;{args;0}};["--help","helpmenow"];{output;{func.bashhelp}};
+{exec;cht.sh;{args;0}}}}

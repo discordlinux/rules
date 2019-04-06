@@ -1,0 +1,23 @@
+{if;{flag;_};==;;
+You have to tell me who to unmute!
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{set;~user;{userid;{flag;_}}}
+{if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
+{//;Warning the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{set;~unmute;{roleremove;368103203340025866;{get;~user}}}
+{if;{get;~unmute};startswith;`;{get;~unmute}
+{embed;{embedbuild;
+title:Unmute Failed;
+color:Maroon;
+description:Failed to unmute `{get;~user}`!;}}
+{return}}
+{embed;{embedbuild;
+title:User Unmuted;
+color:SeaGreen;
+description:{username;{get;~user}} has been unmuted!;}}
+{execcc;modlog;Unmute;{get;~user};{userid};{get;~reason};seagreen}

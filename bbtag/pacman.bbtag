@@ -1,0 +1,106 @@
+{function;aursearch;
+{if;{flagset;s};
+{set;~result;{request;https://aur.archlinux.org/rpc/?v=5&type=search&arg={get;~package}}};
+{set;~result;{request;https://aur.archlinux.org/rpc/?v=5&type=info&arg={get;~package}}}}
+{set;~name;{jget;{get;~result};body.results.0.Name}}
+{if;{get;~name};startswith;`;
+{edit;{channelid};{get;~pacmsg};_delete;{embedbuild;
+author.name:Arch Linux Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://archlinux.org/packages/search;
+color:1793d1;
+description:No search results for '{uridecode;{get;~package}}'.;}};
+{if;{flagset;s};
+{set;~results;{request;https://aur.archlinux.org/rpc/?v=5&type=info&arg={get;~name}}};
+{set;~results;{get;~result}}}
+{set;~version;{jget;{get;~results};body.results.0.Version}}
+{set;~desc;{jget;{get;~results};body.results.0.Description}}
+{set;~url;{jget;{get;~results};body.results.0.URL}}
+{set;~votes;{jget;{get;~results};body.results.0.NumVotes}}
+{set;~pop;{jget;{get;~results};body.results.0.Popularity}}
+{set;~maintainer;{jget;{get;~results};body.results.0.Maintainer}}
+{set;~modified;{jget;{get;~results};body.results.0.LastModified}}
+{set;~deps;{jget;{get;~results};body.results.0.Depends}}
+{set;~odeps;{jget;{get;~results};body.results.0.OptDepends}}
+{set;~provides;{jget;{get;~results};body.results.0.Provides}}
+{set;~license;{jget;{get;~results};body.results.0.License}}
+{set;~keywords;{jget;{get;~results};body.results.0.Keywords}}
+{set;~keywordss;{if;{isarray;{get;~keywords}};{join;{jget;{get;~keywords};v};,{space}}}}
+{set;~licenses;{if;{isarray;{get;~license}};{join;{jget;{get;~license};v};,{space}}}}
+{set;~providess;{if;{isarray;{get;~provides}};{join;{jget;{get;~provides};v};,{space}}}}
+{set;~depss;{if;{isarray;{get;~deps}};{join;{jget;{get;~deps};v};,{space}}}}
+{set;~odepss;{if;{isarray;{get;~odeps}};{join;{jget;{get;~odeps};v};,{space}}}}
+{edit;{channelid};{get;~pacmsg};_delete;{embedbuild;
+author.name:Arch User Repository Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://aur.archlinux.org;
+color:1793d1;
+title:{get;~name};
+color:1793d1;
+url:https://aur.archlinux.org/packages/{get;~name};
+description:**Name**: {get;~name}
+**Version**: {get;~version}
+**Repo**: AUR
+**Description**: {get;~desc}
+**Upstream URL**: {get;~url}{if;{length;{get;~keywordss}};!=;0;{newline}**Keywords**: {get;~keywordss}}{if;{length;{get;~licenses}};!=;0;{newline}**License**: {get;~licenses}}{if;{length;{get;~providess}};!=;0;{newline}**Provides**: {get;~providess}}
+**Maintainer**: {get;~maintainer}
+**Votes**: {get;~votes}
+**Popularity**: {get;~pop}
+**Last Modified**: {time;YYYY/MM/DD HH:mm:ss;{get;~modified};X}
+**Depends**: {get;~depss}{if;{length;{get;~odepss}};!=;0;{newline}**OptDepends**: {get;~odepss}};}}}}
+{function;pachelp;{embed;{embedbuild;
+author.name:Arch Linux Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://archlinux.org/packages/search;
+title:Help for Arch Linux Package Search;
+color:1793d1;
+description:**Usage**: `pacman [search package]`
+Search the Arch Linux repos for a package and return info about it.;}}}
+{if;{argslength};==;0;{func.pachelp};
+{if;{flag;s};!=;;{set;!~package;{uriencode;{flag;s}}};
+{if;{flag;i};!=;;{set;!~package;{uriencode;{flag;i}}};
+{set;!~package;{uriencode;{flag;_}}}}}
+{if;{get;~package};==;;{func.pachelp};
+{set;!~pacmsg;{output;{embed;{embedbuild;
+author.name:Arch Linux Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://archlinux.org/packages/search;
+color:1793d1;
+description:Searching Arch Linux packages for `{uridecode;{get;~package}}`...;}}}}
+{if;{flagset;i};{set;~results;{request;https://archlinux.org/packages/search/json/?name={get;~package}}};
+{set;~results;{request;https://archlinux.org/packages/search/json/?q={get;~package}&repo=Community&repo=Core&repo=Extra&repo=Multilib}}}
+{set;~name;{jget;{get;~results};body.results.0.pkgname}}
+{if;{get;~name};startswith;`;
+{func.aursearch};
+{set;~version;{jget;{get;~results};body.results.0.pkgver}}
+{set;~update;{jget;{get;~results};body.results.0.last_update}}
+{set;~desc;{jget;{get;~results};body.results.0.pkgdesc}}
+{set;~repo;{jget;{get;~results};body.results.0.repo}}
+{set;~lics;{jget;{get;~results};body.results.0.licenses}}
+{set;~licenses;{if;{isarray;{get;~lics}};{join;{jget;{get;~lics};v};,{space}}}}
+{set;~url;{jget;{get;~results};body.results.0.url}}
+{set;~deps;{jget;{get;~results};body.results.0.depends}}
+{set;~depends;{if;{isarray;{get;~deps}};{join;{jget;{get;~deps};v};,{space}}}}
+{set;~odeps;{jget;{get;~results};body.results.0.optdepends}}
+{set;~optdepends;{if;{isarray;{get;~odeps}};{join;{jget;{get;~odeps};v};,{space}}}}
+{set;~cons;{jget;{get;~results};body.results.0.conflicts}}
+{set;~conflicts;{if;{isarray;{get;~cons}};{join;{jget;{get;~cons};v};,{space}}}}
+{set;~reps;{jget;{get;~results};body.results.0.replaces}}
+{set;~replaces;{if;{isarray;{get;~reps}};{join;{jget;{get;~reps};v};,{space}}}}
+{set;~grps;{jget;{get;~results};body.results.0.groups}}
+{set;~groups;{if;{isarray;{get;~grps}};{join;{jget;{get;~grps};v};,{space}}}}
+{set;~packager;{jget;{get;~results};body.results.0.packager}}
+{edit;{channelid};{get;~pacmsg};_delete;{embedbuild;
+author.name:Arch Linux Package Search;
+author.icon_url:https://cdn.discordapp.com/emojis/230467805240098816.png?v=1;
+author.url:https://archlinux.org/packages/search;
+color:1793d1;
+title:{get;~name};
+url:{get;~url};
+color:1793d1;
+description:**Name**: {get;~name}
+**Version**: {get;~version}
+**Repo**: {get;~repo}
+**Description**: {get;~desc}{if;{length;{get;~licenses}};!=;0;{newline}**Licenses**: {get;~licenses}}
+**Packager**: {get;~packager}
+**Last Update**: {get;~update}{if;{length;{get;~groups}};!=;0;{newline}**Groups**: {get;~groups}}{if;{length;{get;~depends}};!=;0;{newline}**Depends**: {get;~depends}}{if;{length;{get;~optdepends}};!=;0;{newline}**OptDepends**: {get;~optdepends}}{if;{length;{get;~conflicts}};!=;0;{newline}**Conflicts**: {get;~conflicts}}{if;{length;{get;~replaces}};!=;0;{newline}**Replaces**: {get;~replaces}};}}}}}

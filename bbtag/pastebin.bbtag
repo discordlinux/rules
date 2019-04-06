@@ -1,0 +1,23 @@
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;pastebin};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;pastebin} <text>`
+Uploads the input text to [MarkdownShare.com](https://markdownshare.com).  {if;{guildid};==;96230004047740928;See `sudo help pastes` if your text is longer than 2000 characters.}}}}
+{if;{flagset;#};{func.help};
+{if;{args};==;;{func.help};
+{if;{lower;{args}};==;help;{func.help};
+{delete}
+{fallback;{exec;fakeimg;Upload Failed.}}
+{set;!~url;{exec;writeas;{args}}.txt}
+{embed;{embedbuild;
+title:**Link to paste**;
+url:{get;~url};
+color:{if;{exec;usrclr;{userid}};!=;;{exec;usrclr;{userid}};{exec;blurple}};
+author.name:{usernick};
+author.icon_url:{useravatar};
+footer.text:{get;~url};
+timestamp:{exec;timeconv};
+description:*First 800 characters of paste contents*:
+{repeat;`;3}
+{regexreplace;{substring;{args};0;800};/(`)/g;}
+{repeat;`;3};}}}}}

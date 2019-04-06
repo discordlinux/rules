@@ -1,0 +1,192 @@
+{//;make sure command only works if prefix is used with space}
+{exec;prefix.test}
+{//;only works in #bot-spam for anyone other than sudoers}
+{if;{userhasrole;457281742844330004};{//;do nothing};
+{if;{channelid};!=;174317464337776640;
+{return}}}
+{//;function to output help}
+{function;help;{embed;{embedbuild;
+title:Help for usermod;
+color:yellow;
+description:__**Usage**__: `usermod <flag> <role|role1,role2>{if;{userhasrole;457281742844330004};{space}[-u user]}`
+Add or remove roles from {if;{userhasrole;457281742844330004};the specified user;the user}.{if;{userhasrole;428637054922915850};{space}Can also be used to set your color to let everyone know what your favorite distro is.}
+
+**Available flags**
+{repeat;`;3}
+-a
+Add role(s) to {if;{userhasrole;457281742844330004};the specified user;the user}.
+Multiple roles must be separated by commas.
+Ex: 'usermod -a Ubuntu'
+Ex: 'usermod -a Ubuntu,Arch,openSUSE,Other'{if;{userhasrole;457281742844330004};{newline}Ex: 'usermod -a users -u {randuser}'}
+
+-r
+Remove role(s) from {if;{userhasrole;457281742844330004};the specified user;the user}.
+Multiple roles must be separated by commas.
+Ex: 'usermod -r Ubuntu'
+Ex: 'usermod -r Ubuntu,Arch,openSUSE,Other'{if;{userhasrole;457281742844330004};{newline}Ex: 'usermod -r users -u {randuser}'}{if;{userhasrole;428637054922915850};{newline}{newline}-c
+Set {if;{userhasrole;457281742844330004};the specified user;the user}'s colored role.
+Only one colored role may be joined at a time.
+Ex: 'usermod -c Ubuntu'{if;{userhasrole;457281742844330004};{newline}Ex: 'usermod -c Ubuntu -u {randuser}'}}
+{repeat;`;3}
+**Available roles**
+{repeat;`;3}
+Gentoo, Fedora, Solus*, Arch, Antergos*, Slackware, Void, Mint*, Manjaro*, openSUSE, Ubuntu, Debian, Red Hat, BSD, Other, elementaryOS, macOS, Windows, mail, news
+{repeat;`;3}
+**\*** = Unsupported distribution (see `sudo info <distro>` for more information)}}}
+{//;function to set the user}
+{function;setuser;{if;{userhasrole;457281742844330004};
+{if;{params;0};startswith;`;{set;~user;{userid}};
+{if;{exec;usercheck;{userid;{params;0}}};==;false;
+{throw;User not found in {guildname}}{return};
+{set;~user;{userid;{params;0}}}}};
+{set;~user;{userid}}}}
+{//;function to get roleid}
+{function;roleid;{jget;{filter;~r;{roles};{bool;{lower;{rolename;{get;~r}}};==;{lower;{params;0}}}};{params;1}}}
+{//;function to add roles}
+{function;addrole;{if;{userhasrole;{params;0};{get;~user}};{//;do nothing};
+{if;{get;~userroles};==;;
+{set;~userroles;[]}}
+{void;{roleadd;{params;0};{get;~user}}}
+{push;~userroles;{rolename;{params;0}}}}}
+{//;function to remove roles}
+{function;rmrole;{if;{userhasrole;{params;0};{get;~user}};
+{if;{get;~userroles};==;;
+{set;~userroles;[]}}
+{void;{roleremove;{params;0};{get;~user}}}
+{push;~userroles;{rolename;{params;0}}}}}
+{//;function to give users role after 48h}
+{function;userstimer;{set;!_{get;~user}failedusers;false}
+{set;!~{get;~user}.warns;{warnings;{get;~user}}}
+{set;!_{get;~user}startedusers;true}
+{timer;
+{if;{exec;usercheck;{get;~user}};==;true;
+{if;{warnings;{get;~user}};<=;{get;~{get;~user}.warns};
+{set;!_{get;~user}failedusers;false}
+{set;!_{get;~user}startedusers;false}
+{void;{roleadd;428637054922915850;{get;~user}}}
+{void;{send;174317464337776640;{usermention;{get;~user}};{embedbuild;
+title:Congratulations, {usernick;{get;~user}}!;
+color:{rolecolor;428637054922915850};
+description:You have earned the <@&428637054922915850> role, {usermention;{get;~user}}!  You can now setup your profile using `sudo profile` in <#174317464337776640>, let everyone know your favorite distro with `sudo usermod -c <distro>` in <#174317464337776640>, set your screenshot using `sudo ss set url <png screenshot url>` in <#173927645334077441>, and see other commands open to the <@&428637054922915850> role by using `sudo help` in <#174317464337776640>.  Remember to keep most command use in <#174317464337776640>, thanks!}}};
+{set;!_{get;~user}failedusers;true}
+{set;!_{get;~user}startedusers;false}
+{void;{send;174317464337776640;{usermention;{get;~user}};{embedbuild;
+title:Sorry, {usernick;{get;~user}}!;
+color:red;
+description:You have gotten 1 or more warnings and have failed to earn the <@&428637054922915850> role, {usermention;{get;~user}}!  Please use `sudo usermod -a users` to try again!}}}}};48h}}
+
+{//;detect arguments}
+{if;{args};==;;{func.help};
+{if;{flagset;h};{func.help}{return}}
+{//;add roles}
+{if;{flagset;a};
+{lock;write;addrolesstuff;
+{func.setuser;{flag;u}}
+{foreach;~role;{split;{regexreplace;{regexreplace;{flag;a};/\s/g;};/(redhat)/gi;red hat};,};
+{switch;{func.roleid;{get;~role};1};
+{slice;{roles};28;46};
+{set;~valid;true}
+{if;{userhasrole;{func.roleid;{get;~role};0}};{//;do nothing};
+{func.addrole;{func.roleid;{get;~role};1}}}}
+{switch;{func.roleid;{get;~role};0};
+["503051931736866816","496063229156392970"];
+{set;~valid;true}
+{func.addrole;{func.roleid;{get;~role};0}};
+["428637054922915850"];
+{set;~valid;true}
+{if;{userhasrole;428637054922915850;{get;~user}};{//;do nothing};
+{if;{get;_{get;~user}failedusers};==;false;
+{set;~fields;[]}
+{push;~fields;title:Timer already started;color:red;description:{usermention;{get;~user}} already has a timer set for the <@&428637054922915850> role.};
+{func.userstimer;{get;~user}}
+{usermention;{get;~user}}
+{set;~fields;[]}
+{push;~fields;title:48 hour timer started;color:{exec;blurple};description:You will receive the <@&428637054922915850> role in 48 hours if you have not gotten any warnings in that time, {usermention;{get;~user}}.}}}}}
+{sleep;1s}
+{if;{get;~fields};==;;
+{if;{get;~userroles};==;;
+{set;~fields;[]}
+{push;~fields;title:No valid roles found;color:red;description:{if;{get;~valid};==;true;{usermention;{get;~user}} already has the specified role(s).;See `sudo help usermod` for a list of available roles.}};
+{set;~fields;[]}
+{push;~fields;title:Added role(s);color:{if;{exec;usercolor;{get;~user}};==;;{exec;blurple};{exec;usercolor;{get;~user}}};description:Added the following role(s) to {usermention;{get;~user}}:
+{repeat;`;3}
+{join;{get;~userroles};,{space}}
+{repeat;`;3};{if;{userhasrole;["475453746143297536","475454090923606036","475454687982649348","475454865779326987","418827761042325504","335197232187834369","176607399103299584","176606910282203136"];{get;~user}};footer.text:{usernick} has one or more unsupported distribution roles.  See 'sudo info <distro>' for more information.}}}}
+{embed;{apply;embedbuild;{get;~fields}}}
+{return}}}
+{//;remove roles}
+{if;{flagset;r};
+{lock;write;rmrolestuffs;
+{func.setuser;{flag;u}}
+{foreach;~role;{split;{regexreplace;{regexreplace;{flag;r};/\s/g;};/(redhat)/gi;red hat};,};
+{//;non colored distro roles}
+{switch;{func.roleid;{get;~role};1};
+{slice;{roles};28;46};{set;~valid;true}
+{func.rmrole;{func.roleid;{get;~role};1}}}
+{//;colored and other roles}
+{switch;{func.roleid;{get;~role};0};
+{slice;{roles};9;27};{//;colored roles}
+{set;~valid;true}
+{func.rmrole;{func.roleid;{get;~role};0}};
+["503051931736866816","496063229156392970"];{//;news and mail}
+{set;~valid;true}
+{func.rmrole;{func.roleid;{get;~role};0}};
+["428637054922915850"];{//;users role, only sudoers can use}
+{if;{userhasrole;457281742844330004};
+{set;~valid;true}
+{if;{userhasrole;428637054922915850;{get;~user}};
+{void;{roleremove;428637054922915850;{get;~user}}}
+{foreach;~crole;{slice;{roles};9;27};{void;{roleremove;{get;~crole};{get;~user}}}}
+{func.userstimer;{get;~user}}
+{usermention;{get;~user}}
+{set;~fields;[]}
+{push;~fields;title:{rolename;428637054922915850} role removed;color:red;description:Your <@&428637054922915850> role has been removed.  You will receive the <@&428637054922915850> role in 48 hours if you have not gotten any warnings in that time, {usermention;{get;~user}}.}}}}}
+{if;{get;~fields};==;;
+{if;{get;~userroles};==;;
+{set;~fields;[]}
+{push;~fields;title:No valid roles found;color:red;description:{if;{get;~valid};==;true;{usermention;{get;~user}} does not have the specified role(s).;See `sudo help usermod` for a list of available roles.}};
+{set;~fields;[]}
+{push;~fields;title:Removed role(s);color:{if;{exec;usercolor;{get;~user}};==;;{exec;blurple};{exec;usercolor;{get;~user}}};description:Removed the following role(s) from {usermention;{get;~user}}:
+{repeat;`;3}
+{join;{get;~userroles};,{space}}
+{repeat;`;3};}}}
+{embed;{apply;embedbuild;{get;~fields}}}
+{return}}}
+{//;colored roles}
+{if;{flagset;c};
+{lock;write;rolestuffs;{if;{userhasrole;428637054922915850};{//;do nothing};
+{embed;{embedbuild;
+color:red;
+description:You must have the <@&428637054922915850> role to add a colored role, {usermention}!}}
+{return}}
+{func.setuser;{flag;u}}
+{switch;{func.roleid;{flag;c};0};
+{slice;{roles};9;27};{if;{userhasrole;{func.roleid;{flag;c};0};{get;~user};quiet};
+{set;~valid;true};
+{foreach;~role;{userroles;{get;~user}};
+{switch;{get;~role};
+{slice;{roles};9;27};{func.addrole;{func.roleid;{rolename;{get;~role}};1}}}}
+{foreach;~crole;{slice;{roles};9;27};{void;{roleremove;{get;~crole};{get;~user}}}}
+{func.rmrole;{func.roleid;{flag;c};1}}
+{if;{get;~userroles};!=;;{set;!~userroles;[]}}
+{func.addrole;{func.roleid;{flag;c};0}}};
+{foreach;~role;{userroles;{get;~user}};
+{switch;{get;~role};
+{slice;{roles};9;27};{func.addrole;{func.roleid;{rolename;{get;~role}};1}}}}
+{foreach;~crole;{slice;{roles};9;27};{void;{roleremove;{get;~crole};{get;~user}}}}
+{set;~userroles;["users"]}}
+{if;{get;~userroles};==;;{embed;{embedbuild;
+title:No valid roles found;
+color:red;
+description:{if;{get;~valid};==;true;{usermention;{get;~user}} already has the specified role.;See `sudo help usermod` for a list of available roles.}}};
+{sleep;1s}
+{embed;{embedbuild;
+title:Set colored role;
+color:{if;{exec;usercolor;{get;~user}};==;;{exec;blurple};{exec;usercolor;{get;~user}}};
+description:Set colored role to `{get;~userroles;0}` for {usermention;{get;~user}}.;
+{if;{userhasrole;["475453746143297536","475454090923606036","475454687982649348","475454865779326987","418827761042325504","335197232187834369","176607399103299584","176606910282203136"];{get;~user}};footer.text:{usernick} has one or more unsupported distribution roles.  See 'sudo info <distro>' for more information.}}}
+{if;{get;~userroles;0};==;users;
+{set;@{get;~user}_distro;};
+{set;@{get;~user}_distro;{get;~userroles;0}}}
+}
+{return}}}}

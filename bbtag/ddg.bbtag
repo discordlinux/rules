@@ -1,0 +1,141 @@
+{set;~commandname;{exec;commandname;ddg}}
+
+{//;show help if no arguments are given}
+{function;help;**__Usage__**: `{get;~commandname} <search query>`
+Search the web using DuckDuckGo.
+Returns an instant answer if one is found, and a link result otherwise.}
+
+{if;{argslength};==;0;
+  {exec;dlhelp;{get;~commandname}}
+  {return}}
+
+{if;{flagset;h};{func.help};
+
+{//;set branding}
+{set;~logo;https://cdn.discordapp.com/emojis/496122815578374147.png?v=1&size=40}
+{set;~ddgcolor;de5833}
+{set;~errorcolor;7a301c}
+
+{//;output a searching prompt}
+{set;~searchmsg;{output;{embed;{embedbuild;
+  color:{get;~ddgcolor};
+  thumbnail.url:{get;~logo};
+  description:Searching for `{args}`...;}}}}
+
+{//;function to get embed data from urls}
+{function;embedmetadata;
+  {//;get metadata}
+  {set;~metadata;{exec;metadata;{get;~redirecturl};-r}}
+
+  {//;set title}
+  {set;~title;{jget;{get;~metadata};body.title}}
+  {if;{get;~title};startswith;`Cannot read property;
+    {set;~title;Result for '{args}'}}
+  {if;{get;~title};startswith;index.php;
+    {set;~title;Result for '{args}'}}
+  {if;{get;~title};==;;
+    {set;~title;Result for '{args}'}}
+
+  {//;set url}
+  {set;~url;{jget;{get;~metadata};body.url}}
+  {if;{get;~url};startswith;`Cannot read property;
+    {set;~url;{get;~redirecturl}}}
+  {if;{get;~url};==;;
+    {set;~url;{get;~redirecturl}}}
+
+  {//;set thumbnail}
+  {set;~thumbnail;{jget;{get;~metadata};body.image}}
+  {if;{get;~thumbnail};startswith;`Cannot read property;
+    {set;~thumbnail;{get;~logo}};
+    {if;{get;~thumbnail};includes;favicon;
+      {set;~thumbnail;{exec;getimg;{get;~url}}};
+      {if;{get;~thumbnail};includes;.ico;
+        {set;~thumbnail;{exec;getimg;{get;~url}}}}}
+    {if;{get;~thumbnail};includes;`nothing`;
+      {set;~thumbnail;{get;~logo}}}
+    {if;{get;~thumbnail};==;;
+      {set;~thumbnail;{get;~logo}}}}
+
+  {set;~desc;{jget;{get;~metadata};body.description}}
+  {if;{get;~desc};startswith;`Cannot read property;
+    {set;~desc;}}
+  {if;{get;~desc};==;;
+    {set;~desc;}}
+
+  {//;send as embed}
+  {edit;{get;~searchmsg};
+    {embedbuild;
+      title:{get;~title};
+      color:{get;~ddgcolor};
+      url:{get;~url};
+      thumbnail.url:{get;~thumbnail};
+      description:{get;~desc};
+      footer.icon_url:{get;~logo};
+      footer.text:Result via DuckDuckGo / {get;~url}}}}
+
+{//;encode arguments}
+{set;~query;{uriencode;{args}}}
+
+{//;decode response because it's in base64 for some reason}
+{set;~response;{base64decode;{jget;{request;https://api.duckduckgo.com/?q={get;~query}&o=json&no_redirect=1};body}}}
+
+{//;get title of result}
+{set;~title;{jget;{get;~response};Heading}}
+
+{//;try to get answer}
+{set;~desc;{jget;{get;~response};Answer}}
+
+{//;if there is no answer, try to get abstract}
+{if;{get;~desc};==;;
+  {set;~desc;{jget;{get;~response};Abstract}}
+  {set;~source;{jget;{get;~response};AbstractURL}}}
+
+{//;fall back to url if there is no description}
+{if;{get;~desc};==;;
+  {//;if bangs are used there should be a redirect link}
+  {if;{jget;{get;~response};Redirect};!=;;
+    {set;~redirecturl;{jget;{get;~response};Redirect}}
+    {//;fancy embed}
+    {func.embedmetadata};
+    {//;otherwise use the empty bang "! " which gives a redirect to the first url}
+    {set;~redirecturl;{jget;{base64decode;{jget;{request;https://api.duckduckgo.com/?q=! {get;~query}&o=json&no_redirect=1};body}};Redirect}}
+    {//;use direct links for youtube so videos can play inline, otherwise embed}
+    {if;{get;~redirecturl};startswith;https://www.yout;
+      Result via DuckDuckGo: {get;~redirecturl};
+      {func.embedmetadata}}};
+
+{//;get image if there is one}
+{set;~thumbnail;{jget;{get;~response};Image}}
+
+{//;set url}
+{if;{length;{jget;{get;~response};Results}};>;0;
+  {if;{jget;{get;~response};Results.0.FirstURL};!=;;
+    {//;if there are results and a valid url, use that}
+    {set;~url;{jget;{get;~response};Results.0.FirstURL}};
+    {//;otherwise use the abstract url if it exists}
+    {if;{jget;{get;~response};AbstractURL};!=;;
+      {set;~url;{jget;{get;~response};AbstractURL}}}};
+  {//;if there are no results use the abstract url if it exists}
+  {if;{jget;{get;~response};AbstractURL};!=;;
+    {set;~url;{jget;{get;~response};AbstractURL}}}}
+
+{//;set attribution}
+{if;{get;~source};!=;;
+  {set;~source;Result via DuckDuckGo / {get;~source}};
+  {set;~source;Result via DuckDuckGo}}
+
+{//;set default variables if none exist}
+{if;{get;~title};==;;{set;~title;Result for '{args}'}}
+{if;{get;~url};==;;{set;~url;https://duckduckgo.com/?q={get;~query}}}
+{if;{get;~thumbnail};==;;{set;~thumbnail;{get;~logo}}}
+{if;{get;~desc};==;;{set;~desc;}}
+
+{//;edit with results, use thumbnail if one exists}
+{edit;{get;~searchmsg};
+  {embedbuild;
+    title:{get;~title};
+    color:{get;~ddgcolor};
+    thumbnail.url:{get;~thumbnail};
+    description:{get;~desc};
+    footer.icon_url:{get;~logo};
+    footer.text:{get;~source};}}}}

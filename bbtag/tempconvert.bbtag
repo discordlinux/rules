@@ -1,0 +1,12 @@
+{function;help;{embed;{embedbuild;
+title:Help for tempconvert;
+color:yellow;
+description:**__Usage__**: `tempconvert <temperature>`
+Converts temperatures between Fahrenheit and Celsius.
+
+**Example usage**
+{repeat;`;3}
+tempconvert -40F
+tempconvert -40C
+{repeat;`;3}
+}}}{if;{args;0};==;;{set;~in;{args;1}};{set;~in;{args;0}}}{if;{regextest;{get;~in};/([0-9])/};{if;{regexreplace;{lower;{get;~in}};/([0-9]|-|°)/g;};==;f;{round;{math;/;{math;-;{regexreplace;{get;~in};/([a-zA-Z]|°)/g;};32};1.8}}°C;{if;{regexreplace;{lower;{get;~in}};/([0-9]|-|°)/g;};==;c;{round;{math;+;{math;*;{regexreplace;{get;~in};/([a-zA-Z]|°)/g;};1.8};32}}°F;{func.help}}};{func.help}}

@@ -1,0 +1,36 @@
+{function;mankier;{set;~man;{exec;redirect;https://www.mankier.com/?q={uriencode;{params}}}}
+{if;{get;~man};startswith;https://www.mankier.com/;
+{embedbuild;
+author.name:ManKier;
+author.icon_url:https://www.mankier.com/img/kier-sq.png;
+title:{reverse;{jget;{split;{reverse;{get;~man}};/};0}};
+color:465870;
+url:{get;~man};
+footer.text:{get;~man};
+description:{substring;{jget;{exec;motyar;{get;~man};-x //*[@id="Description"]};body.0.text};11;900};};
+{embedbuild;
+author.name:ManKier;
+author.icon_url:https://www.mankier.com/img/kier-sq.png;
+title:man page for '{flag;_}' not found.;
+color:465870;}}
+}
+{if;{flag;_};==;;{embed;{embedbuild;
+title:Help for {exec;commandname;man};
+color:yellow;
+description:__**Usage**__: `{exec;commandname;man} <linux command name>`
+Search for man pages on [mankier.com](https://www.mankier.com) by default.  Site may be changed with `-s` flag.
+
+**Available flags**:
+{repeat;`;3}
+-s    Set the site to search for a man page on.
+      Example sites: manpages.ubuntu.com, linux.die.net, systutorials.com
+{repeat;`;3}}};
+{if;{flagset;s};{set;~site;{flag;s}};
+{set;~site;mankier.com}
+{set;~manmsg;{output;{embed;{embedbuild;
+color:465870;
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+description:Searching for `{args}` manpage on [ManKier.com](https://mankier.com)...}}}}}
+{if;{get;~site};==;mankier.com;
+{edit;{get;~manmsg};;{func.mankier;{flag;_}}};
+{exec;googler;site:{get;~site} {flag;_}}}}

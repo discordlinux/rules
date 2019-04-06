@@ -1,0 +1,11 @@
+{embed;{embedbuild;
+color:{get;*blurple};
+title:Help for bash shell scripting and command line;
+description:[The art of the command line](https://github.com/jlevy/the-art-of-command-line) (easy to follow command line guide)
+[codecademy](https://www.codecademy.com/learn/learn-the-command-line)
+[Linux Shell Scripting Tutorial (LSST) v2.0](https://bash.cyberciti.biz/guide/Main_Page)
+[tldp bash beginner guide](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
+[tldp bash advanced guide](http://www.tldp.org/LDP/abs/html/abs-guide.html)
+[Google script styling guide](https://google.github.io/styleguide/shell.xml)
+[Awesome Shell](https://github.com/alebcay/awesome-shell) (guides and tools)
+[SSH tutorial](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys);}}

@@ -1,0 +1,60 @@
+{set;~fed1;{embedbuild;
+  title:Fedora;
+  url:https://getfedora.org/;
+  color:294172;
+  footer.text:Page 1/2;
+  thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/Fedora-logo.svg.png;
+  description:**• Basically a much more up-to-date CentOS or RHEL.
+• RPM-based using dnf as it's package manager.
+  - Relatively easy syntax
+  - Slower at installing packages than most other package managers
+• GNOME Desktop Environment is the main "spin" and is the only recommended way to use Fedora.
+  - Other than the Xfce spin, most Fedora spins are lackluster.
+• Ships with only open source and unencumbered software in the official repos, you'll need to enable third party repos for anything closed source or with restrictive licensing.
+• 6-month release cycle with a 12-month support window.
+  - Desktop Environment and core applications typically only get updated with a new release.
+  - Kernel and mesa versions do get pushed frequently.
+• Not recommended for people new to Linux due to the release cycle and default partition setup.
+
+[Download Fedora](https://getfedora.org)**}}
+
+{set;~fed2;{embedbuild;
+  title:Fedora;
+  url:https://getfedora.org/;
+  color:294172;
+  footer.text:Page 2/2;
+  thumbnail.url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/Fedora-logo.svg.png;
+  description:**__SELinux__**
+**• This is a common barrier for new Fedora users.  SELinux is a security measure that many think over-steps it's boundaries.
+• The easiest solution if SELinux is blocking an application you need is to put it into permissive mode: `sudo setenforce 0`**
+**__Fedy__**
+**• [Fedy](https://www.folkswithhats.org/) essentially puts a list of some of the more common proprietary applications or harder to enable tweaks into a nice consise menu of one-click setups.**
+**__Recommended Third-Party Repos__**
+**• [RPM Fusion](https://rpmfusion.org/Configuration)
+  - Where you'll likely find most of the applications and tools you need that aren't in the official repos.
+• [Negativo17](https://negativo17.org/repositories/)
+  -  If you'd rather enable one repo per application instead of one huge one, this is the route you should go.
+• [Flathub](https://flathub.org/home)
+  - Not technically a third party repo but Fedora does have Flatpak enabled by default, so if all of the proprietary applications are available, it's worth trying out.
+  - Flatpaks are sandboxes and typically come with tight file permissions, so some functions may not work or may require you to manually override file perms.
+
+[Download Fedora](https://getfedora.org)**;}}
+
+{set;~p;1}
+{set;~msgid;{output;{embed;{get;~fed1}}}}
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;300}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{edit;{get;~msgid};{zws};{get;~fed1}};
+➡;{edit;{get;~msgid};{zws};{get;~fed2}};
+{edit;{get;~msgid};{zws};{get;~fed2}}
+};
+10
+}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}

@@ -1,0 +1,57 @@
+{//; Set the array here }
+{set;!~request;{clean;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:list}?qT&style=bw};body}}}
+{if;{get;~request};startswith;{lb};{set;!~request;{jget;{get;~request};answer}}}
+{//;{set;~request;{clean;{regexreplace;{regexreplace;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:list}?T};body};/(\[[0-9][0-9].[0-9].[0-9]m)/ug;};(\[[0-9][0-9]?m ?)/ug;}}}}
+{if;{get;~request};includes;Unknown topic.;{set;*bash.cht.failed;true};{set;*bash.cht.failed;false}}
+{set;!~arr;{regexsplit;{get;~request};/(\n)/g}}
+{set;!~arr;{filter;~item;{get;~arr};{regextest;{get;~item};/([a-zA-Z0-9])/g}}}
+{//; Set max items per page }
+{if;{flagset;l};{set;~items;{flag;l}};{set;~items;25}}
+{if;{get;~items};>=;55;{set;~items;55}}
+{//; Make sure args is a valid number }
+{if;{flagset;p};{set;~p;{flag;p}};{set;~p;1}}
+{//; Calculate the max page }
+{set;~maxp;{ceil;{math;/;{length;{get;~arr}};{get;~items}}}}
+{//; Make sure args doesn't exceed max pages }
+{if;{get;~p};>;{get;~maxp};{set;~p;{get;~maxp}}}
+{//; Make sure args isn't a negative }
+{if;{get;~p};<=;0;{set;~p;1}}
+{set;~title;Cheat Sheet for '{flag;_}' <http://cht.sh/{uriencode;{flag;_}}>}
+{function;list;
+{//; Set the start and end of the slice }
+{set;~s;{math;*;{math;-;{get;~p};1};{get;~items}}}
+{set;~e;{math;+;{get;~s};{get;~items}}}
+{//; Output of the array }
+{get;~title}
+{repeat;`;3}
+{foreach;~chtsht;{slice;{get;~arr};{get;~s};{get;~e}};
+{get;~chtsht}{newline}
+}--------------------
+Page {get;~p}/{get;~maxp}
+{repeat;`;3}
+}
+{set;~msgid;{output;{func.list}}}
+{set;~used;0}
+{if;{get;~maxp};>=;2;
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;300}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{set;~p;{math;-;{get;~p};1}};
+➡;{set;~p;{math;+;{get;~p};1}}
+}
+{set;~used;{math;+;{get;~used};1}}
+{if;{get;~p};<=;0;{set;~p;{get;~maxp}}}
+{if;{get;~p};>;{get;~maxp};{set;~p;1}}
+{//; Output the resulting page }
+{edit;{get;~msgid};{func.list}};
+9
+}
+{set;~title;Page switch limit reached.  Use `{prefix} {commandname} {flag;_} -p {math;+;{get;~p};1}` to continue.{newline}{get;~title}}
+{edit;{get;~msgid};{func.list}}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}}

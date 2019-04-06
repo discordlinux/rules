@@ -1,0 +1,160 @@
+{exec;prefix.test}
+{//;output help}
+{function;dhelp;{embed;{embedbuild;
+title:Help for {exec;commandname;discord};
+color:{exec;blurple};
+description:__**Usage**__: `{exec;commandname;discord} <arg> [text]`
+Gives information about the Discord client for Linux.
+
+**Available arguments**
+{repeat;`;3}
+packages or pkgs
+- List Discord packages for popular Linux distros.
+- Ex: '{exec;commandname;discord} packages'
+
+markdown or md
+- Show how to use Discord's markdown syntax.
+- Ex: '{exec;commandname;discord} markdown'
+
+version or ver
+- Get current versions of the Discord clients for Linux.
+- Ex: '{exec;commandname;discord} version'
+
+status or sts
+- Show status of Discord API.
+- Ex: '{exec;commandname;discord} status'
+
+cache
+- Show how to disable/limit Discord's stored cache.
+- Ex: '{exec;commandname;discord} cache'
+
+bugs
+- Searches for Discord bugs using the Trello API.
+- The Linux board is used by default.
+- Use the `-b` flag to set the board.
+- Available boards: Linux, Desktop, Android, iOS
+- Ex: '{exec;commandname;discord} bugs some bug'
+- Ex: '{exec;commandname;discord} bugs some bug -b desktop'
+{repeat;`;3}}}}
+{//;output list of discord packages for linux}
+{function;pkgs;{embed;{embedbuild;
+color:{get;*blurple};
+title:Discord Packages for Linux;
+description:[Click here for a list of Discord's dependencies and for troubleshooting tips](https://github.com/discordlinux/client-issues);
+fields.name:Ubuntu/Debian;
+fields.value:[Stable](https://discordapp.com/api/download?platform=linux&format=deb){newline}[PTB](https://discordapp.com/api/download/ptb?platform=linux&format=deb){newline}[Canary](https://discordapp.com/api/download/canary?platform=linux);
+fields.inline:true;
+fields.name:Arch;
+fields.value:[Stable](https://aur.archlinux.org/packages/discord/){newline}[PTB](https://aur.archlinux.org/packages/discord-ptb/){newline}[Canary](https://aur.archlinux.org/packages/discord-canary/);
+fields.inline:true;
+fields.name:openSUSE;
+fields.value:[Stable](https://software.opensuse.org/package/discord-installer){newline}[Canary](https://software.opensuse.org/package/discord-canary-installer);
+fields.inline:true;
+fields.name:Fedora;
+fields.value:[Stable](https://admin.rpmfusion.org/pkgdb/package/nonfree/discord/);
+fields.inline:true;
+fields.name:AppImage;
+fields.value:[Stable](https://github.com/simoniz0r/Discord-AppImage/releases){newline}[PTB](https://github.com/simoniz0r/Discord-PTB-AppImage/releases){newline}[Canary](https://github.com/simoniz0r/Discord-Canary-AppImage/releases);
+fields.inline:true;
+fields.name:tar archive;
+fields.value:[Stable](https://discordapp.com/api/download?format=tar.gz&platform=linux){newline}[PTB](https://discordapp.com/api/download/ptb?platform=linux&format=tar.gz){newline}[Canary](https://discordapp.com/api/download/canary?platform=linux&format=tar.gz);
+fields.inline:true;}}}
+{//;get latest discord versions for linux}
+{function;versions;{set;~vmsg;{output;{embed;{embedbuild;
+color:{exec;blurple};
+thumbnail.url:{exec;linuxhacker};
+description:Checking latest Discord versions...;}}}}
+{edit;{channelid};{get;~vmsg};_delete;{embedbuild;
+title:Latest Discord Versions;
+color:{exec;blurple};
+description:**Canary**: [{exec;Canary}](https://discordapp.com/api/download/canary?platform=linux&format=deb)
+**PTB**: [{exec;PTB}](https://discordapp.com/api/download/ptb?platform=linux&format=deb)
+**Stable**: [{exec;Stable}](https://discordapp.com/api/download?platform=linux&format=deb)}}}
+{//;show tips for how to disable/limit discord's cache}
+{function;cache;{embed;{embedbuild;
+title:**Disable or Limit Discord's Stored Cache**;
+color:{exec;blurple};
+url:https://github.com/electron/electron/blob/master/docs/api/chrome-command-line-switches.md;
+description:{repeat;`;3}
+--disable-http-cache
+{repeat;`;3}
+Disables the disk cache for HTTP requests.  Doing this will result in less storage space used in Discord's config directory and possibly less RAM use.  This will cause Discord to use more network bandwidth due to images not being stored in cache.
+
+{repeat;`;3}
+--disk-cache-size=size
+{repeat;`;3}
+Forces the maximum disk space to be used by the disk cache. `size` is the maximum disk space to use in bytes.  This will have similar results as disabling the cache entirely as shown above, but will use less network bandwidth than disabling it entirely.
+
+See [here](https://github.com/electron/electron/blob/master/docs/api/chrome-command-line-switches.md) for more command line switches that work with all Electron applications.}}}
+{//;function to show how to fix mic bug}
+{function;mic;{embed;{embedbuild;
+title:How to fix the mic not detected bug;
+color:{exec;blurple};
+description:To fix the bug with Discord not detecting microphone input, simply disable `Noise Suppression` in Discord's settings.  This is found in the `Voice & Video` section of Discord's settings under `Advanced`.
+{newline}See **[the bug report](https://trello.com/c/skHzRscu)** for more information.;
+image.url:https://cdn.discordapp.com/attachments/162712517053775872/538383386092240936/unknown.png}}}
+{function;markdown;{embed;{embedbuild;
+title:Markdown Syntax for Discord;
+color:{exec;blurple};
+fields.name:Bold Text;
+fields.value:`**Linux is cool**`
+This would make the text appear as:
+**Linux is cool**
+{zws};
+fields.inline:true;
+fields.name:Italicized Text;
+fields.value:`*Linux is cool*` or `_Linux is cool_`
+This would make the text appear as:
+*Linux is cool*
+{zws};
+fields.inline:true;
+fields.name:Underlined Text;
+fields.value:`__Linux is cool__`
+This would make the text appear as:
+__Linux is cool__
+{zws};
+fields.inline:true;
+fields.name:Strike-through Text;
+fields.value:`~~Linux is cool~~`
+This would make the text appear as:
+~~Linux is cool~~
+{zws};
+fields.inline:true;
+fields.name:Inline Code Blocks;
+fields.value:\`Linux is cool\`
+This would make the text appear as:
+`Linux is cool`
+{zws};
+fields.inline:true;
+fields.name:Code Blocks;
+fields.value:\`\`\`
+Linux is cool
+\`\`\`
+This would make the text appear as:
+```
+Linux is cool
+```
+{zws};
+fields.inline:true;
+fields.name:Code Block Formatting;
+fields.value:Code blocks can also use syntax highlighting by specifying the language on the same line as the first three backticks (\`\`\`).  For example:
+\`\`\`diff
+- Red
++ Green
+\`\`\`
+This would make the text appear as:
+```diff
+- Red
++ Green
+```
+Available languages: asciidoc, autohotkey, bash, coffeescript, cpp (C++), cs, css, diff, fix, glsl, ini, json, md, ml, prolog, py or python, tex, xl, and xml.;
+fields.inline:false;}}}
+{//;detect arguments}
+{switch;{lower;{args;0}};
+["markdown","md"];{func.markdown};
+["cache"];{func.cache};
+["packages","pkgs"];{func.pkgs};
+["version","ver","--version","-v"];{func.versions};
+["status","sts"];{exec;discord-status};
+["bugs"];{exec;discord-bugs;{args;1;n}};
+{func.dhelp}}

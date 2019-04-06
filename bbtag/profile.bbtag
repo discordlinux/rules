@@ -1,0 +1,84 @@
+{exec;prefix.test}
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;profile};
+color:yellow;
+description:**__Usage__**: `{exec;commandname;profile} [user | flags <text>]`
+Show information about user.  {if;{guildid};==;96230004047740928;**The <@&428637054922915850> role is required to use this command.**}
+  
+Can also be used to setup the 'About {username}' section with the flags below.  **Please do not use one flag at a time unless you are changing a single section.**
+  
+**Available flags**
+{repeat;`;3}
+-D - Favorite distro
+-w - Favorite DE/WM
+-b - Favorite browser
+-t - Favorite terminal
+-e - Favorite editor
+-l - Favorite language
+-s - Favorite shell
+-d - Short description about {username}
+{repeat;`;3}}}}
+{function;embed;{if;{userhasrole;428637054922915850;{get;~user};quiet};
+{embedbuild;title:{guildname} - {guildsize} members;
+fields.name:**__Account Information__**;
+fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
+**Nickname**: <@!{get;~user}>
+**ID**: {userid;{get;~user}}
+**Status**: {userstatus;{get;~user}}
+**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Playing**: {exec;user.game;{get;~user}}
+**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}};
+fields.name:**__About {username;{get;~user}}__**;
+fields.value:**Favorite distro**: {get;@{get;~user}_distro}
+**Favorite DE/WM**: {get;@{get;~user}_dewm}
+**Favorite browser**: {get;@{get;~user}_browser}
+**Favorite terminal**: {get;@{get;~user}_terminal}
+**Favorite editor**: {get;@{get;~user}_editor}
+**Favorite language**: {get;@{get;~user}_proglang}
+**Favorite shell**: {get;@{get;~user}_shell}
+**Description**: {get;@{get;~user}_description};
+thumbnail.url:{useravatar;{get;~user};quiet};
+color:{get;~eColor;0}};
+{embedbuild;title:{guildname} - {guildsize} members;
+fields.name:**__Account Information__**;
+fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
+**Nickname**: <@!{get;~user}>
+**ID**: {userid;{get;~user}}
+**Status**: {userstatus;{get;~user}}
+**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
+**Playing**: {exec;user.game;{get;~user}}
+**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}};
+thumbnail.url:{useravatar;{get;~user};quiet};
+color:{get;~eColor;0}}}}
+{switch;{lower;{args}};
+["help","-h","--help"];{func.help};
+{if;{flagset;D};{set;~editmode;1}{set;@{userid}_distro;{flag;D}}{commit}}
+{if;{flagset;w};{set;~editmode;1}{set;@{userid}_dewm;{flag;w}}{commit}}
+{if;{flagset;b};{set;~editmode;1}{set;@{userid}_browser;{flag;b}}{commit}}
+{if;{flagset;t};{set;~editmode;1}{set;@{userid}_terminal;{flag;t}}{commit}}
+{if;{flagset;e};{set;~editmode;1}{set;@{userid}_editor;{flag;e}}{commit}}
+{if;{flagset;l};{set;~editmode;1}{set;@{userid}_proglang;{flag;l}}{commit}}
+{if;{flagset;s};{set;~editmode;1}{set;@{userid}_shell;{flag;s}}{commit}}
+{if;{flagset;d};{set;~editmode;1}{set;@{userid}_description;{flag;d}}{commit}}
+{//;{if;{userid;{flag;_};quiet};==;;
+  ❌ '{flag;_}' not found!{return}
+}}
+{if;{get;~editmode};==;1;{set;~user;{userid}};{if;{argslength};==;0;{set;~user;{userid}};{set;~user;{userid;{args}}}}}
+{if;{get;~user};==;;{throw;User not found!}{return}}
+{set;~eColor;[]}
+{set;~roles;{roles;{get;~user}}}
+{foreach;~color;{get;~roles};
+  {if;{rolecolor;{get;~color}};!=;000000;
+    {push;{get;~eColor};{rolecolor;{get;~color}}}
+  }
+}
+{if;{length;{get;~eColor}};==;0;
+  {set;~eColor;c1694f}
+}
+{if;{iscc};
+{void;{delete;{channelid};{get;_{userid}.last.embed.mid}}}
+{set;_{userid}.last.embed.mid;{send;{channelid};;{func.embed}}};
+{embed;{func.embed}}}
+}

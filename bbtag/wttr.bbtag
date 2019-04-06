@@ -1,0 +1,26 @@
+{if;{lower;{args;0}};==;help;{embed;{embedbuild;
+title:Help for wttr;
+color:yellow;
+description:__**Usage**__: `wttr [location | -l <location>]`
+Gets the current weather for the selected location.  If you have set a location with the `-l` flag, that location will be used when no arguments are passed.  Otherwise, the default location is London England.
+
+**Available flags**:
+```
+-l    Set your default location.
+      Ex: 'wttr -l Denver Colorado'
+```;}};
+{fallback;Not found}
+{if;{flagset;l};{set;@{userid}.wloc;{flag;l}}{delete}Your location has been set, {usermention}!{return}}
+{if;{flag;_};==;;{if;{get;@{userid}.wloc};!=;;{set;~L;{get;@{userid}.wloc}};{set;~L;London England}};{set;~L;{flag;_}}}
+{set;~title;{regexreplace;{regexreplace;{regexreplace;{trim;{jget;{filter;~item;{split;{exec;rawtext;https://www.google.com/search?q=weather%20{uriencode;{get;~L}}};{newline}};{bool;{get;~item};includes;°C}};0}};/(Mon|Tue|Wed|Thu|Fri|Sat|Sun|\[|\]|\| .*)/g;};/�/;°};/(^ny)/;Sunny}}
+{set;~C;{exec;tempconvert;{join;{regexmatch;{get;~title};/[0-9]/g};}f}}
+{set;~thumb;https:{replace;{jget;{split;{jget;{exec;motyar;https://www.google.com/search?q=weather%20{uriencode;{get;~L}};-x //*[@id="wob_tci"]};body.0.html};"};5};64;128}}
+{if;{get;~thumb};includes;gstatic;{//;do nothing};
+{set;~thumb;{exec;fakeimg;Not Found}}}
+{embed;{embedbuild;
+color:4285F4;
+author.name:Google Weather;
+image.url:{get;~thumb};
+author.icon_url:https://cdn.discordapp.com/emojis/505934787496902656.png?v=1;
+title:{get;~title} |  {get;~C};}}}
+{fallback}

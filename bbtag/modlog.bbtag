@@ -1,0 +1,120 @@
+{//;Customizable replacement for blargbot's built in modlogs}
+{//;This tag is meant to be saved as a cc}
+{//;Save the the 'editlog' tag as a cc to edit modlogs created by this tag}
+{//;Initial setup}
+{//;Set role to be able to edit/delete any modlog}
+{if;{flagset;A};{if;{isstaff};
+{set;_modlog.admin.role;{roleid;{flag;A}}}
+{embed;{embedbuild;
+description:Admin role for `{commandname}` set to <@&{get;_modlog.admin.role}>!}}{return};
+You must be staff in order to set the modlog admin role!{return}}}
+{if;{get;_modlog.admin.role};==;;Please use `{prefix} {commandname} -A <admin role ID>` to set the admin role for `{commandname}` before use!{return}}
+{//;Set channel that modlogs will be posted to}
+{if;{flagset;C};{if;{isstaff};
+{set;_modlog.channel;{flag;C}}
+{embed;{embedbuild;
+description:modlog channel set to:{get;_modlog.channel}}}{return};
+You must be staff in order to set the modlog channel!{return}}}
+{if;{get;_modlog.channel};==;;Please use `{prefix} {commandname} -C <#channel>` to set the channel that modlogs will be posted to!{return}}
+{//;Function to output help in plain text}
+{function;help;__**Usage**__: `{lb}execcc{semi}modlog{semi}<action>{semi}<user>{semi}[mod]{semi}[reason]{semi}[color]{rb}`
+`{prefix} modlog <<flags> [number|text]>`
+Create and view modlogs.  **The default action is to create a new modlog.**  modlogs can only be posted to the preconfigured channel.
+
+**Available arguments**
+```
+help{zws} {zws} {zws} - Show this help output.
+info{zws} {zws} {zws} - Show number of stored modlogs.
+view{zws} {zws} {zws} - View specified modlog.
+search - Search for modlogs by user.
+clear{zws}{zws} {zws} - Delete specified modlog.
+```
+}
+{if;{flagset;H};{func.help};
+{//;Set _modlog.number to 0 if not set}
+{if;{get;_modlog.number};==;;{set;_modlog.number;0}}
+{//;Detect argument input}
+{switch;{lower;{args;0}};
+{//;Output help}
+["help"];{embed;{embedbuild;description:{func.help}}};
+{//;Show how many modlogs exist}
+["info"];{embed;{embedbuild;
+description:There are currently {get;_modlog.number} modlogs stored.  Use `{prefix} {commandname} view <number>` to view the contents of the modlog.}};
+{//;View modlogs}
+["view"];{if;{get;_modlog.{args;1}.reason};==;;modlog `{args;1}` not found!{return}}
+{//;Output embed with stored properties if modlog is found}
+{embed;{embedbuild;
+author.icon_url:{useravatar;{get;_modlog.{args;1}.userid}};
+author.name:{username;{get;_modlog.{args;1}.userid}}#{userdiscrim;{get;_modlog.{args;1}.userid}} ({get;_modlog.{args;1}.userid});
+color:{get;_modlog.{args;1}.color};
+timestamp:{get;_modlog.{args;1}.date};
+title:Case {args;1};
+description:**Type**: {get;_modlog.{args;1}.action}
+**Reason**: {get;_modlog.{args;1}.reason}{if;{get;_modlog.{args;1}.field3};!=;;{newline}{get;_modlog.{args;1}.field3}};
+footer.icon_url:{useravatar;{get;_modlog.{args;1}.modid}};
+footer.text:{username;{get;_modlog.{args;1}.modid}};}};
+["search"];{suppresslookup}
+{set;~user;{userid;{args;1}}}
+{if;{get;~user};==;;{usermention}, please provide a valid user!{return}}
+{set;~results;[]}
+{for;~num;1;<=;{get;_modlog.number};
+{if;{get;_modlog.{get;~num}.userid};==;{get;~user};
+{push;{get;~results};`{get;~num} - {get;_modlog.{get;~num}.action}`}}}
+{embed;{embedbuild;
+title:Modlog Search Results;
+color:orange;
+description:{length;{get;~results}} results found for {username;{get;~user}}#{userdiscrim;{get;~user}} ({get;~user}).
+{join;{get;~results};{space}{zws}{space}};}};
+{//;Delete modlog}
+["clear"];{if;{args;1};==;latest;{set;~log;{get;_modlog.number}};
+{set;~log;{args;1}}}
+{if;{get;_modlog.{get;~log}.reason};==;;modlog `{get;~log}` not found!{return}}
+{//;Only admins allowed}
+modlog `{get;~log}` deleted.
+{//;Delete message}
+{void;{delete;{get;_modlog.channel};{get;_modlog.{get;~log}.messageid}}}
+{//;Reset all associated variables}
+{set;_modlog.{get;~log}.reason;}
+{set;__modlog.{get;~log}.field3;}
+{set;_modlog.{get;~log}.date;}
+{set;_modlog.{get;~log}.userid;}
+{set;_modlog.{get;~log}.action;}
+{set;_modlog.{get;~log}.modid;}
+{set;_modlog.{get;~log}.color;}
+{if;{get;~log};==;{get;_modlog.number};
+{set;_modlog.number;{math;-;{get;_modlog.number};1}}{commit}};
+{//;############Create modlog############}
+{//;Detect arguments and set variables}
+{if;{length;{argsarray}};<=;2;{throw;Not enough arguments}{return}}
+{//;Check if the input is a user. If not, then throw an error. Else, set a variable used later.}
+{if;{usermention;{args;1};quiet};==;;
+{throw;No user found}{return};
+{//;Set modlog embed properties based on input}
+{//;0 = log type, 1 = user being logged, 2 = moderator, 3 = reason, 4 = color}
+{set;_modlog.number;{math;+;{get;_modlog.number};1}}{commit}
+{set;_modlog.{get;_modlog.number}.userid;{userid;{args;1}}}}
+{set;_modlog.{get;_modlog.number}.action;{args;0}}
+{if;{quiet}{userid;{args;2}};==;;{set;_modlog.{get;_modlog.number}.modid;{userid}};
+{set;_modlog.{get;_modlog.number}.modid;{userid;{args;2}}}}
+{if;{args;3};==;;{set;_modlog.{get;_modlog.number}.reason;No reason given.};
+{set;_modlog.{get;_modlog.number}.reason;{args;3}}}
+{if;{args;4};==;;{set;_modlog.{get;_modlog.number}.color;17C484};
+{if;{color;{args;4};hex;hex};startswith;`;{set;_modlog.{get;_modlog.number}.color;17C484};
+{set;_modlog.{get;_modlog.number}.color;{args;4}}}}
+{set;_modlog.{get;_modlog.number}.date;{time}}
+{switch;{args;0};
+["Ban","Warn","Mute","Pardon"];
+{set;_modlog.{get;_modlog.number}.reason;{jget;{regexsplit;{args;3};/\n/g};0}}
+{set;_modlog.{get;_modlog.number}.field3;{join;{splice;{regexsplit;{args;3};/\n/g};1;999};{newline}}}}
+{//;Output embed to modlogs channel with info from above}
+{set;_modlog.{get;_modlog.number}.messageid;{send;{get;_modlog.channel};;{embedbuild;
+author.icon_url:{useravatar;{get;_modlog.{get;_modlog.number}.userid}};
+author.name:{username;{get;_modlog.{get;_modlog.number}.userid}}#{userdiscrim;{get;_modlog.{get;_modlog.number}.userid}} ({get;_modlog.{get;_modlog.number}.userid});
+color:{get;_modlog.{get;_modlog.number}.color};
+timestamp:{get;_modlog.{get;_modlog.number}.date};
+title:Case {get;_modlog.number};
+description:**Type**: {get;_modlog.{get;_modlog.number}.action}
+**Reason**: {get;_modlog.{get;_modlog.number}.reason}{if;{get;_modlog.{get;_modlog.number}.field3};!=;;{newline}{get;_modlog.{get;_modlog.number}.field3}};
+footer.icon_url:{useravatar;{get;_modlog.{get;_modlog.number}.modid}};
+footer.text:{username;{get;_modlog.{get;_modlog.number}.modid}};}}}
+}}

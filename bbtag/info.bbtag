@@ -1,0 +1,85 @@
+{if;{get;_{commandname}.categories};==;;{set;_{commandname}.categories;[]}}
+{if;{get;_{commandname}.help};==;;{set;_{commandname}.help;}}
+
+{if;{flag;C};==;;
+  {set;~commandname;{commandname}};
+  {set;~commandname;{flag;C}}}
+
+{function;buildhelp;
+{if;{get;_{get;~commandname}.help};!=;;{get;_{get;~commandname}.help}{newline}} {if;{length;{get;_{get;~commandname}.categories}};>;0;**{capitalize;{get;_{get;~commandname}.help}} Categories**{newline}{foreach;~category;{sort;{jget;{get;_{get;~commandname}.categories};v}};__{get;~category}__{newline}```{newline}{uridecode;{join;{sort;{jget;{get;_{get;~commandname}.categories.{get;~category}};v}};,{space}}}{newline}```}}{if;{isstaff;{userid}};{newline}**Arguments**{newline}`sethelp` - Set static help that will prefix the built in help output.{newline}`help` - Get the currently set help.{newline}`addinfo <category> -n <name> -e <info>` - Add a new info type. Prefix the info with `exec` to have it execute a tag when called, or `execcc` for a cc.{newline}`delinfo <category> -n <name>` - Remove an info type.}}
+
+{function;help;
+  {embed;{embedbuild;
+    title:Help for {get;~commandname};
+    color:yellow;
+    footer.text:Any arguments not listed will return Wikipedia search results.;
+    description:{func.buildhelp}}}}
+
+{function;sethelp;
+  {if;{isstaff;{userid}};
+    {if;{params;0};startswith;`;
+      {func.help};
+      {set;_{commandname}.help;{params}}
+      {reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}};
+    {output;`Only staff can use this argument!`}}}
+
+{function;addinfo;
+  {set;~category;{join;{slice;{split;{flag;_};{space}};1};{space}}}
+  {set;~infoname;{flag;n}}
+  {set;~info;{split;{flag;e};{space}}}
+
+  {if;{get;~category};==;;
+    {func.help};
+    {if;{get;~infoname};==;;
+      {func.help};
+      {if;{get;~info};==;;
+        {func.help};
+
+  {if;{isstaff;{userid}};
+    {set;_{commandname}.command.{uriencode;{lower;{get;~infoname}}};{get;~info}}
+    {if;{get;_{commandname}.categories};includes;{get;~category};
+      {//;do nothing};
+      {push;_{commandname}.categories;{get;~category}}}
+    {if;{length;{get;_{commandname}.categories.{get;~category}}};==;0;
+      {set;_{commandname}.categories.{get;~category};[]}}
+    {push;_{commandname}.categories.{get;~category};{uriencode;{get;~infoname}}}
+    {reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>};
+    {output;`Only staff can use this argument!`}}}}}}
+
+{function;delinfo;
+  {set;~category;{join;{slice;{split;{flag;_};{space}};1};{space}}}
+  {set;~infoname;{flag;n}}
+
+  {if;{get;~category};==;;
+    {func.help};
+    {if;{get;~infoname};==;;
+      {func.help};
+
+  {if;{isstaff;{userid}};
+    {set;_{commandname}.command.{uriencode;{lower;{get;~infoname}}}}
+    {set;_{commandname}.categories.{get;~category};
+      {filter;~elem;{get;_{commandname}.categories.{get;~category}};{bool;{get;~elem};!=;{uriencode;{get;~infoname}}}}}
+    {if;{length;{get;_{commandname}.categories.{get;~category}}};==;0;
+      {set;_{commandname}.categories;
+        {filter;~ele;{get;_{commandname}.categories};{bool;{get;~ele};!=;{get;~category}}}}}
+    {reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>};
+    {output;`Only staff can use this argument!`}}}}}
+
+{if;{flag;_};==;;{func.help};
+{switch;{lower;{args;0}};
+  ["help"];{func.help};
+  ["sethelp"];{func.sethelp;{args;1;n}};
+  ["addinfo"];{func.addinfo};
+  ["delinfo"];{func.delinfo};
+  {set;~arg;{uriencode;{lower;{args}}}}
+  {if;{get;_{commandname}.command.{get;~arg}};==;;
+    {set;~arg;{uriencode;{lower;{args;0}}}}}
+  {if;{get;_{commandname}.command.{get;~arg}};!=;;
+    {apply;
+      {get;_{commandname}.command.{get;~arg};0};
+      {get;_{commandname}.command.{get;~arg};1};
+      {join;{slice;{get;_{commandname}.command.{get;~arg}};2};{space}};
+      {if;{args;1};startswith;`Not enough;
+        {//;do nothing};
+        {split;{args;1;n};{space}}}};
+     {exec;wikiapi;{args}}}}}

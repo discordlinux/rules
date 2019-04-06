@@ -1,0 +1,36 @@
+{switch;{flag;_};
+["","help","--help","-h"];{embed;{embedbuild;
+title:Help for {commandname};
+color:yellow;
+description:{exec;announcer-help}}}
+{return}}
+{//;Set channel to send announcement to}
+{//;If no channel set, delete triggering message}
+{if;{flagset;c};{set;~c;{flag;c}};{delete}{set;~c;{channelid}}}
+{//;Set the title}
+{if;{flagset;t};{set;~title;{flag;t}};{set;~title;Announcement}}
+{//;Set color for embed}
+{if;{flagset;C};{if;{color;{flag;C}};startswith;`;{set;~eColor;};{set;~eColor;{color;{flag;C}}}}}
+{if;{get;~eColor};==;;
+{suppresslookup}
+{set;~user;{userid}}
+{if;{get;~user};==;`No message found`;Invalid channel/messageID{return}}
+{set;~eColor;[]}
+{set;~roles;{roles;{get;~user}}}
+{foreach;~color;{get;~roles};
+{if;{rolecolor;{get;~color}};!=;000000;
+{push;{get;~eColor};{rolecolor;{get;~color}}}}}
+{if;{length;{get;~eColor}};==;0;{set;~eColor;green}}}
+{//;Set the role to mention}
+{if;{flagset;m};{set;~mention;{roleid;{flag;m};quiet}}}
+{if;{flagset;M};{set;~mention;{roleid;{flag;M};quiet}}
+{rolesetmentionable;{get;~mention};true;quiet}}
+{//;Send the announcement}
+{void;{send;{get;~c};{if;{get;~mention};!=;;{rolemention;{get;~mention}}};{embedbuild;
+title:__**{get;~title}**__;
+description:{flag;_};
+color:{get;~eColor;0};
+timestamp:{time};
+author.icon_url:{useravatar};
+author.name:{usernick};}}}
+{if;{flagset;M};{rolesetmentionable;{get;~mention};false;quiet}}

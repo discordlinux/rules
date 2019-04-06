@@ -1,0 +1,22 @@
+{embed;{embedbuild;
+author.name:openSUSE Tumbleweed;
+author.icon_url:https://i.imgur.com/jPHeQBI.png;
+author.url:https://en.opensuse.org/Portal:Tumbleweed;
+color:73ba25;
+description:**[Please read the Tumbleweed wiki page](https://en.opensuse.org/Portal:Tumbleweed)**
+**__Updating openSUSE Tumbleweed__**
+• ***Always*** **use `zypper dup` to update Tumbleweed.  Anything else will not move the system to the next rolling release and will most likely cause issues with orphaned packages.
+• Tumbleweed is updated when new packages in the Factory repos have passed [openqa testing](https://openqa.opensuse.org).  There are typically multiple updates released per week.
+• It is recommended that all Tumbleweed users follow the [Factory mailing list](https://lists.opensuse.org/opensuse-factory) for information about new updates.**
+**__Media Codecs__**
+**• openSUSE cannot include certain media codecs due to license issues.  See the [Tumbleweed wiki page](https://en.opensuse.org/Portal:Tumbleweed) for instructions on how to install them.**
+**__openSUSE Build Service__**
+**• The OBS can be used to find packages not in the default repos, find newer versions of packages, make changes to existing packages, or to create your own packages.
+• The [openSUSE software search](https://software.opensuse.org/search) site can be used to find and install packages from the OBS.
+• [zyp](https://software.opensuse.org/package/zyp) can also be used to find and install packages from the OBS.
+- `zyp` is a wrapper for `zypper` that adds searching for and installing packages from the OBS along with a few other features.
+- Repos for packages installed from the OBS with `zyp` are added with a lower priority than the default repos to avoid replacing system packages.
+- An [openSUSE account](https://build.opensuse.org/session/new) is required to use `zyp` as the API for the OBS requires authentication.
+
+[Download openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)**;
+footer.text:See 'sudo info openSUSE' for more information.;}}

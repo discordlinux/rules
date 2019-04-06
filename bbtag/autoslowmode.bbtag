@@ -1,0 +1,91 @@
+{function;enableslow;
+{set;!_{get;~slowchan}autoslowmode;enabled}
+{//;reset variables}
+{set;!_{get;~slowuser}cap;0}
+{set;!_{get;~slowchan}globalcap;0}
+{set;!_{get;~slowchan}globalmsglast;[]}
+{push;_{get;~slowchan}globalmsglast;{get;~msgtext}}
+{//;enable slowmode}
+{slowmode;{get;~slowchan};{params;0}}
+{//;send embed saying who triggered slowmode}
+{set;~msgid;{send;{get;~slowchan};;{embedbuild;
+title:Slowmode enabled for {math;*;5;{params;1}} seconds!;
+thumbnail.url:https://cdn.discordapp.com/emojis/478322841083969558.png?v=1;
+color:red;
+description:<@{get;~slowuser}> has triggered slowmode!;
+footer.text:Slowmode set to 1 message every {params;0} seconds.;}}}
+{//;sleep for 1 second {params;1} times}
+{repeat;{sleep;5s};{params;1}}
+{//;turn off slowmode}
+{slowmode;{get;~slowchan}}
+{set;!_{get;~slowchan}autoslowmode;disabled}}
+{if;{argslength};<;3;
+{output;{embed;{embedbuild;
+title:Help for autoslowmode;
+color:red;
+description:__**Usage**__: `{lb}exec{semi}autoslowmode{semi}{lb}channelid{rb}{semi}{lb}messageid{rb}{semi}{lb}userid{rb}{rb}`
+
+`autoslowmode` is intended to be used in an everything autoresponse. Must include channel id, message id, and user id.
+
+If a user sends 5 messages in 5 or less seconds, slowmode will be set to 1 message every 15 seconds and disabled after 60 seconds.
+
+If the same message is repeated 4 times in a row from any user in 10 or less seconds, slowmode will be set to 1 message every 30 seconds and disabled after 120 seconds.;}}}
+{return}}
+{set;!~slowchan;{args;0}}
+{set;!~slowmsg;{args;1}}
+{set;!~slowuser;{args;2}}
+{//;##########################slowmode##############################}
+{//;enables slow mode for 60 seconds if a user has sent 5 or more messages in 5 seconds}
+{//;enables slow mode for 120 seconds last 5 {messagetext}s within 10 seconds in {get;~slowchan} match}
+{//;if _{get;~slowchan}autoslowmode variable doesn't exist, creat it}
+{if;{get;_{get;~slowchan}autoslowmode};==;;{set;!_{get;~slowchan}autoslowmode;disabled}}
+{set;!~msgtime;{messagetime;{get;~slowchan};{get;~slowmsg};X}}
+{set;!~msgtext;{messagetext;{get;~slowchan};{get;~slowmsg}}}
+{//;set last user cap check time and cap if captime not found}
+{if;{get;_{get;~slowuser}captime};==;;
+{set;!_{get;~slowuser}captime;{get;~msgtime}}
+{set;!_{get;~slowuser}cap;0}}
+{//;set last {get;~slowchan}global cap check time and cap if captime not found}
+{if;{get;_{get;~slowchan}globalcaptime};==;;
+{set;!_{get;~slowchan}globalcaptime;{get;~msgtime}}
+{set;!_{get;~slowchan}globalmsglast;[]}
+{push;_{get;~slowchan}globalmsglast;{get;~msgtext}}
+{set;!_{get;~slowchan}globalcap;0}}
+{//;if last user cap check time was more than 5 seconds ago, reset cap variables}
+{if;{math;-;{get;~msgtime};{get;_{get;~slowuser}captime}};>=;6;
+{set;!_{get;~slowuser}captime;{get;~msgtime}}
+{set;!_{get;~slowuser}cap;0}}
+{//;if last cap {get;~slowchan}global check time was more than 10 seconds ago, reset cap variables}
+{if;{math;-;{get;~msgtime};{get;_{get;~slowchan}globalcaptime}};>=;11;
+{set;!_{get;~slowchan}globalcaptime;{get;~msgtime}}
+{set;!_{get;~slowchan}globalmsglast;[]}
+{push;_{get;~slowchan}globalmsglast;{get;~msgtext}}
+{set;!_{get;~slowchan}globalcap;0}}
+{//;if last {get;~slowchan}global message was same as previous message, add 25 to global cap}
+{//;cap is increased by 25 each time so that 4 messages will trigger slowmode}
+{if;{get;_{get;~slowchan}autoslowmode};==;disabled;
+{if;{math;-;{get;~msgtime};{get;_{get;~slowchan}globalcaptime}};<=;10;
+{if;{get;~msgtext};==;{get;_{get;~slowchan}globalmsglast;0};
+{//;{push;_{get;~slowchan}globalmsglast;{get;~msgtext}}}
+{set;!_{get;~slowchan}globalcap;{math;+;{get;_{get;~slowchan}globalcap};25.5}};
+{set;!_{get;~slowchan}globalmsglast;[]}
+{push;_{get;~slowchan}globalmsglast;{get;~msgtext}}
+{set;!_{get;~slowchan}globalcap;0}
+{set;!_{get;~slowchan}globalcaptime;{get;~msgtime}}}}
+{//;if last user message was less than 5 seconds ago, add 20 to user's cap}
+{//;cap is increased by 20 each time so that 5 messages will trigger slowmode}
+{if;{get;_{get;~slowchan}globalcap};<;100;
+{if;{math;-;{get;~msgtime};{get;_{get;~slowuser}captime}};<=;5;
+{set;!_{get;~slowuser}cap;{math;+;{get;_{get;~slowuser}cap};20}}}}
+{//;check caps}
+{//;if {get;~slowchan}global has reached 100 cap, turn on slowmode for 120 seconds and reset variables}
+{//;return if over limit to avoid double slowmodes}
+{if;{get;_{get;~slowchan}globalcap};>;102;
+{return}}
+{if;{get;_{get;~slowuser}cap};>;100;
+{return}}
+{if;{get;_{get;~slowchan}globalcap};==;102;
+{func.enableslow;30;24};
+{//;if user has reached 100 cap, turn on slow mode for 60 seconds and reset variables}
+{if;{get;_{get;~slowuser}cap};==;100;
+{func.enableslow;15;12}}}}

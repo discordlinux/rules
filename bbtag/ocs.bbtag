@@ -1,0 +1,32 @@
+{switch;{lower;{flag;_}};
+["help","--help",""];{output;{embed;{embedbuild;
+title:Help for ocs;
+color:CB2075;
+author.icon_url:https://www.opendesktop.org/images/system/opendesktop-logo.png;
+author.name:OpenDesktop.org;
+author.url:https://www.opendesktop.org;
+description:Searches [OpenDesktop.org](https://www.opendesktop.org) and returns the first result;}}};
+{set;!~odsmsg;{output;{embed;{embedbuild;
+color:CB2075;
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+description:Searching OpenDesktop.org for `{flag;_}`...}}}}
+{fallback;}
+{set;!~request;{jget;{split;{jget;{filter;~item;{split;{join;{split;{exec;rawhtml;https://www.opendesktop.org/search/projectSearchText/{uriencode;{uriencode;{flag;_}}}};>};>};>};{bool;{get;~item};includes;https://www.opendesktop.org/p/}};0};"};1}}
+{if;{get;~request};==;;
+{set;!~request;https://www.opendesktop.org/search/projectSearchText/{uriencode;{flag;_}}}
+{set;!~title;No Results Found for '{flag;_}'}
+{set;!~thumb;{exec;fakeimg;No Results Found}};
+{set;!~odmeta;{exec;metadata3;{get;~request}}}
+{set;!~title;{jget;{get;~odmeta};meta.og:title}}
+{set;!~thumb;{jget;{get;~odmeta};meta.og:image}}
+{set;!~desc;{regexreplace;{htmldecode;{jget;{get;~odmeta};meta.og:description}};/(<.*>)/g;}}}
+{edit;{channelid};{get;~odsmsg};{embedbuild;
+title:{get;~title};
+url:{get;~request};
+color:CB2075;
+author.icon_url:https://www.opendesktop.org/images/system/opendesktop-logo.png;
+author.name:OpenDesktop.org;
+author.url:https://www.opendesktop.org/search/projectSearchText/{uriencode;{flag;_}};
+footer.text:{get;~request};
+thumbnail.url:{get;~thumb};
+description:{substring;{get;~desc};0;900};}}}

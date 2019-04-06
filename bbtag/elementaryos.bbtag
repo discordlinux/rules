@@ -1,0 +1,16 @@
+{embed;{embedbuild;
+author.name:elementary OS;
+author.icon_url:https://cdn.discordapp.com/emojis/230467823153971201.png?v=1;
+color:{exec;distrocolors;elementaryos};
+description:**• Not a recommended distribution due to making many unnecessary changes to Ubuntu.
+• Cannot upgrade to the next release of elementary OS without fully reinstalling.
+• Cannot use Ubuntu PPAs without tweaks.
+• Uses the Pantheon Desktop Environment which is a custom version of GNOME that is not light on resources.
+• Has different package versions than available in Ubuntu LTS repos which can cause issues when installing packages for Ubuntu.
+• Misses out on many of the other benefits Ubuntu provides.
+- Ubuntu has an optional rolling kernel.
+- Ubuntu has very easy driver installs (easier than Windows in most cases).
+- Most games are tested for the latest LTS of Ubuntu.
+- Most software is packaged for Ubuntu.
+
+See `sudo info recommended`, `sudo info ubuntu`, `sudo info ubuntu flavors` for more information on Ubuntu and recommended Ubuntu flavors.**}}

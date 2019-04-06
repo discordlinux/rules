@@ -1,0 +1,1 @@
+{jget;{exec;rawhtml;http://worldtimeapi.org/api/timezone/{if;{flag;_};==;;UTC;{switch;{upper;{flag;_}};["CST"];CST6CDT;["PST"];PST8PDT;{flag;_}}}};{if;{flagset;x};unixtime;datetime}}

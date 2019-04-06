@@ -1,0 +1,40 @@
+{//;Function to output help}
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;slowmode};
+color:cd5c5c;
+description:__**Usage**__: `{exec;commandname;slowmode} [seconds] [flags <channel|time>]`
+Sets the channel's slowmode to 1 message every `X` seconds where `X` is the first argument.  If no argument is passed, slowmode will be disabled.
+
+**Available flags**
+{repeat;`;3}
+-c
+• Set the channel.  Defaults to the current channel.
+• Ex: '{exec;commandname;slowmode} 30 -c #somechannel'
+
+-t
+• Set a timer to disable slowmode.  Defaults to no timer.
+• Ex '{exec;commandname;slowmode} 30 -t 5m'
+
+-r
+• Set the reason for slowmode to show in the embed.
+• Ex: '{exec;commandname;slowmode} 30 -r Some reason'
+{repeat;`;3}}}}
+{//;Detect arguments}
+{if;{lower;{args}};==;help;{func.help};
+{if;{flag;c};==;;{set;~chan;{channelid}};
+{switch;{exec;chanid;{flag;c}};
+{channels};{set;~chan;{exec;chanid;{flag;c}}};
+{throw;'{flag;c}' is not a channel in {guildname}!}{return}}}
+{if;{flag;_};!=;;{if;{numformat;{flag;_};};==;NaN;{throw;'{flag;_}' is not a number!}{return}}}
+{if;{flag;r};==;;{set;~r;No reason given};{set;~r;{flag;r}}}
+{void;{slowmode;{get;~chan};{flag;_}}}
+{if;{flag;_};!=;;
+{void;{send;{get;~chan};{embedbuild;
+title:Slowmode enabled!;
+color:red;
+thumbnail.url:https://cdn.discordapp.com/emojis/478322841083969558.png?size=40;
+description:Slowmode has been set to 1 message every **{flag;_} seconds**.  {if;{flag;t};!=;;Slowmode will be disabled in about {flag;t}.};
+{if;{flag;r};!=;;footer.text:Reason: {flag;r}}}}}}
+{if;{flag;t};!=;;
+{set;!~t;{flag;t}}
+{timer;{slowmode;{get;~chan}};{get;~t}}}}

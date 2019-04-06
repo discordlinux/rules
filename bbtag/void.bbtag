@@ -1,0 +1,16 @@
+{embed;{embedbuild;
+author.name:Void Linux;
+author.icon_url:https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/void_bg.png;
+author.url:https://www.voidlinux.org;
+color:365E48;
+description:**• Independent Linux distribution created by a former maintainer of NetBSD.
+• Uses [xbps](https://github.com/voidlinux/xbps) as its package manager (rolling release) and the [runit](http://smarden.org/runit/index.html) init system.
+• Only free software officially supported, but an unofficial repository is available for nonfree packages
+• First distribution to ship [LibreSSL](https://www.libressl.org/) as its cryptography library
+• Allows for the use of both glibc and musl
+• Semi-questionable leadership.
+- Previous project leader disappeared without warning.
+- Previous project leader was in control of** ***all*** **of Void Linux's assets.
+- Void Linux had to regain control of their github and create a new URL for their website because of this.
+
+[Download Void Linux](https://voidlinux.org/download/)**}}

@@ -1,0 +1,61 @@
+{set;~flavs1;{embedbuild;
+author.name:Ubuntu Flavors;
+author.icon_url:https://cdn.discordapp.com/emojis/490564673494843409.png?v=1;
+author.url:https://www.ubuntu.com/download/flavours;
+color:e95420;
+description:**__[KDE neon](https://neon.kde.org)__** **- [Screenshot](https://i.imgur.com/7DK5elF.png)
+• Uses the KDE Plasma Desktop Environment which is Qt based.
+• KDE neon** ***is not an official Ubuntu flavor***, **but it is one of the very few non official flavors that is recommended for use.
+• Fairly lean on resources.**
+***See `{prefix} {commandname} kde neon` for more info***
+[**__Kubuntu__**](https://www.ubuntu.com/download/flavours)
+**• Uses the KDE Plasma Desktop Environment which is Qt based.
+• Kubuntu is the one official Ubuntu flavor that is not recommended for use.
+• Very frequently has buggy builds of KDE software.
+• Much less up to date than KDE neon.**
+**__[Lubuntu](http://lubuntu.me/)__** **- [Screenshot](https://i.imgur.com/Vg1PHYd.jpg)
+• Currently uses the LXDE Desktop Environment which is GTK based.
+  - Will be transitioning to LXQt (Qt based) by 20.04
+• Looks relatively plain out of the box, but can be themed easily.
+• Uses Openbox as the Window Manager which is very flexible, but not easy for newbs to configure.
+• The most lightweight Ubuntu flavor.  Uses very minimal resources.**;
+footer.text:Page 1/2;}}
+
+{set;~flavs2;{embedbuild;
+author.name:Ubuntu Flavors;
+author.icon_url:https://cdn.discordapp.com/emojis/490564673494843409.png?v=1;
+author.url:https://www.ubuntu.com/download/flavours;
+color:e95420;
+description:**__[Ubuntu Budgie](https://ubuntubudgie.org/)__** **- [Screenshot](https://i.imgur.com/Nmqgp9i.jpg)
+• Uses the Budgie Desktop Environment which is GTK based.
+• Looks and feels like a customized version of GNOME.
+• Fairly lean on resource use.**
+**__[Ubuntu MATE](https://ubuntu-mate.org/)__** **- [Screenshot](https://i.imgur.com/8Lp31qM.png)
+• Uses the MATE Desktop Environment which is GTK based.
+• Looks and feels like a modernized version of GNOME 2.
+• Very easy to customize.
+• Fairly lean on resource use.**
+**__[Xubuntu](https://xubuntu.org)__** **- [Screenshot](https://i.imgur.com/JAJOLaA.png)
+• Uses the Xfce Desktop Environment which is GTK based.
+• Usually considered the most reliable Ubuntu flavor.
+• Looks fairly plain out of the box, but is very easy to customize.
+• Uses a pretty minimal amount of resources.**;
+footer.text:Page 2/2;}}
+
+{set;~msgid;{output;{embed;{get;~flavs1}}}}
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;300}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{edit;{get;~msgid};{zws};{get;~flavs1}};
+➡;{edit;{get;~msgid};{zws};{get;~flavs2}};
+{edit;{get;~msgid};{zws};{get;~flavs2}}
+};
+10
+}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}

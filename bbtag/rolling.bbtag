@@ -1,0 +1,44 @@
+{set;~roll2;{embedbuild;
+    color:{exec;blurple};
+    title:Rolling Release Tips;
+    description:**Rolling release Linux distros are a great way to get the latest software, but that does not come without potential problems. Users should have a good understanding of Linux before attempting to use one as their main distro.
+• Rolling release means no set release schedule{semi} new software is released when it is ready.
+• Rolling release means always up to date.  Expect several relatively large updates per week.
+• Rolling release distros should be kept up to date.  Update checks should be ran at least once a week.
+• Rolling release means less time to test packages.  Be prepared for potential issues.**
+**__Recommended Rolling Release Distros__**
+**• [openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed) (see `sudo info opensuse` and `sudo info tumbleweed`)
+• [Arch Linux](https://archlinux.org) (see `sudo info arch`)**;
+footer.text:Page 2/2;}}
+{set;~roll1;{embedbuild;
+    color:{exec;blurple};
+    title:Rolling Release Tips;
+    description:**__Skills a User Should Have Before Using a Rolling Release Distro__**
+**• Know how to troubleshoot problems.  Be familiar with the different logging systems for Linux and how to find useful output from them.
+• Know the general concept of how a package manager works on Linux.
+• Know how packages on Linux interact with each other.  Be aware of how dependencies work.
+• Know how to properly partition a Linux drive.
+• Know how to work in a terminal.  Terminals give more useful output when managing packages.  Be prepared to work without a GUI at all in case something breaks.
+• Know how to work with drivers.  Frequent kernel updates can sometimes mean driver issues.  Know how to troubleshoot these issues.**
+**__Recommended Rolling Release Distros__**
+**• [openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed) (see `sudo info opensuse` and `sudo info tumbleweed`)
+• [Arch Linux](https://archlinux.org) (see `sudo info arch`)**;
+footer.text:Page 1/2;}}
+
+{set;~p;1}
+{set;~msgid;{send;{channelid};;{get;~roll1}}}
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;300}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{edit;{get;~msgid};{zws};{get;~roll1}};
+➡;{edit;{get;~msgid};{zws};{get;~roll2}}
+};
+4
+}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}

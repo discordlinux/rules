@@ -1,0 +1,168 @@
+{if;{channelid};!=;479497706234970115;
+{if;{channelid};!=;461299165100638228;
+{if;{channelid};!=;446379963059535877;
+{return}}}}
+{set;~rand1;{exec;randword}}{set;~rand2;{exec;randword}}{set;~rand3;{exec;randword}}{set;~rand4;{exec;randword}}{set;_{userid}passcode;{get;~rand1}-{get;~rand2}-{get;~rand3}-{get;~rand4}}{set;_{userid}fakepasscode;﻿{get;~rand1}﻿-﻿{get;~rand2}﻿-﻿{get;~rand3}﻿-﻿{get;~rand4}﻿}
+{exec;writeas;### Welcome to Discord Linux, {username}!
+
+#### Glory to the Tux
+
+- Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
+
+- If there are ever any issues with staff members, be sure to direct any and all complaints to `@sans` with a detailed message of what the complaint is.
+
+### General Rules
+
+####  #1 - No harassment, personal insults, or insulting language.
+####  #2 - Know when a debate has turned into an argument.
+####  #3 - No NSFW or illegal content what-so-ever.
+####  #4 - No invite links or advertising other servers.
+####  #5 - No spamming.
+####  #6 - No shitposting or memes.
+####  #7 - No huge messages. See `sudo help pastebin`.
+####  #8 - Do not abuse the bot. Keep most command use in #bot-spam.
+####  #9 - English only.
+#### #10 - Use the channels as intended.
+#### #11 - No selfbots what-so-ever.
+#### #12 - Do not discuss things that break [Discord's Terms of Service](https://discordapp.com/terms).
+#### #13 - Cooperate with Discord Linux staff members.
+
+#### Moderators have final say in the enforcement of these rules or other infractions.
+
+- Don't attempt to loophole or use semantics to get around these rules.
+- Respect the intent behind them, not the literal text.
+
+### Punishment System
+
+#### Restricted Words
+
+- Messages containing Discord invite links and certain restricted words will automatically be deleted by `@sudobot`.
+- Using most of these words will result in a warning in #mod-logs.
+- [List of censored words](https://raw.githubusercontent.com/discordlinux/rules/master/censored.txt)
+
+#### Verbal Warning
+
+- A staff member asks the user to stop.
+
+#### Written Warning
+
+- A staff member issues a warning to #mod-logs.
+- The user will be muted for 15 minutes at 3 warnings.
+- The user will be muted for 1 hour and have their `users` role removed automatically at 8 warnings.
+
+#### Temporary Mute
+
+- A staff member temporarily mutes the user.
+
+#### Temporary Ban/Permanent Ban
+
+- A staff member bans the user from the server either temporarily or permanently.
+
+#### Please note:
+
+- Staff members will determine the proper punishment based on the infraction.
+- Warnings, mutes, and bans are logged to #mod-logs for everyone to view.
+
+### Other Information
+
+#### Pinging Staff
+
+- Do not ping staff members without good reason.
+- For example, if someone is spamming the server, feel free to ping `@sudoers`.
+
+#### Users Role
+
+- In order to join roles with colors, upload files/images, embed links, use most bot commands, use external emojis, and post reactions, you must have the `users` role.
+- After agreeing to the rules, the `users` role will be given automatically if the you have not gotten any warnings after a 48 hour waiting period.
+- To get a colored role, use `sudo usermod -c <role>` to join your favorite distro's role after earning the `users` role.
+
+#### Distributions That Are Not Supported
+
+- The following distributions are not supported in Discord Linux:
+ - Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Antergos, and any derivative of Arch Linux.
+- These distributions have a history of breaking important system packages and compatibility with software you install.
+- The Discord Linux community will not offer support for any of these distributions.
+- Feel free to use them, but please do not ask for help with them here.
+- See `sudo info kali`, `sudo info mint`, `sudo info solus`, `sudo info manjaro`, `sudo info antergos`, and `sudo info archvariants` for more info.
+
+#### Lovely Sudoers (Staff)
+
+- `@sudoers` - Role to ping all Discord Linux staff (use with care)
+
+- `@root` - `@sans`
+
+- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@simonizor` `@Vix`
+
+- `@trusted` - `@E5ten`
+
+- `@backup` - `@Ethan Weegee` `@Snuggle`
+
+- `@Discord Employees` - These are actual Discord employees. Please do not bother them.
+
+### Channels
+
+#### Information
+
+- #welcome - Used for passphrase entry and showing new members.
+
+- #rules - Listing of Discord Linux rules.
+
+- #announcements - Announcements related to Discord and/or Linux.
+
+- #cool-links - Links to related Discord servers.
+
+- #mod-logs - Logs of all moderation actions.
+
+#### News
+
+- #news-general - RSS news feeds related to Linux.
+
+- #news-arch - RSS news feeds related to Arch Linux.
+
+- #news-fedora - RSS news feeds related to Fedora.
+
+- #news-opensuse - RSS news feeds related to openSUSE.
+
+- #news-ubuntu - RSS news feeds related to Ubuntu.
+
+#### General
+
+- #tech - General discussion on Linux and computers.
+
+- #offtopic - Chat about almost anything{semi} server rules still apply.
+
+- #games - Channel to chat about games.
+
+- #customization - Share your *nix desktops and configs. Windows is not *nix.
+
+- #programming - Place to discuss programming, coding, etc.
+
+- #bot-spam - A place to play with the bots.
+
+#### Support
+
+- #support-linux - Support for general Linux issues.
+
+- #support-distro-installs - Support for installing Linux distros.
+
+- #support-games - Support for games that run on Linux.
+
+- #support-discord - Support for the official Discord client.
+
+- #support-non-linux - Support for things that don't fit into the other support channels.
+
+#### Now get chatting!
+
+- To join a role, head over to #bot-spam and use `sudo usermod` to list the available roles and `sudo usermod -a <role>` to join a role. You can join as many roles as you like.
+- In order to view the rest of the channels, type `s﻿u﻿d﻿o﻿ ﻿-﻿i﻿ ﻿{get;_{userid}fakepasscode}` (do not copy and paste) in the #welcome channel.  This indicates that you have read and agree to follow all of the rules stated above.
+
+#### [Changelog for #rules](https://github.com/discordlinux/rules/commits/master)
+- [Check out the Github page to see what changes have been made to #rules](https://github.com/discordlinux/rules/commits/master)
+
+#### Invite Link
+
+- [discord.gg/discord-linux](https://discord.gg/discord-linux)
+
+#### Phone Verification
+
+- If you do not have access to a phone in order to verify your account with Discord, please [fill out this form](https://github.com/discordlinux/rules/issues/new).  All submissions are manually reviewed, so please be patient.  If Discord Linux staff decides to let you in, you will be given a temporary role which will allow you to input the passphrase in the #welcome channel.}.md

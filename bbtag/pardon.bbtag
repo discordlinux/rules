@@ -1,0 +1,23 @@
+{if;{flag;_};==;;
+{throw;You have to tell me who to pardon!}
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{if;{exec;usercheck;{userid;{flag;_}}};==;false;
+{throw;User not found in {guildname}!}
+{return};
+{set;~user;{userid;{flag;_}}}}
+{//;Warning the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{if;{flagset;c};
+{set;~count;{flag;c}};
+{set;~count;1}}
+{if;{get;~count};<=;0;{throw;Invalid count given}{return}}
+{embed;{embedbuild;
+title:Pardon Given;
+color:LimeGreen;
+description:{usermention;{get;~user}} has been given {if;{get;~count};==;1;a pardon;{get;~count} pardons}.  They now have {pardon;{get;~user};{get;~count};{get;~reason}} warning{if;{warnings;{get;~user}};==;1;;s}!}}
+{execcc;modlog;Pardon;{get;~user};{userid};{get;~reason}
+**Warnings**: Removed: {get;~count} • New Total: {warnings;{get;~user}};limegreen}

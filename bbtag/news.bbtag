@@ -1,0 +1,6 @@
+{embed;{embedbuild;
+title:Info for news;
+color:{exec;blurple};
+description:<@&503051931736866816> role
+This role gives access to all of the news channels without needing to join the distro roles associated with them.
+Use `sudo usermod -a news` to join this role.;}}

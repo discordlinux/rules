@@ -1,0 +1,21 @@
+{set;~qamsg;{output;{embed;{embedbuild;
+color:{exec;distrocolors;opensuse};
+thumbnail.url:{exec;linuxhacker};
+description:Getting openSUSE Tumbleweed snapshot results...;}}}}
+{if;{flag;_};==;;
+{set;!~latest;{jget;{filter;~obs;{exec;getlinks;https://openqa.opensuse.org};{bool;{get;~obs};includes;version=Tumbleweed}};0}}
+{set;!~snapshot;{jget;{split;{jget;{split;{get;~latest};=};4};&};0}};
+{set;!~latest;https://openqa.opensuse.org/tests/overview?distri=kubic&distri=opensuse&version=Tumbleweed&build={flag;_}&groupid=1}
+{set;!~snapshot;{flag;_}}}
+{set;!~qaresults;{join;{filter;~line;{split;{exec;rawtext;{get;~latest}};{newline}};{if;{get;~line};includes;Passed:;true;{if;{get;~line};includes;Running:;true;false}}};{space}}}
+{edit;{channelid};{get;~qamsg};{embedbuild;
+author.name:openQA;
+author.icon_url:https://cdn.discordapp.com/attachments/483501315620732938/537519759219097601/logo.png;
+title:openSUSE Tumbleweed snapshot results;
+url:{get;~latest};
+color:{exec;distrocolors;opensuse};
+description:**Snapshot**: {get;~snapshot}
+**Results**: {get;~qaresults}
+
+See **[here](https://openqa.opensuse.org/factory-package-news/diff/{get;~snapshot})** for a list of packages that have changed.;
+footer.text:{get;~latest};}}

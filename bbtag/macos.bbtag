@@ -1,0 +1,39 @@
+{set;~v1;*Video 1/6*
+https://www.youtube.com/watch?v=AUaJ8pDlxi8}
+{set;~v2;*Video 2/6*
+https://www.youtube.com/watch?v=_XneTBhRPYk}
+{set;~v3;*Video 3/6*
+https://www.youtube.com/watch?v=AVL65qwBGnw}
+{set;~v4;*Video 4/6*
+https://www.youtube.com/watch?v=MG_NRcy5mxU}
+{set;~v5;*Video 5/6*
+https://www.youtube.com/watch?v=yenIoGl5gmg}
+{set;~v6;*Video 6/6*
+https://www.youtube.com/watch?v=6nrwGI2mhpw}
+{if;{flagset;p};{if;{numformat;{flag;p}};==;NaN;{set;~p;1};
+{if;{flag;p};<=;0;{set;~p;1};{set;~p;{flag;p}}}};{set;~p;1}}
+{set;~maxp;6}
+{set;~msgid;{send;{channelid};{get;~v{get;~p}}}}
+{reactadd;{get;~msgid};⬅➡}
+{repeat;
+{if;{get;~p};<=;0;{set;~p;{get;~maxp}}}
+{if;{get;~p};>;{get;~maxp};{set;~p;1}}
+{//; Make sure only applicabl emojis work }
+{set;~reaction;{waitreaction;{get;~msgid};{userid};⬅➡;true;300}}
+{//; Remove emojis added by user }
+{reactremove;{get;~msgid};⬅➡}
+{//; Determine whether to add or decrease page }
+{switch;{get;~reaction;3};
+⬅;{set;~p;{math;-;{get;~p};1}}
+{if;{get;~p};<=;0;{set;~p;{get;~maxp}}}
+{if;{get;~p};>;{get;~maxp};{set;~p;1}}
+{edit;{get;~msgid};{get;~v{get;~p}};_delete};
+➡;{set;~p;{math;+;{get;~p};1}}
+{if;{get;~p};<=;0;{set;~p;{get;~maxp}}}
+{if;{get;~p};>;{get;~maxp};{set;~p;1}}
+{edit;{get;~msgid};{get;~v{get;~p}};_delete}
+};
+10
+}
+{//; Remove all emojis when waitreaction limit is reached }
+{reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}

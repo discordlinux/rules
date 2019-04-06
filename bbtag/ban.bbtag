@@ -1,0 +1,39 @@
+{function;help;__**Usage**__: `{exec;commandname;ban} <user> [days] [flags]`
+Bans a user, where `days` is the number of days to delete messages for (defaults to 1).
+Sends a DM to the user explaining why they were banned and who banned them.
+If mod-logging is enabled, the ban will be logged unless the `-q` flag is set.
+
+**Available flags**
+```
+-r    The reason for the ban.
+-t    If provided, the user will be unbanned after the period of time.
+-q    If provided, no modlog will be created.  Useful for banning bots.
+```
+}
+{if;{flagset;H};{func.help}{return}}
+{switch;{argslength};
+	0;{embed;{embedbuild;color:fa8072;description:{func.help}}}{return};
+    1;{set;~user;{args;0}}{set;~deletetime;1};
+    {set;~user;{args;0}}{if;{args;1};startswith;-;{set;~deletetime;1};{set;~deletetime;{parseint;{args;1}}}}
+}
+{if;{userid;{get;~user};quiet};==;;
+{throw;No user found}{return}}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{void;{dm;{get;~user};**You have been banned from {guildname} by {username}!**{newline}**Duration**: {if;{flagset;t};{flag;t};Permanent}{newline}**Reason**: {get;~reason}}}
+{if;{flagset;t};
+{set;~banned;{ban;{get;~user};{get;~deletetime};{get;~reason};{flag;t}}};
+{set;~banned;{ban;{get;~user};{get;~deletetime};{get;~reason}}}}
+{if;{get;~banned};!=;false;{embed;{embedbuild;
+title:User Banned;
+color:red;
+description:{username;{get;~user}} has been banned!;}}
+{if;{flagset;q};;
+{if;{guildid};==;96230004047740928;
+{execcc;modlog;Ban;{get;~user};{userid};{get;~reason}
+**Duration**: {if;{flagset;t};{flag;t};permanent};red}}}
+;{embed;{embedbuild;
+title:Ban Failed;
+color:Maroon;
+description:Failed to ban `{get;~user}`!;}}}

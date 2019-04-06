@@ -1,0 +1,33 @@
+{embed;{embedbuild;
+color:{get;*blurple};
+title:__**Recommended Beginner Friendly Distros**__
+*See 'sudo info' for more info*;
+fields.name:__**KDE neon**__;
+fields.value:**• Uses Plasma Desktop Environment.
+• [KDE neon Install Guide](https://userbase.kde.org/Installing_KDE_neon)
+• [Download KDE neon](https://files.kde.org/neon/images/neon-useredition/current/neon-useredition-current.iso)**;
+fields.inline:true;
+fields.name:__**Xubuntu**__;
+fields.value:**• Uses Xfce Desktop Environment.
+• [Xubuntu Install Guide](https://docs.xubuntu.org/1804/user/en_GB/index.html)
+• [Download Xubuntu](https://xubuntu.org/)**;
+fields.inline:true;
+fields.name:__**Ubuntu MATE**__;
+fields.value:**• Uses MATE Desktop Environment.
+• [Download Ubuntu MATE](https://ubuntu-mate.org/)**;
+fields.inline:true;
+fields.name:__**Lubuntu**__;
+fields.value:**• Uses LXDE Desktop Environment.
+• [Download Lubuntu](https://lubuntu.me/)**;
+fields.inline:true;
+fields.name:__**openSUSE Leap**__;
+fields.value:**• More difficult than \*buntu.
+• [openSUSE Leap Install Guide](https://doc.opensuse.org/documentation/leap/startup/html/book.opensuse.startup/art.opensuse.installquick.html){zws} {zws}
+• [Download openSUSE Leap](https://software.opensuse.org/distributions/leap){zws} {zws}**;
+fields.inline:true;
+fields.name:__**Other Beginner Guides**__;
+fields.value:**• [Install \*buntu in Virtualbox](https://linuxhint.com/install-kde-neon-oracle-virtualbox/)
+• [Dual boot Ubuntu with Windows](https://www.tecmint.com/install-ubuntu-alongside-with-windows/)
+• [Linux Software List](https://github.com/luongvo209/Awesome-Linux-Software)**;
+fields.inline:true;
+footer.text:Beginner friendly does not mean that these distros aren't good for advanced users also.;}}

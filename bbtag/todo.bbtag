@@ -1,0 +1,84 @@
+{//;Function to output help}
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;todo};
+color:{if;{commandname};==;help;CD5C5C;yellow};
+description:__**Usage**__: `{exec;commandname;todo} [add <item text>|edit <item number> <text>|remove <item number>] [flag <text>]`
+Create, manage, and view todo lists.  If no argument is passed, the selected todo list will be outputted.  Different todo lists can be stored using the `-c` flag to set the category.
+
+**Available arguments**
+{repeat;`;3}
+add or a
+• Add an item to a todo list.
+• Ex: '{exec;commandname;todo} add Some thing I want to do'
+
+edit or ed
+• Edit an item in a todo list.
+• Ex: '{exec;commandname;todo} edit 1 Some other thing'
+
+remove or rm
+• Remove an item from a todo list.
+• Ex: '{exec;commandname;todo} remove 1'
+{repeat;`;3}
+
+**Available flags**
+{repeat;`;3}
+-c
+• Select the todo list category.
+• Ex: '{exec;commandname;todo} add Some stuff -c Some Category'
+• Ex: '{exec;commandname;todo} edit 1 Some other stuff -c Some Category'
+• Ex: '{exec;commandname;todo} remove 1 -c Some Category'
+• Ex: '{exec;commandname;todo} -c Some Category'
+{repeat;`;3};}}}
+{//;Function to embed todo lists}
+{function;embed;{fallback;[{uridecode;{get;~cat}}{if;{get;~cat};!=;Todo;{space}todo} list too long{semi} contents dumped to this link.]({dump;{for;~i;1;<;{length;{get;@todo.{get;~cat}.{userid}}};**{get;~i}**. {get;@todo.{get;~cat}.{userid};{get;~i}}{newline}}})}
+{embed;{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:{uridecode;{get;~cat}}{if;{get;~cat};!=;Todo;{space}Todo} List;
+color:{if;{exec;usercolor};!=;;{exec;usercolor};{exec;blurple}};
+footer.text:{fallback;}{usernick}{if;{usernick};endswith;s;';'s} lists: {join;{get;@todo.{userid}.lists};,{space}}{fallback};
+description:{for;~i;1;<;{length;{get;@todo.{get;~cat}.{userid}}};**{get;~i}**. {get;@todo.{get;~cat}.{userid};{get;~i}}{newline}};}}
+{fallback;}}
+{if;{flag;c};!=;;{set;~cat;{uriencode;{flag;c}}};{set;~cat;Todo}}
+{if;{get;@todo.{get;~cat}.{userid}};==;;{set;@todo.{get;~cat}.{userid};["null"]}}
+{if;{get;@todo.{userid}.lists};==;;
+{set;!@todo.{userid}.lists;["{get;~cat}"]}}
+{if;{get;@todo.{userid}.lists};includes;{get;~cat};{//;do nothing};
+{push;@todo.{userid}.lists;{get;~cat}}}
+{if;{flag;_};==;;{if;{length;{get;@todo.{get;~cat}.{userid}}};>;1;{func.embed};{throw;No items in {uridecode;{get;~cat}} list!}};
+{fallback;}
+{switch;{lower;{args;0}};
+{//;Add an item}
+["add","a"];
+{if;{args;1};==;;{func.help};
+{if;{length;{get;@todo.{get;~cat}.{userid}}};>=;21;{output;`Sorry, only 20 items allowed per category!`};
+{if;{length;{join;{slice;{split;{flag;_};{space}};1};{space}}};>;396;{output;`Sorry, max characters allowed per item is 396!`};
+{push;@todo.{get;~cat}.{userid};{join;{slice;{split;{flag;_};{space}};1};{space}}}
+{if;{get;@todo.{userid}.lists};==;;
+{set;!@todo.{userid}.lists;["{get;~cat}"]}}
+{if;{get;@todo.{userid}.lists};includes;{get;~cat};{//;do nothing};
+{push;@todo.{userid}.lists;{get;~cat}}}
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}}}};
+{//;Remove an item}
+["remove","rm"];
+{if;{args;1};==;;{func.help};
+{if;{numformat;{args;1};};==;NaN;{func.help};
+{if;{length;{get;@todo.{get;~cat}.{userid}}};<;{math;+;{args;1};1};{output;`Item not found in {uridecode;{get;~cat}} list!`};
+{jset;@todo.{get;~cat}.{userid};{args;1};DeleteThisEntry!#%}
+{set;!@todo.{get;~cat}.{userid};{filter;~item;{get;@todo.{get;~cat}.{userid}};{if;{get;~item};==;DeleteThisEntry!#%;false;true}}}
+{if;{length;{get;@todo.{get;~cat}.{userid}}};<=;1;
+{set;!@todo.{userid}.lists;{filter;~list;{get;@todo.{userid}.lists};{bool;{get;~list};!=;{get;~cat}}}}}
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}}}};
+{//;Edit an item}
+["edit","ed"];
+{if;{args;1};==;;{func.help};
+{if;{join;{slice;{split;{flag;_};{space}};2};{space}};==;;{func.help};
+{if;{numformat;{args;1};};==;NaN;{func.help};
+{if;{length;{get;@todo.{get;~cat}.{userid}}};<;{math;+;{args;1};1};{output;`Item not found in {uridecode;{get;~cat}} list!`};
+{if;{length;{join;{slice;{split;{flag;_};{space}};2};{space}}};>;396;{output;`Sorry, max characters allowed per item is 396!`};
+{jset;@todo.{get;~cat}.{userid};{args;1};{join;{slice;{split;{flag;_};{space}};2};{space}}}
+{set;@todo.{get;~cat}.{userid};{get;@todo.{get;~cat}.{userid}}}
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}}}}}};
+{//;Output help}
+{func.help}}}
+{fallback}

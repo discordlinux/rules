@@ -1,0 +1,73 @@
+{function;help;{embed;{embedbuild;
+title:Help for {exec;commandname;se};
+color:yellow;
+description:**__Usage:__** `{exec;commandname;se} [arg] <search term>`
+Search the web using Google or use one of the arguments listed below to perform a specific search.
+If none of the arguments below are used, a google search will be ran.
+
+**Available arguments**:
+```
+abbr             - Abbreviation lookup
+abs              - tldp Advanced Bash Scripting search
+appimage or ai   - AppImage search
+aw               - Arch wiki Search
+bbg              - tldp Bash Begginers Guide search
+define or def    - Dictionary search
+dw               - Debian wiki search
+fw               - Fedora wiki search
+gw               - Gentoo wiki search
+image or img     - Google image search
+lsst			 - Linux Shell Scripting Tutorial
+ocs              - OpenDesktop.org search
+osd              - openSUSE docs search
+osw              - openSUSE wiki search
+pixabay          - Pixabay image search
+ppa              - Ubuntu PPA search
+steam or proton  - Steam Play compatability search
+uw               - Ubuntu wiki search
+wiki             - Wikipedia search
+wine             - WineHQ search
+youtube or yt    - Youtube search
+```
+;}}}
+{function;searchmsg;{set;~ssssmsg;{send;{channelid};;{embedbuild;
+color:4285F4;
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+description:Searching for `{args}`...}}}}
+{if;{lower;{messagetext}};startswith;suse;{return}}
+{switch;{lower;{args;0}};
+["!aw","aw","archwiki"];{exec;googler3;site:wiki.archlinux.org {args;1;n};-C {exec;distrocolors;arch}};
+["dw","debianwiki"];{exec;googler3;site:wiki.debian.org {args;1;n};-C {exec;distrocolors;debian}};
+["!DNF","!dnf"];{output;{embed;{embedbuild;
+title:dnf search results for '{args;1;n}';
+color:294172;
+thumbnail.url:https://cdn.discordapp.com/emojis/230467829734834178.png?v=1&size=20;
+url:https://apps.fedoraproject.org/packages/s/{uriencode;{args;1;n}};}}};
+["fw","fedorawiki"];{exec;googler3;site:fedoraproject.org/wiki {args;1;n};-C {exec;distrocolors;fedora}};
+["gw","gentoowiki"];{exec;googler3;site:wiki.gentoo.org {args;1;n};-C {exec;distrocolors;gentoo}};
+["osw","opensusewiki"];{exec;googler3;site:en.opensuse.org {args;1;n};-C {exec;distrocolors;opensuse}};
+["osd","opensusedocs"];{exec;googler3;site:doc.opensuse.org {args;1;n};-C {exec;distrocolors;opensuse}};
+["ppa"];{exec;ppa;{args;1;n}};
+["uw","ubuntuwiki"];{exec;googler3;site:wiki.ubuntu.com {args;1;n};-C {exec;distrocolors;ubuntu}};
+["wine","winehq"];{exec;googler3;site:winehq.org {args;1;n};-C red};
+["urban","urbandictionary"];{func.searchmsg}{exec;urbandictionary;{args;1;n}};
+["proton","steam"];{func.searchmsg}{exec;proton;{args;1;n}};
+["def","define","dict","dictionary"];{func.searchmsg}{if;{args;1;n};==;$RANDOM;{exec;mw;{exec;randword}};
+{exec;mw;{args;1;n}}};
+["img","image"];{func.searchmsg}{exec;findimg;{args;1;n}};
+["youtube","yt"];{func.searchmsg}{exec;youtbe2;{args;1;n}};
+["wiki","wikipedia"];{exec;wikiapi;{args;1;n}};
+["appimage","ai"];{func.searchmsg}{exec;spm;{args;1;n}};
+["abbr","abbreviation"];{func.searchmsg}{exec;abbr;{args;1;n}};
+["tineye","revimg"];{func.searchmsg}{exec;tineye;{args;1}};
+["-g","--google"];{func.searchmsg}{exec;googler;{args;1;n}}{void;{delete;{get;~ssssmsg}}};
+["qwant","-q"];{func.searchmsg}{exec;qwantweb;{args;1;n}};
+["pixabay"];{func.searchmsg}{exec;pixabay;{args;1;n}};
+["lsst"];{exec;googler3;site:bash.cyberciti.biz/guide/ {args;1;n};-C skyblue};
+["abs"];{exec;googler3;site:tldp.org/LDP/abs/html/ {args;1;n};-C skyblue};
+["bbg"];{exec;googler3;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n};-C skyblue};
+["opendesktop","ocs"];{exec;ocs;{args;1;n}};
+["-h","help","--help"];{func.help};
+{if;{args};==;;{func.help}{return}}
+{exec;googler3;{args}}}
+{void;{delete;{get;~ssssmsg}}}

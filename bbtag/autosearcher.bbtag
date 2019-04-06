@@ -1,0 +1,14 @@
+{//;{if;{args};startswith;apt{space}search{space};{output;{exec;googler3;site:packages.ubuntu.com/bionic {args;2};-C {exec;distrocolors;ubuntu}}};}
+{if;{args};startswith;apt-get{space}search{space};{output;{exec;googler3;site:packages.debian.org {args;2};-C {exec;distrocolors;debian}}};}}
+{if;{args};startswith;apt{space}search{space};{exec;apt;{args;2;n}};
+{if;{args};startswith;apt-get{space}search{space};{exec;apt-get;{args;2;n}};
+{if;{args};startswith;dnf{space}search{space};{exec;searcher;!DNF {args;2;n}};
+{if;{args};startswith;zyp{space}search{space};{exec;zyp;{args;2;n}};
+{if;{args};startswith;zyp{space}se{space};{exec;zyp;{args;2;n}};
+{if;{args};startswith;zypper{space}search{space};{exec;zyp;{args;2;n}};
+{if;{args};startswith;zypper{space}se{space};{exec;zyp;{args;2;n}};
+{if;{args};startswith;emerge{space}--search{space};{exec;ddg;!genpkg {args;2;n}};
+{if;{args};startswith;pacman{space}-S;{exec;pacman;{args;1;n}}}}}}}}}}}
+{//;##########################sandwich##############################}
+{//;Sandwich easter egg}
+{if;{args};==;sudo make me a sandwich;{reactadd;{channelid};{messageid};🍔}}

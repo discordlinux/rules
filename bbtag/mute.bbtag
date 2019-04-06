@@ -1,0 +1,29 @@
+{if;{flag;_};==;;
+{throw;You have to tell me who to mute!}
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{if;{exec;usercheck;{userid;{flag;_}}};==;false;
+{throw;User not found in {guildname}!}
+{return};
+{set;~user;{userid;{flag;_}}}}
+{//;Warning the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{set;~mute;{roleadd;368103203340025866;{get;~user}}}
+{if;{get;~mute};startswith;`;{get;~mute}
+{embed;{embedbuild;
+title:Mute Failed;
+color:Maroon;
+description:Failed to mute `{get;~user}`!;}}
+{return}}
+{embed;{embedbuild;
+title:User Muted;
+color:tomato;
+description:{username;{get;~user}} has been muted {if;{flagset;t};for {flag;t}}!;}}
+{execcc;modlog;Mute;{get;~user};{userid};{get;~reason}{if;{flagset;t};{newline}**Duration**: {flag;t}};tomato}
+{if;{flagset;t};{set;~time;{flag;t}}
+{timer;
+{void;{roleremove;368103203340025866;{get;~user}}}
+{if;{exec;usercheck;{get;~user}};==;true;{execcc;modlog;Auto Unmute;{get;~user};{userid};Automatically unmuted after {get;~time}.;seagreen}};{flag;t}}}

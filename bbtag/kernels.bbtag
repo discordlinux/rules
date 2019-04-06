@@ -1,0 +1,8 @@
+{embed;{embedbuild;
+color:yellow;
+author.name:kernel.org;
+author.icon_url:https://cdn.discordapp.com/emojis/230468500873805824.png?v=1;
+title:Latest Linux Kernel Releases;
+url:https://www.kernel.org;
+description:{set;!~kernels;{exec;rawhtml;https://www.kernel.org/releases.json}}
+{for;~k;0;<;{length;{jget;{get;~kernels};releases}};{jget;{get;~kernels};releases.{get;~k}.moniker}: {jget;{get;~kernels};releases.{get;~k}.version}{newline}}}}

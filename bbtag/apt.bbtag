@@ -1,0 +1,26 @@
+{set;!~aptmsg;{output;{embed;{embedbuild;
+color:e95420;
+title:Searching Ubuntu package repositories for '{flag;_}'...;
+thumbnail.url:{exec;linuxhacker};}}}}
+{set;!~pkg.url;{jget;{filter;~pkg.res;{exec;getlinks2;https://packages.ubuntu.com/search?suite=bionic&searchon=names&keywords={uriencode;{flag;_}}};{bool;{get;~pkg.res};startswith;https://packages.ubuntu.com/bionic/}};0}}
+{if;{get;~pkg.url};startswith;https://packages.ubuntu.com/bionic;
+{set;!~info;{exec;metadata3;{get;~pkg.url}}}
+{edit;{channelid};{get;~aptmsg};{embedbuild;
+color:e95420;
+author.name:Ubuntu Package Search;
+author.url:https://packages.ubuntu.com/search?suite=bionic&searchon=names&keywords={uriencode;{flag;_}};
+author.icon_url:https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png;
+title:{pop;{split;{get;~pkg.url};/}};
+thumbnail.url:http://screenshots.debian.net/screenshot/{pop;{split;{get;~pkg.url};/}};
+url:{get;~pkg.url};
+footer.text:Content Copyright © 2019 Canonical Ltd.{semi} See license terms. Ubuntu is a trademark of Canonical Ltd.;
+description:**Name**: {pop;{split;{get;~pkg.url};/}}
+**Version**: {jget;{split;{jget;{get;~info};meta.Keywords};,};5}
+**Repository**: {join;{slice;{split;{jget;{get;~info};meta.Keywords};,};0;4};,{space}}
+**Description**: {jget;{get;~info};meta.Description};}};
+{edit;{channelid};{get;~aptmsg};{embedbuild;
+author.name:Ubuntu Package Search;
+author.url:https://packages.ubuntu.com/search?suite=bionic&searchon=names&keywords={uriencode;{flag;_}};
+author.icon_url:https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png;
+color:e95420;
+title:No results found for '{flag;_}';}}}

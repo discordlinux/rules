@@ -1,0 +1,74 @@
+{if;{flag;_};==;;
+{throw;You have to tell me who to warn!}
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{if;{exec;usercheck;{userid;{flag;_}}};==;false;
+{throw;User not found in {guildname}!}
+{return};
+{set;~user;{userid;{flag;_}}}}
+{//;Warning the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{void;{warn;{get;~user};{flag;c};Mod:{space}{username}}}
+{//;Mute user for 15 minutes if more than 3 warnings}
+{//;Mute user for 1 hour and remove users role if more than 7 warnings.}
+{if;{warnings;{get;~user}};>;2;
+{if;{warnings;{get;~user}};>;7;
+{execcc;modlog;Warn;{get;~user};{userid};{get;~reason}
+**Warnings**: Given: {if;{flagset;c};{flag;c};1} • Total: {warnings;{get;~user}}{if;{flagset;m};{newline}**Message**: {messagetext;{channelid};{flag;m}}{space}}{newline}**Warn Limit Reached**: Muted for 1 hour and `users` role removed.;tomato}
+{embed;{embedbuild;
+title:Muted for 1 Hour and 'users' role removed;
+thumbnail.url:https://cdn.discordapp.com/emojis/478422995128287233.png?v=1&size=40;
+color:tomato;
+footer.text:Reason: {get;~reason};
+description:<@!{get;~user}> has {warnings;{get;~user}} warnings and has reached the warning limit. <#227643567273672706>
+Use `sudo usermod -a users` to request the <@&428637054922915850> role again.;}}
+{if;{flagset;m};{void;{delete;{flag;m}}}}
+{set;_{userid;{get;~user}}failedusers;true}
+{commit}
+{void;{roleadd;368103203340025866;{get;~user}}}
+{void;{roleremove;428637054922915850;{get;~user}}}
+{void;{roleremove;475451677345054721;{get;~user}}}
+{void;{roleremove;475451947298717721;{get;~user}}}
+{void;{roleremove;475453746143297536;{get;~user}}}
+{void;{roleremove;475453879530815508;{get;~user}}}
+{void;{roleremove;475454090923606036;{get;~user}}}
+{void;{roleremove;475454174037934101;{get;~user}}}
+{void;{roleremove;475454341386338314;{get;~user}}}
+{void;{roleremove;475454687982649348;{get;~user}}}
+{void;{roleremove;475454865779326987;{get;~user}}}
+{void;{roleremove;475454979897819157;{get;~user}}}
+{void;{roleremove;475455140690657280;{get;~user}}}
+{void;{roleremove;475455247775563776;{get;~user}}}
+{void;{roleremove;475455401576628235;{get;~user}}}
+{void;{roleremove;475455552353206272;{get;~user}}}
+{void;{roleremove;475455673132646400;{get;~user}}}
+{void;{roleremove;475455789729972234;{get;~user}}}
+{void;{roleremove;428637054922915850;{get;~user}}}
+{set;_{userid;{get;~user}}failedusers;true}
+{timer;
+{execcc;modlog;Auto-Unmute;{get;~user};134133271750639616;Automatically unmuted after 1 hour;SeaGreen}
+{void;{roleremove;368103203340025866;{get;~user}}};1h};
+{execcc;modlog;Warn;{get;~user};{userid};{get;~reason}
+**Warnings**: Given: {if;{flagset;c};{flag;c};1} • Total: {warnings;{get;~user}}{if;{flagset;m};{newline}**Message**: {messagetext;{channelid};{flag;m}}{space}}{newline}**Warn Limit Reached**: Muted for 15 minutes.;tomato}
+{embed;{embedbuild;
+title:Muted for 15 minutes;
+thumbnail.url:https://cdn.discordapp.com/emojis/478422995128287233.png?v=1&size=40;
+color:tomato;
+footer.text:Reason: {get;~reason};
+description:<@!{get;~user}> has {warnings;{get;~user}} warnings and has reached the warning limit. <#227643567273672706>;}}
+{if;{flagset;m};{void;{delete;{flag;m}}}}
+{void;{roleadd;368103203340025866;{get;~user}}}
+{timer;
+{execcc;modlog;Auto-Unmute;{get;~user};134133271750639616;Automatically unmuted after 15 minutes;SeaGreen}
+{void;{roleremove;368103203340025866;{get;~user}}};15m}};
+{execcc;modlog;Warn;{get;~user};{userid};{get;~reason}
+**Warnings**: Given: {if;{flagset;c};{flag;c};1} • Total: {warnings;{get;~user}}{if;{flagset;m};{newline}**Message**: {messagetext;{channelid};{flag;m}}{space}};yellow}
+{embed;{embedbuild;
+title:Warning;
+thumbnail.url:https://cdn.discordapp.com/emojis/478322841083969558.png?v=1;
+color:orange;
+footer.text:Reason: {get;~reason};
+description:<@!{get;~user}> now has {warnings;{get;~user}} {if;0{warnings;{get;~user}};>;1;warnings;warning}. <#227643567273672706>;}}}

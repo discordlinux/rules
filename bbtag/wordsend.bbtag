@@ -1,0 +1,9 @@
+{set;~def;{clean;{jget;{split;{jget;{exec;motyar;https://www.merriam-webster.com/word-of-the-day;-x /html/body/div[1]/div/div[4]/main/article/div[3]/div[1]/div};body.0.text};Build your vocabulary};0}}}
+{set;~title;{jget;{exec;metadata3;https://www.merriam-webster.com/word-of-the-day};meta.og:title}}
+{embedbuild;
+author.name:Merriam-Webster;
+author.icon_url:https://www.merriam-webster.com/assets/mw/static/app-standalone-images/MW_logo.png;
+title:{get;~title};
+color:2D5F7C;
+url:https://www.merriam-webster.com/word-of-the-day;
+description:{get;~def};}

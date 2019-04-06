@@ -1,0 +1,20 @@
+{if;{get;_guild.info.msgid};==;;{set;_guild.info.msgid;{send;172522057291005953;;{exec;guildinfosend}}};
+{edit;172522057291005953;{get;_guild.info.msgid};_delete;{exec;guildinfosend}}}
+{if;{time;HHmm};==;1700;
+{send;166340424603009024;;{exec;wordsend}};
+{fallback;}
+{set;!~tw.snapshot;{exec;twsnapshot}}
+{if;{get;~tw.snapshot};!=;;
+{if;{get;~tw.snapshot};>;0{get;_tw.latest.snapshot};
+{set;!_tw.latest.snapshot;{get;~tw.snapshot}}
+{rolesetmentionable;496063229156392970;true}
+{set;!~changed;{math;-;{length;{split;{jget;{split;{exec;rawhtml;http://download.opensuse.org/tumbleweed/iso/Changes.{get;_tw.latest.snapshot}.txt};=== Details ===};0};{newline}}};3}}
+{send;492030489750667277;<@&496063229156392970>;{embedbuild;
+author.name:New openSUSE Tumbleweed snapshot {get;_tw.latest.snapshot} released!;
+author.icon_url:https://cdn.discordapp.com/emojis/426479426474213414.gif?v=1;
+color:{exec;distrocolors;opensuse};
+url:http://download.opensuse.org/tumbleweed/iso/Changes.{get;_tw.latest.snapshot}.txt;
+description:**New openSUSE Tumbleweed snapshot released!  Time to `dup`!
+{if;{get;~changed};>;0;{get;~changed} packages changed. [Click here to see the changelog](http://download.opensuse.org/tumbleweed/iso/Changes.{get;_tw.latest.snapshot}.txt).**};
+timestamp:{exec;timeconv};}}
+{rolesetmentionable;496063229156392970;false}}}}

@@ -1,0 +1,22 @@
+{embed;{embedbuild;
+author.name:Debian;
+author.icon_url:https://cdn.discordapp.com/emojis/503654717188997131.png?v=1;
+author.url:https://www.debian.org/distrib/;
+color:{exec;distrocolors;debian};
+description:**• Has three release cycles:
+- [Stable release](https://www.debian.org/releases/stretch/)
+- [Testing release](https://www.debian.org/devel/testing) (not recommended for use)
+- [Unstable ("sid") release](https://www.debian.org/releases/sid/) (not recommended for use)
+• Uses the apt package manager which is relatively intuitive and works well under most situations.
+• Ubuntu is based on Debian, but Ubuntu is generally much more up to date and has many other benefits.
+• Debian is not recommended for use over Ubuntu.
+- Ubuntu has an optional rolling kernel.
+- Ubuntu has PPAs (extra repos for Debian are very rare).
+- Ubuntu has very easy driver installs (easier than Windows in most cases).
+- Most games are tested for the latest LTS of Ubuntu.
+- Most software is packaged for Ubuntu.
+- Ubuntu offers a [Minimal Installation ISO](https://help.ubuntu.com/community/Installation/MinimalCD) which can be used for a very minimal Ubuntu install with a choice of Desktop Environment.
+
+See `sudo info recommended`, `sudo info ubuntu`, `sudo info ubuntu flavors` for more information on Ubuntu and recommended Ubuntu flavors.
+
+[Download Debian](https://www.debian.org/distrib/)**}}

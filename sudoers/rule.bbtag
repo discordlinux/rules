@@ -1,2 +1,0 @@
-{execcc;warn;"{userid;{args;1}}" "-r Rule #{args;0}{if;{flagset;m};{newline}Message: {messagetext;{channelid};{flag;m}}{space}}"}
-{if;{flagset;m};{delete;{flag;m}}}

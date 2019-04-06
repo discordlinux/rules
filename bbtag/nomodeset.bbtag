@@ -1,0 +1,17 @@
+{embed;{embedbuild;
+title:Help for nomodeset;
+color:{exec;blurple};
+thumbnail.url:https://kbimg.dell.com/library/KB/DELL_ORGANIZATIONAL_GROUPS/DELL_GLOBAL/REC/nomodeset_Linux_HC_ASM_03.jpg;
+description:__**[Guide for adding nomodeset to grub](https://www.dell.com/support/article/us/en/04/sln306327/manual-nomodeset-kernel-boot-line-option-for-linux-booting)**__
+**You may find that Linux does not boot to the live environment or installer as usual and instead the system will hang or get stuck.  This is especially common with the NVDIA 10xx series of cards.
+
+The first troubleshooting step that may resolve your boot issue and allow you to install Linux is to disable the graphics features by setting the nomodeset option before boot.  This will most likely result in a screen resolution of 800x600 that looks pretty bad, but this is only temporary and will be resolved after install.
+
+1. With media attached, power on the system.
+2. Watch for the " GNU GRUB" bootloader screen.
+3. When you see the grub boot screen, press the E key on your keyboard to edit the default entry temporarily.
+4. In the editor, use the arrow keys to locate the end of the line that starts with linux /boot/vmlinuz (each bootloader may say something slightly different).
+5. Type the nomodeset line option into the end of the line.
+6. Now press CTRL+X keys and your system should boot to the normal installer or live environment like normal.
+
+If you continue to have problems after installing, see `Solution – Part II (Permanent nomodeset option)` in the nomodeset guide above.**}}

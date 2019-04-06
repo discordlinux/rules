@@ -1,0 +1,7 @@
+{embed;{embedbuild;
+color:63A608;
+author.name:NVIDIA;
+author.icon_url:https://www.nvidia.com/content/includes/redesign2010/images/apple-favicon.png;
+title:Latest NVIDIA Linux Drivers;
+url:https://www.nvidia.com/object/unix.html;
+description:{replace;{jget;{exec;motyar;https://www.nvidia.com/object/unix.html;-x //*[@id="rightContent"]/div[2]/p[1]};body.0.text};Archive;};}}

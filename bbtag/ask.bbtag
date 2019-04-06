@@ -1,0 +1,76 @@
+{if;{argslength};==;0;{set;~chan;<#{channelid}>};{set;~chan;{args;0}}}
+{embed;{embedbuild;
+title:__**Asking for Help**__;
+url:https://www.youtube.com/watch?v=53zkBvL4ZB4;
+color:9D2828;
+description:__**Getting Help**__{newline}
+{switch;{get;~chan};{//;support-linux}
+["<#96230043209981952>","<#483501315620732938>"];{if;{argslength};==;0;Welcome to;Please post your problem in} <#96230043209981952>!  This channel is for getting help with general Linux issues.
+Please make sure that your issue does not fit into one of the other support channels before posting here.
+Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  This includes what distribution you are running, hardware, error logs, screenshots, etc.
+
+__**Troubleshooter Script**__
+
+The troubleshooter script collects useful information from the host system (hardware, logs, etc) for troubleshooting Linux issues.  See `sudo info troubleshooter` for more information.;{//;support-installs}
+["<#484513714024874018>"];{if;{argslength};==;0;Welcome to;Please post your problem in} <#484513714024874018>!  This channel is for getting help installing Linux distros.  Please make sure you have at least attempted to find and follow a guide before asking for help (feel free to ask us for guides in <#96230004047740928>).
+Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  See the template below for an example of what should be included:
+```
+Distribution: KDE neon
+Version: 18.04
+Description of problem: The KDE neon installer just shows a black screen with my NVIDIA 1060 even after multiple restarts.
+
+Links to error logs: https://paste.rs/fakelink
+Links to screenshots: https://ibin.co/fakepic.png
+```
+
+__**Troubleshooter Script**__
+
+The troubleshooter script collects useful information from the host system (hardware, logs, etc) for troubleshooting Linux issues.  See `sudo info troubleshooter` for more information.;{//;support-games}
+["<#484512261382340638>"];{if;{argslength};==;0;Welcome to;Please post your problem in} <#484512261382340638>!  This channel is for getting help troubleshooting games that run on Linux.  This includes native games, games that run through Wine, emulated games (no talk about ROM sources), and any other games that can be ran on Linux.
+Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  This includes what distribution you are running, hardware, error logs, screenshots, etc.
+
+__**Troubleshooter Script**__
+
+The troubleshooter script collects useful information from the host system (hardware, logs, etc) for troubleshooting Linux issues.  See `sudo info troubleshooter` for more information.;{//;support-discord}
+["<#162712517053775872>"];{if;{argslength};==;0;Welcome to;Please post your problem in} <#162712517053775872>!  This channel is for getting help with the official Discord client.
+Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  See the template below for an example of what should be included:
+```
+Distribution: KDE neon
+Distro Version: 18.04
+Discord Version: Discord Canary 0.0.53
+Description of problem: Discord crashes when doing action X.  I have tried solutions Y and Z, but Discord still crashes.
+
+Links to error logs: https://paste.rs/fakelink
+Links to screenshots: https://ibin.co/fakepic.png
+```
+If the issue you are having turns out to be a bug and not an individual issue, you can head over to [discord-testers](https://discord.gg/discord-testers) to see if your issue has already been reported and make a new report if it hasn't.;{//;support-other}
+["<#484513481802907669>"];{if;{argslength};==;0;Welcome to;Please post your problem in} <#484513481802907669>!  **This channel is not for Linux support.** This channel is for getting help with basically anything tech related that does not fit into the other support channels above this one.  <#172522057291005953> still apply here.
+Please note that this server is mainly for discussing Linux{semi} we will do our best to troubleshoot issues with other platforms, but you may have better luck asking in a place more specific to the platform you are having issues with if we are unable to help.
+Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  See the template below for an example of what should be included:
+```
+Topic: Laptop shuts down in any OS
+Model/Version: Acer Aspire E 15
+Description of problem: Laptop shuts down when doing action X.  I have tried solutions Y and Z, but it still shuts down.
+
+Links to error logs: https://paste.rs/fakelink
+Links to screenshots: https://ibin.co/fakepic.png
+```;{//;other channel}
+Please don't just ask if you can get help.  State your problem with as much descriptive information as possible.  See the template below for information that should be included:
+```
+Topic: Laptop shuts down in any OS
+Model/Version: Acer Aspire E 15
+Description of problem: Laptop shuts down when doing action X.  I have tried solutions Y and Z, but it still shuts down.
+
+Links to error logs: https://paste.rs/fakelink
+Links to screenshots: https://ibin.co/fakepic.png
+```}
+;
+fields.name:__**Ticket System**__;
+fields.value:If you would like to make your issue more visible to others, feel free to use our ticket system for the support channels.  See `sudo help ticket` in <#174317464337776640> for more info.;
+fields.inline:false;
+fields.name:__**Distros We Do Not Support**__;
+fields.value:Please note that we do not provide support for the following distributions:
+Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Manjaro, Antergos, Solus, or any derivative of Arch Linux.
+Head over to <#174317464337776640> and see `sudo info` for more information on why we do not support these distributions.;
+fields.inline:false;
+}}

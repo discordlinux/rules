@@ -1,0 +1,13 @@
+{embed;{embedbuild;
+color:{get;*blurple};
+title:WiFi Troubleshooting Script;
+description:This script will output information to help others troubleshoot your WiFi connection.  Just run the commands below in a terminal and give the `termbin` URL in chat:
+{repeat;`;3}bash
+wget -O ~/wireless-info "https://turl.ca/wireless-info"
+{repeat;`;3}
+{repeat;`;3}bash
+chmod +x ~/wireless-info
+{repeat;`;3}
+{repeat;`;3}bash
+~/wireless-info
+{repeat;`;3};}}

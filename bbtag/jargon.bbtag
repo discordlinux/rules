@@ -1,0 +1,21 @@
+{function;help;__**Usage**__: `{exec;commandname;{commandname}} <search term>`
+Searches [The Jargon Lexicon](http://catb.org/jargon/html/go01.html) for pages matching the search input.}
+{if;{args};==;;{embed;{embedbuild;
+title:Help for jargon;
+color:yellow;
+description:{func.help};}};
+{set;!~results;{exec;gtest;site:catb.org/jargon/html/ {flag;_}}}
+{if;{logic;||;{bool;{get;~results};==;};{bool;{get;~results};==;http://catb.org/jargon/html/go01.html}};
+{set;~title;'{flag;_}' Not Found}
+{set;~results;http://catb.org/jargon/html/go01.html};
+{set;~title;{jget;{split;{jget;{split;{get;~results};/};6};.};0}}
+{set;!~desc;{clean;{jget;{split;{jget;{split;{exec;rawtext;{get;~results}};__{newline}};1};{space}{space}__};0}}}}
+{embed;{embedbuild;
+author.name:The Jargon Lexicon;
+author.icon_url:https://cdn.discordapp.com/attachments/483501315620732938/550969923443228673/unknown.png;
+author.url:http://catb.org/jargon/html/go01.html;
+title:{get;~title};
+url:{get;~results};
+color:E5DAC8;
+description:{substring;{get;~desc};0;300};
+footer.text:{get;~results};}}}

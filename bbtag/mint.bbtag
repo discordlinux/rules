@@ -1,0 +1,11 @@
+{embed;{embedbuild;
+author.name:Linux Mint;
+author.icon_url:https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Linux_Mint_logo_without_wordmark.svg/2000px-Linux_Mint_logo_without_wordmark.svg.png;
+color:87D23B;
+description:**• Not a recommended Linux distro due to providing little to no benefit over using an Ubuntu flavor and being generally more broken than Ubuntu and its flavors.
+• Has been known to mix Ubuntu and Debian packages, resulting in a [FrankenDebian](https://wiki.debian.org/DontBreakDebian#Don.27t_make_a_FrankenDebian).
+• Has been known to have issues with upgrading between releases.
+• Website has been hacked twice{semi} one of these times resulted in malware being distributed in Linux Mint's ISOs.
+    
+Instead of using Linux Mint, we highly recommend using [Ubuntu MATE](https://ubuntu-mate.org).
+See `sudo info recommended` for a list of recommended distros.**;}}

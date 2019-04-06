@@ -1,0 +1,16 @@
+{set;~result;{request;https://www.googleapis.com/customsearch/v1?key={get;@simon.google.key}&cx=011798364452687927535:hxjdaxdkm3y&q={regexreplace;{args};/\s/g;+}&num=1&searchType=image}}
+{set;~url;{jget;{get;~result};body.items.0.image.contextLink}}
+{if;{get;~url};==;;{set;!~url;{exec;fakeimg;No results found}}}
+{set;~img;{jget;{get;~result};body.items.0.link}}
+{if;{get;~img};==;;{set;!~img;{exec;fakeimg;No results found}}}
+{set;~title;{jget;{get;~result};body.items.0.title}}
+{if;{get;~title};==;;{set;!~title;No results found}}
+{embed;{embedbuild;
+title:{get;~title};
+url:{get;~url};
+author.icon_url:https://cdn.discordapp.com/emojis/505934787496902656.png?v=1;
+author.name:Google Image Search;
+author.url:https://www.google.com/search?q={regexreplace;{args};/\s/g;+}&tbm=isch&safe=active;
+color:4285F4;
+footer.text:Result for '{args}';
+image.url:{get;~img};}}
