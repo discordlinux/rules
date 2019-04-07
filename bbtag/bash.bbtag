@@ -1,6 +1,14 @@
 {exec;libbash}
 {if;{get;_bash.aliases};==;;{set;_bash.aliases;["!@#$%"]}}
-{function;bashhelp;{embed;{embedbuild;
+{function;bashhelp;{if;{logic;&&;
+{bool;{guildid};==;96230004047740928};
+{switch;{commandname};
+["help","bash"];true;false}};==;true;
+{embed;{embedbuild;
+title:Help for bash;
+color:yellow;
+description:Please use `bash -c` (without using the prefix sudo/su).}};
+{embed;{embedbuild;
 title:Help for bash;
 color:yellow;
 description:__**Usage**__: `bash{if;{commandname};startswith;{lb};{space}-c} <arg> <text>`
@@ -42,7 +50,7 @@ type
 **Aliases**
 {repeat;`;3}
 {join;{sort;{slice;{get;_bash.aliases};1}};,{space}}
-{repeat;`;3}};}}}
+{repeat;`;3}};}}}}
 {switch;{lower;{args;0}};["export"];{output;{func.export;{args;1;n}}};
 ["unset"];{output;{func.export;{jget;{split;{args;1;n};=};0}=}};
 ["echo"];{output;{if;{args;1};includes;$;{exec;rextester-bash;echo "{func.echo;{args;1;n}}"};{exec;rextester-bash;echo {args;1;n}}}};
