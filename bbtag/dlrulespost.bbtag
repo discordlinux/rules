@@ -8,7 +8,7 @@ title:Welcome to {guildname}!;
 color:7289DA;
 fields.name:{zws}{newline}__**Glory to the Tux**__;
 fields.value:• Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
-• If there are ever any issues with staff members, be sure to direct any and all complaints to <a:sans:507742392351326218> sans with a detailed description of the complaint.{newline}{zws};
+• If you ever have any issues with how Discord Linux is ran or have suggestions, please use the `feedback` command in <#174317464337776640>.{newline}{zws};
 fields.name:__**General Rules**__;
 fields.value:{zws} **#1** - No harassment, personal insults, or insulting language.
 {zws} **#2** - Know when a debate has turned into an argument.
@@ -63,21 +63,20 @@ title:__**Lovely Sudoers (Staff)**__;
 color:7289DA;
 description:<@&457281742844330004> 
 • Role to ping all Discord Linux staff (use with care){newline}{zws}
-<@&103845299490930688>
-<a:sans:507742392351326218> sans{newline}{zws}
 <@&172524170779820032>
-<a:Ayakochan:496129985258455050> Ayakochan
-<a:Blank:507744283055358013> Blank
+<a:Ayakochan:568608984269848576> Ayakochan
+<a:Blank:568608532921057306> Blank
 <a:ElizabethNoir:496130198987603998> ElizabethNoir
 <a:greyfade:496130385340530709> greyfade
 <a:NanoDrive:509495107955851265> NanoDrive
-<a:geeko:458902796801146881> simonizor
+<a:sans:507742392351326218> riley
+<a:simonizor:568609902889795604> simonizor
 <a:Vix:496131196628238336> Vix{newline}{zws}
 <@&457273166176321538>
 <a:E5ten:507742251418386436> E5ten{newline}{zws}
 <@&502984660666679306>
 <a:EthanWeegee:509494965563293699> Ethan Weegee
-<a:Snuggle:509495514941882399> Snuggle{newline}{zws}
+<a:Snuggle:568609726649073664> Snuggle{newline}{zws}
 <@&106082717833113600>
 • These are actual Discord employees.  Please do not bother them.{newline}{zws};
 fields.name:__**Channels**__{newline}**Information**;

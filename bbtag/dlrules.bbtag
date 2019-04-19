@@ -9,7 +9,7 @@
 
 - Before you begin chatting away, there are a few rules that you should familiarize yourself with. Please note that these rules do not cover everything, and punishment given for reasons not listed is subjectable to staff's discretion.
 
-- If there are ever any issues with staff members, be sure to direct any and all complaints to `@sans` with a detailed message of what the complaint is.
+- If you ever have any issues with how Discord Linux is ran or have suggestions, please use the `feedback` command in #bot-spam.
 
 ### General Rules
 
@@ -89,9 +89,7 @@
 
 - `@sudoers` - Role to ping all Discord Linux staff (use with care)
 
-- `@root` - `@sans`
-
-- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@simonizor` `@Vix`
+- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@riley` `@simonizor` `@Vix`
 
 - `@trusted` - `@E5ten`
 
