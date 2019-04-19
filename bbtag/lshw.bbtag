@@ -1,0 +1,126 @@
+{function;lshwhelp;{embed;{embedbuild;
+color:yellow;
+title:Help for lshw;
+description:Set your hardware information, view your hardware information, or view other user's hardware information.
+On first run, you will be asked to input your hardware information.
+You can also set your hardware information by using a hastebin link (must be the raw link) containing the output of `sudo lshw` as the argument.
+After your hardware information is set, running `lshw` with no arguments will show your hardware information.
+To delete your hardware information, use the `delete` argument.
+To view other user's hardware information, use their username/user id as the argument.
+
+If you are unsure of how to obtain your hardware information, please install `lshw` on your system and run `sudo lshw`.
+
+**Available arguments**
+{repeat;`;3}
+delete    Delete your stored hardware information.
+{repeat;`;3}
+**Examples**
+{repeat;`;3}
+lshw
+lshw https://hastebin.com/raw/{randstr;abcdefghijklmnopqrstuvwxyz;11}
+lshw delete
+lshw {username;{randuser}}
+{repeat;`;3}}}}
+{set;!~clr;{exec;usrclr;{get;~usr}}}
+{if;{get;~clr};==;;
+{set;!~clr;{exec;blurple}}}
+{function;showhw;{embed;{embedbuild;
+author.name:{username;{get;~usr}};
+author.icon_url:{useravatar;{get;~usr}};
+title:Hardware Information for {usernick;{get;~usr}};
+color:{get;~clr};
+description:**Distro**: {if;{get;@{get;~usr}_distro};==;;{rolename;{jget;{roles;{get;~usr};{quiet}};0}};{get;@{get;~usr}_distro}}
+**System make/model**: {get;@lshw.{get;~usr};0}
+**CPU**: {get;@lshw.{get;~usr};1}
+**GPU(s)**: {get;@lshw.{get;~usr};2}
+**Audio device(s)**: {get;@lshw.{get;~usr};3}
+**Network device(s)**: {get;@lshw.{get;~usr};4};
+{if;{get;!@lshw.{get;~usr}.raw};!=;;url:{get;!@lshw.{get;~usr}.raw}.txt}}}}
+{function;questionembed;{set;!~qmsgid;{send;{channelid};;{embedbuild;
+author.name:lshw;
+color:green;
+description:{params;0};
+footer.text:{params;1}}}}}
+{function;hastebinhw;
+{fallback;}
+{set;!~rawhw;{jget;{request;{params}};body}}
+{set;!@lshw.{get;~usr}.raw;{exec;writeas;{get;~rawhw}}}
+{set;!@lshw.{get;~usr};[]}
+{push;!@lshw.{get;~usr};{jget;{split;{jget;{split;{get;~rawhw};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~rawhw};product:};1};{newline}};0}}
+{push;!@lshw.{get;~usr};{reverse;{replace;{reverse;{foreach;~a;{filter;~audio;{split;{get;~rawhw};*-};{bool;{get;~audio};includes;description: CPU}};{jget;{split;{jget;{split;{get;~a};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~a};product:};1};{newline}};0}{space}{newline}{space}}};{newline};}}}
+{push;!@lshw.{get;~usr};{reverse;{replace;{reverse;{foreach;~a;{filter;~audio;{split;{get;~rawhw};*-};{bool;{get;~audio};includes;description: VGA compatible controller}};{jget;{split;{jget;{split;{get;~a};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~a};product:};1};{newline}};0} - {jget;{split;{jget;{split;{jget;{split;{jget;{split;{get;~a};configuration:};1};{newline}};0};driver=};1};{space}};0}{space}{newline}{space}}};{newline};}}}
+{push;!@lshw.{get;~usr};{reverse;{replace;{reverse;{foreach;~a;{filter;~audio;{split;{get;~rawhw};*-};{bool;{get;~audio};includes;description: Audio device}};{jget;{split;{jget;{split;{get;~a};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~a};product:};1};{newline}};0} - {jget;{split;{jget;{split;{jget;{split;{jget;{split;{get;~a};configuration:};1};{newline}};0};driver=};1};{space}};0}{space}{newline}{space}}};{newline};}}}
+{push;!@lshw.{get;~usr};{foreach;~a;{filter;~audio;{split;{get;~rawhw};*-};{bool;{get;~audio};includes;description: Wireless interface}};{jget;{split;{jget;{split;{get;~a};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~a};product:};1};{newline}};0} - {jget;{split;{jget;{split;{jget;{split;{jget;{split;{get;~a};configuration:};1};{newline}};0};driver=};1};{space}};0}{space}{newline}{space}}{reverse;{replace;{reverse;{foreach;~a;{filter;~audio;{split;{get;~rawhw};*-};{bool;{get;~audio};includes;description: Ethernet interface}};{jget;{split;{jget;{split;{get;~a};vendor:};1};{newline}};0} - {jget;{split;{jget;{split;{get;~a};product:};1};{newline}};0} - {jget;{split;{jget;{split;{jget;{split;{jget;{split;{get;~a};configuration:};1};{newline}};0};driver=};1};{space}};0}{space}{newline}{space}}};{newline};}}}
+{func.showhw}}
+{function;sethwerror;{embed;{embedbuild;
+author.name:lshw;
+color:red;
+title:No input entered for {params}.;
+footer.text:{username};
+footer.icon_url:{useravatar};}}}
+{function;sethw;{set;!@lshw.{userid};[]}
+{fallback;}
+{func.questionembed;If you are running a prebuilt computer or laptop, what manufacturer is it from, and what is the model?  If not, just enter `N/A`.;Ex: Asus ROG G53JW}
+{set;!~makemodel;{messagetext;{jget;{waitmessage};1}}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~makemodel};==;;
+{func.sethwerror;Manufacturer and Model}
+{set;!@lshw.{userid};}
+{return};
+{push;@lshw.{userid};{get;~makemodel}}}
+{func.questionembed;What is the manufacturer and model of your CPU?;Ex: Intel i7-6700T}
+{set;!~cpu;{messagetext;{jget;{waitmessage};1}}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~cpu};==;;
+{func.sethwerror;CPU}
+{set;!@lshw.{userid};}
+{return};
+{push;@lshw.{userid};{get;~cpu}}}
+{func.questionembed;What is the manufacturer and model of your GPU(s)?;Ex: NVIDIA GTX 1060, Intel HD Graphics 530}
+{set;!~gpu;{messagetext;{jget;{waitmessage};1}}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~gpu};==;;
+{func.sethwerror;GPU}
+{set;!@lshw.{userid};}
+{return};
+{push;@lshw.{userid};{get;~gpu}}}
+{func.questionembed;What is the manufacturer and model of your audio device(s)?;Ex: Texas Instruments PCM2902 Audio Codec}
+{set;!~audio;{messagetext;{jget;{waitmessage};1}}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~audio};==;;
+{func.sethwerror;Audio device(s)}
+{set;!@lshw.{userid};}
+{return};
+{push;@lshw.{userid};{get;~audio}}}
+{func.questionembed;What is the manufacturer and model of your network device(s)?;Ex: Intel Ethernet I219-LM, Intel Wireless 8260}
+{set;!~network;{messagetext;{jget;{waitmessage};1}}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~network};==;;
+{func.sethwerror;Network device(s)}
+{set;!@lshw.{userid};}
+{return};
+{push;@lshw.{userid};{get;~network}}}
+{set;!~usr;{userid}}
+{func.showhw}}
+{function;deletehw;{set;!@lshw.{userid};}
+{embed;{embedbuild;
+title:lshw;
+color:orange;
+description:Your stored hardware information has been deleted, <@{userid}>!;}}}
+{switch;{lower;{flag;_}};
+["help","--help","-h"];
+{func.lshwhelp};
+["delete","remove","rm"];
+{func.deletehw};
+{if;{flag;_};startswith;https://hastebin.com/raw/;
+{set;!~usr;{userid}}
+{func.hastebinhw;{flag;_}};
+{switch;{userid;{flag;_};quiet};
+{guildmembers};
+{set;!~usr;{userid;{flag;_};quiet}}
+{if;{get;@lshw.{get;~usr}};==;;
+{if;{get;~usr};==;{userid};
+{func.sethw};
+{exec;Err;<@{get;~usr}> does not have any hardware information set.}};
+{func.showhw}};
+{func.lshwhelp}}}}
