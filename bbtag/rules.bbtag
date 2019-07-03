@@ -1,3 +1,4 @@
+{exec;prefix.test}
 {if;{lower;{args;0}};==;help;{embed;{embedbuild;
 title:Help for rules;
 color:yellow;
@@ -10,7 +11,7 @@ Displays a message telling someone to read <#172522057291005953>.  Can also show
 {exec;commandname;rules} 1
 {exec;commandname;rules} spam
 {repeat;`;3}}};
-{set;~rules;filler;#1  - No harassment, personal insults, or insulting language.;#2  - Know when a debate has turned into an argument.;#3  - No NSFW or illegal content what-so-ever.;#4  - No invite links or advertising other servers.;#5  - No spamming.;#6  - No shitposting or memes.;#7  - No huge messages. See 'sudo help pastebin'.;#8  - Do not abuse the bot. Keep most command use in #bot-spam.;#9  - English only.;#10 - Use the channels as intended.;#11 - No selfbots what-so-ever.;#12 - Do not discuss things that break Discord's Terms of Service.;#13 - Cooperate with Discord Linux staff members.;Distributions That Are Not Supported
+{set;~rules;filler;#1  - No harassment, personal insults, or insulting language.;#2  - Know when a debate has turned into an argument.;#3  - No NSFW or illegal content.;#4  - No invite links or advertising other servers.;#5  - No spamming.;#6  - No shitposting or memes.;#7  - No huge messages. See 'sudo help pastebin'.;#8  - Do not abuse the bot. Keep most command use in #bot-spam.;#9  - English only.;#10 - Use the channels as intended.;#11 - Do not discuss things that break Discord's Terms of Service, including self bots.;#12 - Cooperate with Discord Linux staff members.;Distributions That Are Not Supported
 • The following distros are not supported in Discord Linux:
 Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Solus, Manjaro, Antergos and any derivative of Arch Linux.
 • These distributions have a history of breaking important system packages and compatibility with software you install.
