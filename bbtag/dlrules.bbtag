@@ -88,11 +88,11 @@
 
 - `@sudoers` - Role to ping all Discord Linux staff (use with care)
 
-- `@wheel` - `@Ayakochan` `@Blank` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@riley` `@simonizor` `@Vix`
+- `@wheel` - `@Ayakochan` `@Blank` `@E5ten` `@ElizabethNoir` `@greyfade` `@NanoDrive` `@riley` `@Syretia` `@Vix`
 
-- `@trusted` - `@E5ten`
+- `@trusted` - `@Ethan Weegee` `@Snuggle`
 
-- `@backup` - `@Ethan Weegee` `@Snuggle`
+- `@backup` - 
 
 - `@Discord Employees` - These are actual Discord employees. Please do not bother them.
 
@@ -150,7 +150,7 @@
 
 #### Now get chatting!
 
-- In order to view the rest of the channels, type `﻿s﻿u﻿d﻿o﻿ ﻿-i﻿ ﻿{get;_{userid}fakepasscode}` (do not copy and paste) in the #welcome channel.  This indicates that you have read and agree to follow all of the rules stated above.
+- In order to view the rest of the channels, type `﻿s﻿u﻿d﻿o﻿ ﻿-﻿i﻿ ﻿{get;_{userid}fakepasscode}` (do not copy and paste) in the #welcome channel.  This indicates that you have read and agree to follow all of the rules stated above.
 - To join a role, head over to #bot-spam and use `sudo usermod` to list the available roles and `sudo usermod -a <role>` to join a role. You can join as many roles as you like.
 
 #### [Changelog for #rules](https://github.com/discordlinux/rules/commits/master)
