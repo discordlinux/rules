@@ -1,25 +1,32 @@
 {switch;{lower;{flag;_}};
 ["verify","sums","check","iso"];{exec;ubuntu-verify};
 ["based"];{exec;ubuntu-based};
-["flavors","mate","budgie"];{exec;ubuntu-flavors};
 {embed;{embedbuild;
 author.name:Ubuntu;
-author.url:https://ubuntu.com;
 author.icon_url:https://assets.ubuntu.com/v1/29985a98-ubuntu-logo32.png;
-color:e95420;
-description:**• Has two release cycles:
-- LTS releases (always EvenNumber.04) which are released every two years with point releases in between.
-- Testing releases which are supported for 9 months and not recommended for normal use.
-• Uses the apt package manager which is relatively intuitive and works well under most situations.
+author.url:https://ubuntu.com;
+color:{exec;distrocolors;ubuntu};
+footer.text:See 'sudo info xubuntu', 'sudo info ubuntu mate', 'sudo info lubuntu', and 'sudo info ubuntu budgie' for more information about Ubuntu flavors.;
+footer.icon_url:https://cdn.discordapp.com/emojis/230469242183483392.png?v=1;
+description:Ubuntu is a point release Linux distribution that has two release cycles.  The LTS releases (always EvenNumber.04) are released every two years with point releases in between.  The LTS versions are the stable releases of Ubuntu.  Non LTS releases (anything other than EvenNumber.04) are supported for 9 months and not recommended for normal use.  The non LTS releases are frequently used to test things that do not work out well in the long run.  Ubuntu uses the apt package manager which is relatively intuitive and works well under most situations.
+**[Screenshots of Ubuntu](https://www.omgubuntu.co.uk/2018/04/ubuntu-18-04-download-release-features)**;
+fields.name:<:SeemsGood:478441196755091461> Advantages of Ubuntu;
+fields.value:• The most beginner friendly Linux distribution.
+• The most well known and supported Linux distribution.
+• Ubuntu LTS releases are extremely stable and rarely have major issues.
+• Installing drivers is easier than on Windows in most cases using `Additional Drivers` in `Software & Updates`.
+• Most applications and games that are created for Linux are tested and built for Ubuntu first.
+• Has a huge community with tons of information that is easy to find through your favorite search engine.
+• Has more software available in base repositories than most other distributions.
 • Can use PPAs (Personal Package Archives) for installing packages not in the default repos or updating packages to newer versions.
-• Has two rolling kernel branches on the LTS releases which can be used to keep the kernel more up to date than the standard kernel branch.
-• Most applications and games that are created for Linux are tested and built for Ubuntu first and other distros later (if ever).
-• Has a huge community with tons of information that is easy to find through your favorite search engine.**
-**__NOTE__**:
-• ***Stock Ubuntu*** **ships with the GNOME Desktop Environment which may be too heavy on resources for some users.
-• GNOME is not easy to customize without installing extensions.
-• Most other DEs can be made to function very similarly while using about half the amount of RAM.
-• Instead of installing** ***Stock Ubuntu***, **you may wish to install an Ubuntu flavor instead** ***(see `{prefix} {commandname}{if;{messagetext};includes;distro{space}info;{space}info} ubuntu flavors`)***.
-
-**[Download Ubuntu](https://www.ubuntu.com/download/desktop)**;
-}}}
+• Has two rolling kernel branches on the LTS releases which can be used to keep the kernel more up to date than the standard kernel branch.;
+fields.inline:false;
+fields.name:<:glare:501195158688104448> Disadvantages of Ubuntu;
+fields.value:• Ships with `snapd` and a snap for gnome-system-monitor installed by default (see `sudo info snaps` for more info on snaps).
+• Snaps are listed in GNOME software with little saying that they are not normal packages provided by Canonical.
+• Stock Ubuntu ships with the GNOME Desktop Environment which may be too heavy on resources for some systems.
+• GNOME lacks many customization options that other Desktop Environments provide.;
+fields.inline:false;
+fields.name:<:think:585665071938666508> Should You Use Ubuntu?;
+fields.value:If you are looking for a Linux distribution that is easy to use, well supported, very stable, and has tons of software available, Ubuntu and its flavors are the best choice.  Most people will be happier with an [Ubuntu flavor](https://ubuntu.com/download/flavours) than stock Ubuntu as they are easier on system resources and much more customizable.  The only [Ubuntu flavor](https://ubuntu.com/download/flavours) that we do not recommend is Kubuntu as it is known to have buggy builds of KDE Plasma software.  We recommend using KDE neon (see `sudo info kde neon`) instead of Kubuntu.
+**[Download Ubuntu](https://ubuntu.com/download/desktop/thank-you?country=US&version=18.04.2&architecture=amd64)**}}}
