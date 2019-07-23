@@ -1,84 +1,274 @@
 {exec;prefix.test}
+{//;Help function}
 {function;help;{embed;{embedbuild;
 title:Help for {exec;commandname;profile};
 color:yellow;
-description:**__Usage__**: `{exec;commandname;profile} [user | flags <text>]`
-Show information about user.  {if;{guildid};==;96230004047740928;**The <@&428637054922915850> role is required to use this command.**}
+description:**__Usage__**: `{exec;commandname;profile} [user{if;{guildid};==;96230004047740928;{space}| arg}]`
+Show information about user.  {if;{guildid};==;96230004047740928;**The <@&428637054922915850> role is required to use this command.**
+
+If no arguments are passed and you do not have your profile setup, a set of questions will be asked to setup your profile.  A copy of your profile will be sent to <#479497706234970115> for others to view easily.
   
-Can also be used to setup the 'About {username}' section with the flags below.  **Please do not use one flag at a time unless you are changing a single section.**
-  
-**Available flags**
+**Available Arguments**
 {repeat;`;3}
--D - Favorite distro
--w - Favorite DE/WM
--b - Favorite browser
--t - Favorite terminal
--e - Favorite editor
--l - Favorite language
--s - Favorite shell
--d - Short description about {username}
-{repeat;`;3}}}}
-{function;embed;{if;{userhasrole;428637054922915850;{get;~user};quiet};
-{embedbuild;title:{guildname} - {guildsize} members;
-fields.name:**__Account Information__**;
-fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
-**Nickname**: <@!{get;~user}>
-**ID**: {userid;{get;~user}}
-**Status**: {userstatus;{get;~user}}
-**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
-**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
-**Playing**: {exec;user.game;{get;~user}}
-**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}};
-fields.name:**__About {username;{get;~user}}__**;
-fields.value:**Favorite distro**: {get;@{get;~user}_distro}
+help  - Show this help output.
+setup - Edit all sections of your profile at once.
+edit  - Edit a single section of your profile.
+{repeat;`;3}}}}}
+{//;Function to embed questions}
+{function;questionembed;
+{set;!~qmsgid;{send;{channelid};;{embedbuild;
+author.name:Creating Profile for {usernick};
+author.icon_url:{exec;linuxhacker};
+color:green;
+description:{params;0};
+footer.text:{params;1}}}}}
+{//;Function to set fav distro}
+{function;favdistro;
+{func.questionembed;What is your favorite Linux distribution?;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_distro;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav de/wm}
+{function;favdewm;
+{func.questionembed;What is your favorite Desktop Environment and/or Window Manager?;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_dewm;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav browser}
+{function;favbrowser;
+{func.questionembed;What is your favorite web browser?;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_browser;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav terminal}
+{function;favterminal;
+{func.questionembed;What is your favorite terminal emulator?{newline}{newline}Examples: Konsole, gnome-terminal, Alacritty, Kitty;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_terminal;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav editor}
+{function;faveditor;
+{func.questionembed;What is your favorite text editor?{newline}{newline}Examples: vim, micro, VSCode;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_editor;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav programming language}
+{function;favproglang;
+{func.questionembed;What is your favorite programming language?{newline}{newline}Examples: python, javascript, bash;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_proglang;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set fav shell}
+{function;favshell;
+{func.questionembed;What is your favorite terminal shell?{newline}{newline}Examples: bash, zsh;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_shell;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to set user description}
+{function;description;
+{func.questionembed;Please enter a short description about yourself.{newline}{newline}Examples: your hobbies, a link to your website, etc.;Enter 'c' to cancel{if;{get;~setup};==;true;{space}setting up your profile or 's' to skip this question}.}
+{set;!~rmsgid;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{switch;{messagetext;{channelid};{get;~rmsgid}};
+["c","C","'c'","'C'",""];
+{exec;Err;Profile setup canceled or no input found.}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{return};
+["s","S","'s'","'S'"];
+{//;skip question};
+{set;!@{userid}_description;{messagetext;{channelid};{get;~rmsgid}}}}
+{void;{delete;{channelid};{get;~rmsgid}}}
+{commit}}
+{//;Function to setup profile first time}
+{function;setup;
+{set;!~setup;true}
+{fallback;}
+{//;Fav distro}
+{func.favdistro}
+{//;Fav DE/WM}
+{func.favdewm}
+{//;Fav browser}
+{func.favbrowser}
+{//;Fav terminal}
+{func.favterminal}
+{//;Fav editor}
+{func.faveditor}
+{//;Fav programming language}
+{func.favproglang}
+{//;Fav shell}
+{func.favshell}
+{//;description about user}
+{func.description}}
+{//;Function to edit profile}
+{function;editprofile;
+{fallback;}
+{switch;{lower;{params;0}};
+["help","--help","-h",""];
+{exec;Err;**Arguments for editing {exec;commandname;profile}**{newline}
+`distro` or `distribution`
+`de/wm`
+`browser`
+`editor`
+`lang` or `language`
+`shell`
+`desc` or `description`}
+{return};
+["distro","distribution"];
+{func.favdistro};
+["de/wm"];
+{func.favdewm};
+["browser"];
+{func.favbrowser};
+["editor"];
+{func.faveditor};
+["lang","language"];
+{func.favproglang};
+["shell"];
+{func.favshell};
+["desc","description"];
+{func.description};
+{exec;Err;**Arguments for editing {exec;commandname;profile}**{newline}
+`distro` or `distribution`
+`de/wm
+`browser`
+`editor`
+`lang` or `language`
+`shell`
+`desc` or `description`}
+{return}}}
+{//;Function to embed profile output}
+{function;embed;
+{set;!~eColor;{exec;usrclr;{get;~user}}}
+{if;{get;~no.extra};==;false;
+{set;!~created.days;{jget;{split;{exec;mathjs;{math;-;{time;X};{usercreatedat;X;{userid;{get;~user}}}} seconds to days};.};0}}}
+{set;!~fields;[]}
+{push;~fields;title:{if;{get;~no.extra};==;false;{guildname} - {guildsize} members;};thumbnail.url:{useravatar;{get;~user};quiet};timestamp:{time};color:{get;~eColor;0}}
+{if;{get;~no.extra};==;true;
+{push;~fields;footer.text:Profile updated}}
+{commit}
+{if;{userhasrole;428637054922915850;{get;~user};quiet};
+{push;~fields;fields.name:**__About {usernick;{get;~user}}__**;fields.value:**Favorite distro**: {get;@{get;~user}_distro}
 **Favorite DE/WM**: {get;@{get;~user}_dewm}
 **Favorite browser**: {get;@{get;~user}_browser}
 **Favorite terminal**: {get;@{get;~user}_terminal}
 **Favorite editor**: {get;@{get;~user}_editor}
 **Favorite language**: {get;@{get;~user}_proglang}
 **Favorite shell**: {get;@{get;~user}_shell}
-**Description**: {get;@{get;~user}_description};
-thumbnail.url:{useravatar;{get;~user};quiet};
-color:{get;~eColor;0}};
-{embedbuild;title:{guildname} - {guildsize} members;
-fields.name:**__Account Information__**;
-fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
+**Description**: {get;@{get;~user}_description}}
+{commit}}
+{push;~fields;fields.name:**__Account Information__**;fields.value:**Username**: {username;{get;~user}}#{userdiscrim;{get;~user}}
 **Nickname**: <@!{get;~user}>
-**ID**: {userid;{get;~user}}
-**Status**: {userstatus;{get;~user}}
-**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
-**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}
-**Playing**: {exec;user.game;{get;~user}}
-**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}};
-thumbnail.url:{useravatar;{get;~user};quiet};
-color:{get;~eColor;0}}}}
-{switch;{lower;{args}};
-["help","-h","--help"];{func.help};
-{if;{flagset;D};{set;~editmode;1}{set;@{userid}_distro;{flag;D}}{commit}}
-{if;{flagset;w};{set;~editmode;1}{set;@{userid}_dewm;{flag;w}}{commit}}
-{if;{flagset;b};{set;~editmode;1}{set;@{userid}_browser;{flag;b}}{commit}}
-{if;{flagset;t};{set;~editmode;1}{set;@{userid}_terminal;{flag;t}}{commit}}
-{if;{flagset;e};{set;~editmode;1}{set;@{userid}_editor;{flag;e}}{commit}}
-{if;{flagset;l};{set;~editmode;1}{set;@{userid}_proglang;{flag;l}}{commit}}
-{if;{flagset;s};{set;~editmode;1}{set;@{userid}_shell;{flag;s}}{commit}}
-{if;{flagset;d};{set;~editmode;1}{set;@{userid}_description;{flag;d}}{commit}}
-{//;{if;{userid;{flag;_};quiet};==;;
-  ❌ '{flag;_}' not found!{return}
-}}
-{if;{get;~editmode};==;1;{set;~user;{userid}};{if;{argslength};==;0;{set;~user;{userid}};{set;~user;{userid;{args}}}}}
-{if;{get;~user};==;;{throw;User not found!}{return}}
-{set;~eColor;[]}
-{set;~roles;{roles;{get;~user}}}
-{foreach;~color;{get;~roles};
-  {if;{rolecolor;{get;~color}};!=;000000;
-    {push;{get;~eColor};{rolecolor;{get;~color}}}
-  }
-}
-{if;{length;{get;~eColor}};==;0;
-  {set;~eColor;c1694f}
-}
-{if;{iscc};
+**ID**: {userid;{get;~user}}{if;{get;~no.extra};==;false;{newline}**Status**: {userstatus;{get;~user}}}
+**Created**: {usercreatedat;YYYY/MM/DD HH:mm:ss;{get;~user}} {if;{get;~no.extra};==;false;({get;~created.days} days ago)}
+**Joined**: {userjoinedat;YYYY/MM/DD HH:mm:ss;{get;~user}}{if;{get;~no.extra};==;false;{newline}**Playing**: {exec;user.game;{get;~user}}}
+**Roles**: {foreach;~userrole;{roles;{get;~user}};<@&{get;~userrole}>{space}}}
+{commit}
+{apply;embedbuild;{get;~fields}}}
+{//;Function to output profile}
+{function;output;
 {void;{delete;{channelid};{get;_{userid}.last.embed.mid}}}
-{set;_{userid}.last.embed.mid;{send;{channelid};;{func.embed}}};
-{embed;{func.embed}}}
-}
+{set;!~no.extra;false}
+{set;!_{userid}.last.embed.mid;{output;{embed;{func.embed}}}}
+{if;{guildid};==;96230004047740928;
+{if;{get;~user};==;{userid};
+{set;!~no.extra;true}
+{if;{get;_profile.welcome.id.{userid}};==;;
+{set;!_profile.welcome.id.{userid};{send;479497706234970115;{usermention};{func.embed}}};
+{edit;479497706234970115;{get;_profile.welcome.id.{userid}};{usermention};{func.embed}}}}}}
+{//;Detect arguments}
+{fallback;}
+{switch;{lower;{jget;{argsarray};0}};
+["help","-h","--help"];
+{func.help};
+["setup"];
+{if;{guildid};==;96230004047740928;
+{lock;read;somethirdkey;
+{set;!~user;{userid}}
+{func.setup}
+{func.output}};
+{func.help}};
+["edit"];
+{if;{guildid};==;96230004047740928;
+{lock;read;somekey;
+{func.editprofile;{jget;{split;{flag;_};{space}};1}}
+{set;!~user;{userid}}
+{func.output}};
+{func.help}};
+{lock;read;someotherkey;
+{if;{flag;_};==;;
+{set;!~user;{userid}}
+{if;{guildid};==;96230004047740928;
+{if;{logic;&&;
+{if;{get;@{get;~user}_dewm};==;;true;false};
+{if;{get;@{get;~user}_browser};==;;true;false};
+{if;{get;@{get;~user}_terminal};==;;true;false};
+{if;{get;@{get;~user}_editor};==;;true;false};
+{if;{get;@{get;~user}_proglang};==;;true;false};
+{if;{get;@{get;~user}_description};==;;true;false}};==;true;
+{func.setup}}};
+{set;!~user;{userid;{args}}}}
+{if;{get;~user};==;;{exec;Err;User not found!};
+{func.output}}}}

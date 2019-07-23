@@ -1,75 +1,87 @@
 {//;Function to output help in plain text}
-{function;help;__**Usage**__: `{prefix} ticket <description|arg [number]> [-s #channel]`
-Create and view tickets for the support channels.  **The default action is to create a new ticket.**  Tickets can only be posted to the support channels.
+{function;help;{embed;{embedbuild;
+author.name:Help for ticket;
+color:{exec;blurple};
+description:__**Usage**__: `{prefix} ticket <arg>`
+Create and view tickets for the support channels.  Tickets can only be posted to the support channels.
 
 **Available arguments**
-```
+{repeat;`;3}
 -h / help{zws} {zws} - Show this help output.
 -i / info{zws} {zws} - Show number of stored tickets.
 -l / list{zws} {zws} - List open support tickets by ticket #.
+-n / new{zws} {zws} {zws} - Start the process of creating a new ticket.
 -v / view{zws} {zws} - View specified ticket.
 -e / edit{zws} {zws} - Edit specified ticket.
 -c / close - Close an open ticket.
 -o / open{zws} {zws} - Open a closed ticket.
--s {zws} {zws} {zws} {zws} {zws} {zws} {zws} {zws} - Set the support channel to post the ticket when creating or editing.
-```
-**Use the template below for creating tickets**:
-```
-Distribution: KDE neon
-Version: 18.04
-Description: Program A fails to run when doing action X.  I have tried solutions Y and Z, but Program A still crashes.
-
-Links to error logs: https://paste.rs/fakelink
-Links to screenshots: https://ibin.co/fakepic.png
-```
-}
-{if;{flag;_};startswith;{newline};{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}
-{if;{flagset;H};{func.help};
+{repeat;`;3};}}}
+{//;Function to embed questions}
+{function;questionembed;{set;!~qmsgid;{send;{channelid};;{embedbuild;
+author.name:Creating Ticket for {usernick};
+author.icon_url:{exec;linuxhacker};
+color:green;
+description:{params;0};
+footer.text:{params;1}}}}}
 {//;Set _ticket.number to 0 if not set}
 {if;{get;_ticket.number};==;;{set;_ticket.number;0}}
 {//;Detect argument input}
+{fallback;}
 {switch;{lower;{args;0}};
 {//;Output help}
-["help","-h"];{embed;{embedbuild;description:{func.help}}};
+["help","-h",""];
+{func.help};
 {//;Show how many tickets exist}
-["info","-i"];{embed;{embedbuild;
+["info","-i"];
+{embed;{embedbuild;
 description:There are currently {get;_ticket.number} tickets stored.  Use `{prefix} {commandname} view <number>` to view the contents of the ticket.}};
 {//;Show currently open ticket numbers}
-["list","-l"];{set;~opentickets;{for;~ticket;1;<=;{get;_ticket.number};{if;{get;_ticket.{get;~ticket}.status};==;open;`{get;~ticket}`{zws} {zws}}}}
-{if;{get;~opentickets};==;;No open tickets!{return}}
+["list","-l"];
+{set;~opentickets;{for;~ticket;1;<=;{get;_ticket.number};{if;{get;_ticket.{get;~ticket}.status};==;open;{if;{exec;usercheck;{get;_ticket.{get;~ticket}.userid}};==;false;{set;!_ticket.{get;~ticket}.status;closed};`{get;~ticket}`{zws} {zws}}}}}
+{if;{get;~opentickets};==;;{exec;Err;No open tickets!}{return}}
 {embed;{embedbuild;
 title:Open Support Tickets;
 color:green;
 description:*Listed by ticket number*
 {get;~opentickets}}};
 {//;View tickets}
-["view","-v"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+["view","-v"];
+{if;{get;_ticket.{args;1}.text};==;;{exec;Err;Ticket `{args;1}` not found!}{return}}
+{fallback;{exec;linuxhacker}}
 {embed;{embedbuild;
-title:Ticket {args;1};
-footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
-description:__**Status**__: {get;_ticket.{args;1}.status}
-__**Channel**__: {get;_ticket.{args;1}.channel}
-__**Description**__:
-{get;_ticket.{args;1}.text}
-{newline}__**[Jump to post](https://discordapp.com/channels/{guildid}/{regexreplace;{get;_ticket.{args;1}.channel};/[<#>]/g;}/{get;_ticket.{args;1}.messageid})**__;}}
-{return};
+author.name:{usernick;{get;_ticket.{args;1}.userid}};
+author.icon_url:{useravatar;{get;_ticket.{args;1}.userid}};
+title:Ticket #{args;1};
+color:{exec;usrclr;{get;_ticket.{args;1}.userid}};
+footer.text:Status: {get;_ticket.{args;1}.status};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+fields.name:Channel;
+fields.value:<#{exec;chanid;{get;_ticket.{args;1}.channel}}>;
+fields.inline:false;
+fields.name:Description;
+fields.value:{get;_ticket.{args;1}.text}
+{newline}__**[Jump to post](https://discordapp.com/channels/{guildid}/{regexreplace;{get;_ticket.{args;1}.channel};/[<#>]/g;}/{get;_ticket.{args;1}.messageid})**__;
+fields.inline:false;}};
 {//;Mark ticket as closed}
-["close","-c"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+["close","-c"];
+{if;{get;_ticket.{args;1}.text};==;;{exec;Err;Ticket `{args;1}` not found!}{return}}
 {//;Only original user or sudoers allowed}
 {if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
-You cannot close tickets you didn't create {usermention}!{return}}}
-{set;_ticket.{args;1}.status;closed}Ticket `{args;1}` marked as closed.;
+{exec;Err;You cannot close tickets you didn't create {usermention}!}{return}}}
+{set;_ticket.{args;1}.status;closed}{exec;embeder;Ticket `{args;1}` marked as closed.;-C {exec;usrclr}};
 {//;Reopen ticket}
-["open","-o"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+["open","-o"];
+{if;{get;_ticket.{args;1}.text};==;;{exec;Err;Ticket `{args;1}` not found!}{return}}
 {//;Only original user or sudoers allowed}
 {if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
-You cannot open tickets you didn't create {usermention}!{return}}}
-{set;_ticket.{args;1}.status;open}Ticket `{args;1}` marked as open.;
+{exec;Err;You cannot open tickets you didn't create {usermention}!}{return}}}
+{set;_ticket.{args;1}.status;open}{exec;embeder;Ticket `{args;1}` marked as open.;-C {exec;usrclr}};
 {//;Delete ticket}
-["delete","-d"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
+["delete","-d"];
+{if;{get;_ticket.{args;1}.text};==;;{exec;Err;Ticket `{args;1}` not found!}{return}}
 {//;Only sudoers allowed}
 {if;{userhasrole;457281742844330004};
-Ticket `{args;1}` deleted.
+{exec;embeder;Ticket `{args;1}` deleted.;-C {exec;usrclr}}
 {void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
 {set;_ticket.{args;1}.channel;}
 {set;_ticket.{args;1}.text;}
@@ -78,93 +90,252 @@ Ticket `{args;1}` deleted.
 {set;_ticket.{args;1}.status;}
 {if;{args;1};==;{get;_ticket.number};
 {set;_ticket.number;{math;-;{get;_ticket.number};1}}{commit}};
-Only `sudoers` can delete tickets {usermention}!};
-{//;Edit ticket text}
-["edit","-e"];{if;{get;_ticket.{args;1}.text};==;;Ticket `{args;1}` not found!{return}}
-{//;Only original user or sudoers allowed}
+{exec;Err;Only `sudoers` can delete tickets {usermention}!}};
+{//;Edit ticket}
+["edit","-e"];
+{if;{get;_ticket.{args;1}.text};==;;{exec;Err;Ticket `{args;1}` not found!}{return}}
+{//;Only original user}
 {if;{userid};==;{get;_ticket.{args;1}.userid};;{if;{userhasrole;457281742844330004};;
-You cannot edit tickets you didn't create {usermention}!{return}}}
-{//;Detect arguments and set variables}
-{if;{flagset;s};
-{switch;{flag;s};
-["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
-Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
-}
-{set;_ticket.{args;1}.channel;{flag;s}}Ticket channel changed to {flag;s}.  Description must be edited separately.
-{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
-{set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
-title:Ticket {args;1};
-footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
-description:__**Status**__: {get;_ticket.{args;1}.status}
-__**Channel**__: {get;_ticket.{args;1}.channel}
-__**Description**__:
-{get;_ticket.{args;1}.text};}}}
-{return}}
-{set;~ticket.text;{args;2;n}}{set;~ticket.channel;{get;_ticket.{args;1}.channel}}
-{//;If ticket text does not follow template; output template and return}
+{exec;Err;You cannot edit tickets you didn't create {usermention}!}{return}}}
 {switch;{lower;{args;2}};
-  ["distro:","distribution:","topic:","distro","distribution","topic"];{//;Do nothing, correct input};{if;{args;2};startswith;```;;
-{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}}
-{//;Detect unsupported distros}
-{if;{lower;{get;~ticket.text}};includes;manjaro;{delete}Sorry, Manjaro is not supported in this server.  See `sudo distro info manjaro` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;solus;{delete}Sorry, Solus is not supported in this server.  See `sudo distro info solus` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;mint;{delete}Sorry, Linux Mint is not supported in this server.  See `sudo distro info mint` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;kali;{delete}Sorry, Kali is not supported in this server.  See `sudo distro info kali` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;antergos;{delete}Sorry, Antergos is not supported in this server.  See `sudo distro info antergos` for more info {usermention}.{return}}
-{//;Detect channel input and see if it's a support channel}
-{switch;{get;~ticket.channel};
-  ["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
-  Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
-}
-{sleep;5s}
-{if;{messagetext;{messageid}};==;`No message found`;Message containing ticket was deleted!{return};
-{set;_ticket.{args;1}.channel;{get;~ticket.channel}}
-{set;_ticket.{args;1}.text;{get;~ticket.text}}
-{delete}
-Ticket `{args;1}` edited.
+{//;Edit distro}
+["distro"];
+{//;Ask user which distro}
+{func.questionembed;What Operating System are you having problems with?{newline}Ex: `Xubuntu 18.04`;Please do not ask for help with distributions Discord Linux does not provide support for (see #rules).}
+{//;Check user response}
+{set;!~distro.msg;{messagetext;{jget;{waitmessage};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{foreach;~dist;{split;{get;~distro.msg};{space}};
+{switch;{lower;{get;~dist}};
+{//;Unsupported distributions}
+["kali","parrot","parrotos","blackarch","mint","solus","manjaro","antergos","artix"];
+{exec;Err;Error creating ticket.{newline}Sorry, {usermention}, but Discord Linux does not provide support for {get;~dist}.  See `sudo info {get;~dist}` for more information.}
+{return}}}
+{if;{get;~distro.msg};==;;
+{exec;Err;No response found for `distro` for editing ticket.}
+{return}}
+{//;Get desc from ticket text}
+{set;!~desc;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};2};/\r\n/;{space}}}
+{//;Get logs from ticket text}
+{set;!~logs;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};3};/\r\n/;{space}}}
+{//;Get screenshots from ticket text}
+{set;!~screenshots;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};4};/\r\n/;{space}}}
+{//;Set new ticket text using new description}
+{set;!_ticket.{args;1}.text;• Distribution: {get;~distro.msg}
+•{get;~desc}
+•{get;~logs}
+•{get;~screenshots}}
+{exec;embeder;Ticket #{get;_ticket.number} has been edited and will be sent to <#{get;_ticket.{args;1}.channel}>.;-C {exec;usrclr}}
+{//;Delete existing ticket}
 {void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
-    {set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
-title:Ticket {args;1};
-footer.text:Posted by {username;{get;_ticket.{args;1}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
-description:__**Status**__: {get;_ticket.{args;1}.status}
-__**Channel**__: {get;_ticket.{args;1}.channel}
-__**Description**__:
-{get;_ticket.{args;1}.text};}}}};
+{//;Send new ticket to channel}
+{set;!_ticket.{args;1}.messageid;{send;{get;_ticket.{args;1}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{args;1};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:{get;_ticket.{args;1}.text};
+footer.text:Status: {get;_ticket.{args;1}.status};}}};
+{//;Edit description}
+["description"];
+{//;Ask user for description of problem}
+{func.questionembed;Please describe the problem you are having with as much detail as possible.  Make sure to describle things like what you were doing when the problem happened, what you have done to attempt to resolve the problem, etc.;Ex: 'Program A fails to run when doing action X.  I have tried solutions Y and Z, but Program A still crashes.'}
+{//;Check user response}
+{set;!~desc.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~desc.msg};==;;
+{exec;Err;No response found for `description` for editing ticket.}
+{return}}
+{//;Get distro from ticket text}
+{set;!~distro;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};1};/\r\n/;{space}}}
+{//;Get logs from ticket text}
+{set;!~logs;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};3};/\r\n/;{space}}}
+{//;Get screenshots from ticket text}
+{set;!~screenshots;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};4};/\r\n/;{space}}}
+{//;Set new ticket text using new description}
+{set;!_ticket.{args;1}.text;•{get;~distro}
+• Description: {get;~desc.msg}
+•{get;~logs}
+•{get;~screenshots}}
+{exec;embeder;Ticket #{get;_ticket.number} has been edited and will be sent to <#{get;_ticket.{args;1}.channel}>.;-C {exec;usrclr}}
+{//;Delete existing ticket}
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{//;Send new ticket to channel}
+{set;!_ticket.{args;1}.messageid;{send;{get;_ticket.{args;1}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{args;1};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:{get;_ticket.{args;1}.text};
+footer.text:Status: {get;_ticket.{args;1}.status};}}};
+{//;Edit logs}
+["logs"];
+{//;Ask user for logs}
+{func.questionembed;Please link give links to any relevant logs.;Logs are very helpful, so please try to find a relevant log, but enter 'N/A' if no logs are available.}
+{//;Set user response to variable}
+{set;!~logs.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~logs.msg};==;;
+{exec;Err;No response found for `logs` for editing ticket.}
+{return}}
+{//;Get distro from ticket text}
+{set;!~distro;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};1};/\r\n/;{space}}}
+{//;Get desc from ticket text}
+{set;!~desc;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};2};/\r\n/;{space}}}
+{//;Get screenshots from ticket text}
+{set;!~screenshots;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};4};/\r\n/;{space}}}
+{//;Set new ticket text using new description}
+{set;!_ticket.{args;1}.text;•{get;~distro}
+•{get;~desc}
+• Links to error logs: {get;~logs.msg}
+•{get;~screenshots}}
+{exec;embeder;Ticket #{get;_ticket.number} has been edited and will be sent to <#{get;_ticket.{args;1}.channel}>.;-C {exec;usrclr}}
+{//;Delete existing ticket}
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{//;Send new ticket to channel}
+{set;!_ticket.{args;1}.messageid;{send;{get;_ticket.{args;1}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{args;1};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:{get;_ticket.{args;1}.text};
+footer.text:Status: {get;_ticket.{args;1}.status};}}};
+{//;Edit screenshots}
+["screenshots"];
+{//;Ask user for screenshots}
+{func.questionembed;Please link give links to any relevant screenshots.;Enter 'N/A' if no screenshots are available.}
+{//;Set user response to variable}
+{set;!~screenshots.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~screenshots.msg};==;;
+{exec;Err;No response found for `screenshots` for editing ticket.}
+{return}}
+{//;Get distro from ticket text}
+{set;!~distro;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};1};/\r\n/;{space}}}
+{//;Get desc from ticket text}
+{set;!~desc;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};2};/\r\n/;{space}}}
+{//;Get logs from ticket text}
+{set;!~logs;{regexreplace;{jget;{split;{get;_ticket.{args;1}.text};•};3};/\r\n/;{space}}}
+{//;Set new ticket text using new description}
+{set;!_ticket.{args;1}.text;•{get;~distro}
+•{get;~desc}
+•{get;~logs}
+• Links to screenshots: {get;~screenshots.msg}}
+{exec;embeder;Ticket #{get;_ticket.number} has been edited and will be sent to <#{get;_ticket.{args;1}.channel}>.;-C {exec;usrclr}}
+{//;Delete existing ticket}
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{//;Send new ticket to channel}
+{set;!_ticket.{args;1}.messageid;{send;{get;_ticket.{args;1}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{args;1};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:{get;_ticket.{args;1}.text};
+footer.text:Status: {get;_ticket.{args;1}.status};}}};
+{//;Edit channel}
+["channel"];
+{//;Ask user which channel}
+{func.questionembed;Which channel would you like to post your ticket to?{newline}Valid choices:{newline}<#96230043209981952>{newline}<#484513714024874018>{newline}<#484512261382340638>{newline}<#162712517053775872>{newline}<#484513481802907669>}
+{//;Check user response}
+{set;!~chan.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{//;Check if channel is valid}
+{switch;{exec;chanid;{get;~chan.msg}};
+["96230043209981952","484513714024874018","484512261382340638","162712517053775872","484513481802907669","483501315620732938"];
+{//;do nothing, valid channel};
+{exec;Err;Invalid/no response given for `channel` for editing ticket.}
+{return}}
+{//;Delete existing ticket}
+{exec;embeder;Ticket #{get;_ticket.number} has been edited and will be sent to <#{get;_ticket.{args;1}.channel}>.;-C {exec;usrclr}}
+{void;{delete;{get;_ticket.{args;1}.channel};{get;_ticket.{args;1}.messageid}}}
+{set;!_ticket.{args;1}.channel;{exec;chanid;{get;~chan.msg}}}
+{set;!_ticket.{args;1}.messageid;{send;{get;_ticket.{args;1}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{args;1};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{args;1}.date};X};
+description:{get;_ticket.{args;1}.text};
+footer.text:Status: {get;_ticket.{args;1}.status};}}};
+{//;Invalid input}
+{exec;Err;Invalid argument for editing ticket.{newline}**Available arguments**{newline}{repeat;`;3}distro{newline}description{newline}logs{newline}screenshots{newline}channel{repeat;`;3}}};
 {//;############Create ticket############}
-{//;Detect arguments and set variables}
-{if;{flagset;s};
-{set;~ticket.text;{flag;_}}{set;~ticket.channel;{flag;s}};
-{set;~ticket.text;{args}}{set;~ticket.channel;<#{channelid}>}}
-{//;If ticket text does not follow template; output template and return}
-{switch;{lower;{args;0}};
-  ["distro:","distribution:","topic:","distro","distribution","topic"];{//;Do nothing, correct input};{if;{args;0};startswith;```;;
-{embed;{embedbuild;color:E30000;description:Please follow the template for creating new tickets.  See `{prefix} help {commandname}` for more info.}}{return}}}
-{//;Detect unsupported distros}
-{if;{lower;{get;~ticket.text}};includes;manjaro;{delete}Sorry, Manjaro is not supported in this server.  See `sudo distro info manjaro` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;solus;{delete}Sorry, Solus is not supported in this server.  See `sudo distro info solus` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;mint;{delete}Sorry, Linux Mint is not supported in this server.  See `sudo distro info mint` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;kali;{delete}Sorry, Kali is not supported in this server.  See `sudo distro info kali` for more info {usermention}.{return}}
-{if;{lower;{get;~ticket.text}};includes;antergos;{delete}Sorry, Antergos is not supported in this server.  See `sudo distro info antergos` for more info {usermention}.{return}}
-{//;Detect channel input and see if it's a support channel}
-{switch;{get;~ticket.channel};
-  ["<#483494249573384199>","<#483492849447337985>","<#461299165100638228>","<#96230043209981952>","<#484513714024874018>","<#484512261382340638>","<#162712517053775872>","<#484513481802907669>"];{//;Do nothing, valid channel};
-  Invalid channel entered.  `{commandname}` can only be used with the support channels {usermention}!{return}
-}
-{sleep;5s}
-{if;{messagetext;{messageid}};==;`No message found`;Message containing ticket was deleted!{return};
-{set;_ticket.number;{math;+;{get;_ticket.number};1}}{commit}
-{set;_ticket.{get;_ticket.number}.channel;{get;~ticket.channel}}
-{set;_ticket.{get;_ticket.number}.text;{get;~ticket.text}}
-{set;_ticket.{get;_ticket.number}.date;{time;X}}
-{set;_ticket.{get;_ticket.number}.userid;{userid}}
-{set;_ticket.{get;_ticket.number}.status;open}
-Your ticket has been stored.  Your ticket number is {get;_ticket.number} {usermention}!
-{delete}
-{set;_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
-title:Ticket {get;_ticket.number};
-footer.text:Posted by {username;{get;_ticket.{get;_ticket.number}.userid}} on {time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{get;_ticket.number}.date};X};
-description:__**Status**__: {get;_ticket.{get;_ticket.number}.status}
-__**Channel**__: {get;_ticket.{get;_ticket.number}.channel}
-__**Description**__:
-{get;_ticket.{get;_ticket.number}.text};}}}}
-}}
+["new","-n"];
+{//;Ask user which distro}
+{func.questionembed;What Operating System are you having problems with?{newline}Ex: `Xubuntu 18.04`;Please do not ask for help with distributions Discord Linux does not provide support for (see #rules).}
+{//;Check user response}
+{set;!~distro.msg;{messagetext;{jget;{waitmessage};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{foreach;~dist;{split;{get;~distro.msg};{space}};
+{switch;{lower;{get;~dist}};
+{//;Unsupported distributions}
+["kali","parrot","parrotos","blackarch","mint","solus","manjaro","antergos","artix"];
+{exec;Err;Error creating ticket.{newline}Sorry, {usermention}, but Discord Linux does not provide support for {get;~dist}.  See `sudo info {get;~dist}` for more information.}
+{return}}}
+{if;{get;~distro.msg};==;;
+{exec;Err;No response found for `distribution` for creating ticket.}
+{return}}
+{//;Ask user for description of problem}
+{func.questionembed;Please describe the problem you are having with as much detail as possible.  Make sure to describle things like what you were doing when the problem happened, what you have done to attempt to resolve the problem, etc.;Ex: 'Program A fails to run when doing action X.  I have tried solutions Y and Z, but Program A still crashes.'}
+{//;Check user response}
+{set;!~desc.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{if;{get;~desc.msg};==;;
+{exec;Err;No response found for `description` for creating ticket.}
+{return}}
+{//;Ask user for logs}
+{func.questionembed;Please link give links to any relevant logs.;Logs are very helpful, so please try to find a relevant log, but enter 'N/A' if no logs are available.}
+{//;Set user response to variable}
+{set;!~logs.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{//;Ask user for screenshots}
+{func.questionembed;Please link give links to any relevant screenshots.;Enter 'N/A' if no screenshots are available.}
+{//;Set user response to variable}
+{set;!~screenshots.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{//;Ask user which channel}
+{func.questionembed;Which channel would you like to post your ticket to?{newline}Valid choices:{newline}<#96230043209981952>{newline}<#484513714024874018>{newline}<#484512261382340638>{newline}<#162712517053775872>{newline}<#484513481802907669>}
+{//;Check user response}
+{set;!~chan.msg;{messagetext;{jget;{waitmessage;{channelid};{userid};true;300};1}}}
+{//;Delete question message}
+{void;{delete;{channelid};{get;~qmsgid}}}
+{//;Check if channel is valid}
+{switch;{exec;chanid;{get;~chan.msg}};
+["96230043209981952","484513714024874018","484512261382340638","162712517053775872","484513481802907669","483501315620732938"];
+{//;do nothing, valid channel};
+{exec;Err;Invalid/no response given for `channel` for creating ticket.}
+{return}}
+{//;Set variables}
+{set;!_ticket.number;{math;+;{get;_ticket.number};1}}
+{set;!_ticket.{get;_ticket.number}.text;• Distribution: {get;~distro.msg}
+• Description: {get;~desc.msg}
+• Links to error logs: {regexreplace;{get;~logs.msg};/\n/g;{space}|{space}}
+• Links to screenshots: {regexreplace;{get;~screenshots.msg};/\n/g;{space}|{space}}}
+{set;!_ticket.{get;_ticket.number}.date;{time;X}}
+{set;!_ticket.{get;_ticket.number}.userid;{userid}}
+{set;!_ticket.{get;_ticket.number}.channel;{exec;chanid;{get;~chan.msg}}}
+{set;!_ticket.{get;_ticket.number}.status;open}
+{exec;embeder;Ticket #{get;_ticket.number} has been created and will be sent to <#{get;_ticket.{get;_ticket.number}.channel}>.;-C {exec;usrclr}}
+{set;!_ticket.{get;_ticket.number}.messageid;{send;{get;_ticket.{get;_ticket.number}.channel};{usermention};{embedbuild;
+author.name:{usernick};
+author.icon_url:{useravatar};
+title:Ticket #{get;_ticket.number};
+color:{exec;usrclr};
+timestamp:{time;YYYY/MM/DD HH:mm:ss;{get;_ticket.{get;_ticket.number}.date};X};
+description:{get;_ticket.{get;_ticket.number}.text};
+footer.text:Status: {get;_ticket.{get;_ticket.number}.status};}}};
+{//;Anything else outputs help}
+{func.help}}
