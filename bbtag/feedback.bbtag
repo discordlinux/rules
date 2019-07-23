@@ -1,0 +1,116 @@
+{exec;prefix.test}
+{function;help;{embed;{embedbuild;
+title:Help for feedback;
+color:{exec;blurple};
+description:**__Usage:__** `feedback <arg> [feedback number|text] [text]`
+Create, add comments to and set the state of feedback in the Discord Linux feedback repository.
+
+**Available arguments**:
+{repeat;`;3}
+create
+- Create feedback.
+- Use the '-t' flag to set the title.
+- Ex: feedback create Example text
+- Ex: feedback create Example text -t Example title
+
+comment
+- Add a comment to the specified feedback.
+- Ex: feedback comment 1 Example text
+
+open
+- Open the specified feedback.
+- Ex: feedback open 1
+
+close
+- Close the specified feedback.
+- Ex: feedback close 1
+
+list
+- List all open feedback.
+- Ex: feedback list
+{repeat;`;3}
+;}}}
+{//;Function to create issues}
+{function;create;
+{if;{params;1};==;;
+{set;!~title;Feedback from {username}#{userdiscrim}};
+{set;!~title;{params;1}}}
+{set;!~body;{jset;;body;**From {usernick}** ![avatar]({regexreplace;{useravatar};/=.*/;=20}):{newline}{params;0};create}}
+{jset;~body;title;{get;~title};create}
+{set;!~request;{request;https://api.github.com/repos/discordlinux/feedback/issues?access_token={get;@dl.issues.token}&title={get;~title};{jset;;method;POST;create};{get;~body}}}
+{switch;{lower;{jget;{get;~request};statusText}};
+["created"];
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}
+{exec;embeder;Feedback number {jget;{get;~request};body.number} has been created.{newline}Link: [{jget;{get;~request};body.title}]({jget;{get;~request};body.html_url})};
+{embed;{embedbuild;
+title:Comment Creation Status;
+color:red;
+description:{jget;{get;~request};status} {jget;{get;~request};statusText}}}}}
+{//;Function to set state of issues}
+{function;state;
+{set;!~request;{request;https://api.github.com/repos/discordlinux/feedback/issues/{params;0}?access_token={get;@dl.issues.token};{jset;;method;PATCH;create};{jset;;state;{params;1};create}}}
+{switch;{lower;{jget;{get;~request};statusText}};
+["ok"];{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>};
+{embed;{embedbuild;
+title:State Change Status;
+color:red;
+description:{jget;{get;~request};status} {jget;{get;~request};statusText}}}}}
+{//;Function to add comments}
+{function;comment;
+{set;!~request;{request;https://api.github.com/repos/discordlinux/feedback/issues/{params;0}/comments?access_token={get;@dl.issues.token};{jset;;method;POST;create};{jset;;body;**From {usernick}** ![avatar]({regexreplace;{useravatar};/=.*/;=20}):{newline}{params;1;n};create}}}
+{switch;{lower;{jget;{get;~request};statusText}};
+["created"];
+{reactadd;{channelid};{messageid};<:SeemsGood:478441196755091461>}
+{exec;embeder;Comment added to feedback number {params;0}.{newline}Link: https://github.com/discordlinux/feedback/issues/{params;0}};
+{embed;{embedbuild;
+title:Comment Creation Status;
+color:red;
+description:{jget;{get;~request};status} {jget;{get;~request};statusText}}}}}
+{//;Function to list issues}
+{function;list;
+{set;!~issue.list;{request;https://api.github.com/repos/discordlinux/feedback/issues}}
+{set;!~fields;[]}
+{push;~fields;author.name:Discord Linux Feedback List}
+{push;~fields;author.icon_url:{guildicon}}
+{push;~fields;author.url:https://github.com/discordlinux/feedback}
+{push;~fields;color:{exec;blurple}}
+{if;{length;{jget;{get;~issue.list};body}};==;0;
+{push;~fields;description:No open feedback found.};
+{foreach;~issue;{slice;{jget;{get;~issue.list};body};0;25};
+{push;~fields;fields.name:Feedback number {jget;{get;~issue};number}}
+{push;~fields;fields.value:Link: [{jget;{get;~issue};title}]({jget;{get;~issue};html_url}){newline}Created at: {jget;{get;~issue};created_at}{newline}Comments: {jget;{get;~issue};comments}{newline}Updated at: {jget;{get;~issue};updated_at}}}}
+{embed;{apply;embedbuild;{get;~fields}}}}
+{//;Detect arguments}
+{fallback;}
+{switch;{lower;{args;0}};
+["create"];
+{set;!~fbcd;{exec;cooldown;300}}
+{if;{get;~fbcd};==;true;
+{if;{regexreplace;{flag;_};/create\s?/;};==;;
+{exec;Err;Missing feedback text.};
+{func.create;{regexreplace;{flag;_};/create\s?/;};{flag;t}}};
+{exec;Err;The `feedback` command is in cooldown.  Please wait {get;~fbcd} seconds.}};
+["comment"];
+{set;!~fbcd;{exec;cooldown;300}}
+{if;{get;~fbcd};==;true;
+{if;{numformat;{args;1};};==;NaN;
+{exec;Err;Invalid feedback number specified.};
+{if;{args;2};==;;
+{exec;Err;Missing comment text.};
+{func.comment;{args;1};{args;2;n}}}};
+{exec;Err;The `feedback` command is in cooldown.  Please wait {get;~fbcd} seconds.}};
+["close"];
+{if;{userhasrole;457281742844330004;{userid};quiet};
+{if;{numformat;{args;1};};==;NaN;
+{exec;Err;Invalid feedback number specified.};
+{func.state;{args;1};closed}};
+{exec;Err;You must have the <@&457281742844330004> role to use the `close` argument, {usermention}!}};
+["open"];
+{if;{userhasrole;457281742844330004;{userid};quiet};
+{if;{numformat;{args;1};};==;NaN;
+{throw;Invalid issue number specified.};
+{func.state;{args;1};open}};
+{exec;Err;You must have the <@&457281742844330004> role to use the `open` argument, {usermention}!}};
+["list"];
+{func.list};
+{func.help}}
