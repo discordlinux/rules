@@ -1,4 +1,5 @@
-{if;{flag;_};==;;{throw;Usage: {lb}exec{semi}_censor{semi}<messageid>{rb}};
+{if;{flag;_};==;;{throw;Usage: {lb}exec{semi}_censor{semi}<messageid>{rb}}
+{return}}{if;{guildid};==;585607491023273989;{output;'}{return}}
 {fallback;}
 {if;{messagetext;{flag;_}};==;;{throw;Message not found};
 {//;ignore messages that go to pastebin}
@@ -52,18 +53,11 @@
 {return}}
 {//;oof}
 {//;add glare reaction}
-{if;{lower;{messagetext;{flag;_}}};includes;oof;
-{reactadd;{channelid};{flag;_};<:glare:501195158688104448>}
+{if;{regextest;{messagetext;{flag;_}};/(?:^|\W)(oof)(?:$|\W)/gi};
+{reactadd;{channelid};{flag;_};<:glare:504911469943717909>}
 {return}}}
 {//;support channel stuff}
 {if;{channelcategory};==;484511388685959179;
-{//;ignore certain messages}
-{if;{lower;{messagetext;{flag;_}}};includes;sudo info;{//;do nothing};
-{if;{lower;{messagetext;{flag;_}}};includes;su info;{//;do nothing};
-{if;{lower;{messagetext;{flag;_}}};includes;sudo rules;{//;do nothing};
-{if;{lower;{messagetext;{flag;_}}};includes;su rules;{//;do nothing};
-{if;{lower;{messagetext;{flag;_}}};includes;don't;{//;do nothing};
-{if;{lower;{messagetext;{flag;_}}};includes;do not;{//;do nothing};
 {if;{lower;{messagetext;{flag;_}}};includes;mint;
 {output;{exec;unsupported}}
 {return}}
@@ -84,7 +78,6 @@
 {return}}
 {if;{lower;{messagetext;{flag;_}}};includes;parrotos;
 {output;{exec;unsupported}}
-{return}}
-}}}}}}}
+{return}}}
 {fallback}
-}}}}}}}
+}}}}}}
