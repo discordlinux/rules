@@ -1,0 +1,25 @@
+{embed;{embedbuild;
+author.name:Mageia;
+author.icon_url:https://i.imgur.com/dlIukYU.png;
+author.url:https://www.mageia.org/;
+color:262F45;
+description:Mageia is an independent Linux Distribution that was forked from [Mandriva Linux](https://en.wikipedia.org/wiki/Mandriva_Linux).  It uses the [RPM package format](https://en.wikipedia.org/wiki/RPM_Package_Manager) with [urpmi](https://en.wikipedia.org/wiki/Urpmi) as its package manager.  Mageia allows you to pick which Desktop Environment or Window Manager you would like to use during the install process.
+**[Screenshot of Mageia](https://i.imgur.com/FhNpQkQ.jpg)**;
+fields.name:<:SeemsGood:478441196755091461> Advantages of Mageia;
+fields.value:• Installer allows choice of Desktop Environment or Window Manager to be used.
+• Installer has option to setup drivers for things such as GPUs.
+• Mageia Control Center is a very easy to use front end for managing packages and system settings.
+• Has recent NVIDIA drivers (currently 430.26) and `mageia-prime` package for NVIDIA Optimus setups.;
+fields.inline:false;
+fields.name:<:glare:501195158688104448> Disadvantages of Mageia;
+fields.value:• [urpmi](https://en.wikipedia.org/wiki/Urpmi) is separated into multiple commands instead of arguments and is not very intuitive to use.
+• 3rd party repositories for Mageia are very rare, so may have troubles finding packages that are not in the base repositories.
+• Being independent means they have no financial backing from a corporation and could stop existing at any time.
+• Relatively new distribution, so hard to judge long term stability.
+• Some strange defaults such as having a separate home partition.;
+fields.inline:false;
+fields.name:<:think:585665071938666508> Should You Use Mageia?;
+fields.value:If you don't mind treading in uncharted waters and are looking for a distribution that has one of the best GUI frontends for managing packages and system settings, Mageia might be the distribution for you.  Is Mageia beginner friendly?  It's hard to say at this point.  Mageia does aim to be beginner friendly, and it shows in quite a few places, but as a relatively new and independent distribution, it is hard to judge what their future will hold.
+**[Download Mageia](https://www.mageia.org/en/downloads/)**
+
+If you are looking for a more vetted beginner friendly distribution, see `sudo info recommended`.}}

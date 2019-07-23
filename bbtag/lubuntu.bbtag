@@ -1,0 +1,27 @@
+{embed;{embedbuild;
+author.name:Lubuntu;
+author.icon_url:https://cdn.discordapp.com/emojis/230468300784533524.png?v=1;
+author.url:https://lubuntu.me;
+color:0169C8;
+footer.text:See 'sudo info ubuntu' for more information about Ubuntu.;
+footer.icon_url:https://cdn.discordapp.com/emojis/230469242183483392.png?v=1;
+description:Lubuntu is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [LXDE Desktop Environment](https://en.wikipedia.org/wiki/LXDE).  LXDE is one of the most lightweight Desktop Environments in terms of resource use and install size.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Lubuntu has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.
+**[Screenshot of Lubuntu](https://i.imgur.com/Vl9QYVX.png)**;
+fields.name:<:SeemsGood:478441196755091461> Advantages of Lubuntu;
+fields.value:• Small install with around 1500 packages installed by default.
+• Very easy on CPU and RAM.
+• Can easily change the default Window Manager.
+• Fairly easy to customize the way things look and act through LXDE's settings manager.;
+fields.inline:false;
+fields.name:<:glare:501195158688104448> Disadvantages of Lubuntu;
+fields.value:• Least beginner friendly Ubuntu flavor.
+• The default setup looks ***very*** bland, but is fairly easy to change.
+• LXDE feels outdated compared to other Desktop Environments.
+• LXDE tends to feel more like a collection of tools rather than an actual Desktop Environment.
+• The team that packages LXDE and LXQt for Ubuntu sometimes creates buggy builds.;
+fields.inline:false;
+fields.name:<:think:585665071938666508> Should You Use Lubuntu?;
+fields.value:Lubuntu is the least beginner friendly Ubuntu flavor, so those who are not computer savvy may have troubles adjusting the bland default settings.  The next LTS release of Lubuntu, 20.04, will be using the [LXQt Desktop Environment](https://en.wikipedia.org/wiki/LXQt) which is nicer looking and more beginner friendly, but for now, we don't really recommend Lubuntu unless you don't mind the downsides or want a setup that will use very minimal resources.  For example, Lubuntu is great for older PCs that struggle on heavier Desktop Environments.  Lubuntu is about as light as it gets in terms Linux distros that don't require you to setup everything yourself.
+**[Download Lubuntu](http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/)**
+
+If you'd like something a bit more modern feeling than Lubuntu, we recommend checking out Xubuntu (see `sudo info xubuntu`), Ubuntu MATE (see `sudo info ubuntu mate`) or KDE neon (see `sudo info KDE neon`).}}

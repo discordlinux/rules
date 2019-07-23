@@ -1,0 +1,20 @@
+{embed;{embedbuild;
+author.name:Ubuntu Budgie;
+author.icon_url:https://raw.githubusercontent.com/UbuntuBudgie/assets/master/Logos/budgie-remix-logo-192by192.png;
+author.url:https://ubuntubudgie.org;
+color:5294E2;
+footer.text:See 'sudo info ubuntu' for more information about Ubuntu.;
+footer.icon_url:https://cdn.discordapp.com/emojis/230469242183483392.png?v=1;
+description:Ubuntu Budgie is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [Budgie Desktop Environment](https://en.wikipedia.org/wiki/Budgie_(desktop_environment\)).  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Ubuntu Budgie has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.
+**[Screenshots of Ubuntu Budgie](https://ubuntubudgie.org/portfolio/screenshots)**;
+fields.name:<:SeemsGood:478441196755091461> Advantages of Ubuntu Budgie;
+fields.value:• Budgie is basically a more customizable and lightweight version of GNOME.;
+fields.inline:false;
+fields.name:<:glare:501195158688104448> Disadvantages of Ubuntu Budgie;
+fields.value:• Relatively new Ubuntu flavor and is still rough around the edges in some areas.;
+fields.inline:false;
+fields.name:<:think:585665071938666508> Should You Use Ubuntu Budgie?;
+fields.value:If you like stock Ubuntu, but it isn't quite customizable enough for you, Ubuntu Budgie may be the distribution for you.
+**[Download Ubuntu Budgie](http://cdimage.ubuntu.com/ubuntu-budgie/releases/18.04.2/release/)**
+
+If you'd like something even lighter on system resources than Ubuntu Budgie, we recommend checking out Xubuntu (see `sudo info xubuntu`), Ubuntu MATE (see `sudo info ubuntu mate`), or KDE neon (see `sudo info KDE neon`).}}
