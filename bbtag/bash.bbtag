@@ -12,7 +12,7 @@ description:Please use `bash -c` (without using the prefix sudo/su).}};
 title:Help for bash;
 color:yellow;
 description:__**Usage**__: `bash{if;{commandname};startswith;{lb};{space}-c} <arg> <text>`
-A simple bash shell-like command that allows for exporting and fetching variables in bash style syntax.  Any arguments not listed below will attempt to run an existing alias.  If an alias does not exist and only one argument is passed, a cht.sh search will be ran on the argument.  If an alias does not exist and more than one argument is passed, the arguments will be executed using the Rextester API.
+A simple bash shell-like command that allows for exporting and fetching variables in bash style syntax.  Any arguments not listed below will attempt to run an existing alias.  If an alias does not exist, the arguments will be executed using the Rextester API.
 
 **Available arguments**
 {repeat;`;3}bash
@@ -54,9 +54,7 @@ type
 {switch;{lower;{args;0}};["export"];{output;{func.export;{args;1;n}}};
 ["unset"];{output;{func.export;{jget;{split;{args;1;n};=};0}=}};
 ["echo"];{output;{if;{args;1};includes;$;{exec;rextester-bash;echo "{func.echo;{args;1;n}}"};{exec;rextester-bash;echo {args;1;n}}}};
-["exec","test"];{//;{switch;{guildid};["204061452707954688","96230004047740928"];
-{output;{func.test;{args;1;n}}};
-{exec;cht.sh;{args;0}}}}{output;{exec;rextester-bash;{args;1;n}}};
+["exec","test"];{output;{exec;rextester-bash;{args;1;n}}};
 ["alias"];{output;{func.alias;{args;1;n}}}
 {if;{get;_bash.aliases};includes;{jget;{split;{args;1};=};0};{//;do nothing};
 {push;_bash.aliases;{jget;{split;{args;1};=};0}}};
@@ -66,11 +64,13 @@ type
 ["type"];{output;{if;{func.type;{args;1}};!=;`{args;1} not found`;{func.type;{args;1}};{exec;rextester-bash;{args}}}};
 ["$","env"];{output;{if;{length;{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}};<;2000;{repeat;`;3}bash{newline}{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}{repeat;`;3};{exec;writeas;{usernick}@{join;{split;{lower;{guildname}};{space}};-}:~> {join;{get;@libbash.variable.list};{newline}}}.txt}};
 ["help","--help","-h","helpmenow"];{output;{func.bashhelp}};
-{if;{commandname};==;help;{func.bashhelp};
+{switch;{commandname};
+["help"];{func.bashhelp};
+{if;{logic;&&;
+{bool;{guildid};==;96230004047740928};
+{switch;{commandname};
+["bash"];true;false}};==;true;
+{func.bashhelp};
 {if;{args};==;;{output;{func.bashhelp}};
 {if;{func.type;{args;0}};!=;`{args;0} not found`;{output;{func.exec;{args;0};{if;{length;{argsarray}};>=;2;{args;1;n}}}};
-{//;{switch;{guildid};["204061452707954688","96230004047740928"];
-{if;{length;{argsarray}};<=;1;{exec;cht.sh;{args;0}};{output;{func.test;{args}}}};
-{exec;cht.sh;{args;0}}}}{if;{length;{argsarray}};<=;1;{exec;cht.sh;{args;0}};{output;{exec;rextester-bash;{args}}}}}}}}
-{//;{switch;{lower;{args;0}};["--help","helpmenow"];{output;{func.bashhelp}};
-{exec;cht.sh;{args;0}}}}
+{output;{exec;rextester-bash;{args}}}}}}}}

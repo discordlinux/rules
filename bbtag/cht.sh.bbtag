@@ -1,3 +1,4 @@
+{exec;prefix.test}
 {//; Set the array here }
 {set;!~request;{clean;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:list}?qT&style=bw};body}}}
 {if;{get;~request};startswith;{lb};{set;!~request;{jget;{get;~request};answer}}}

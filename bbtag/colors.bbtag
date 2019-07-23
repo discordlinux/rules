@@ -1,7 +1,38 @@
 {exec;libbash}
-{if;{args};==;;{throw;Missing hex color input}{return}}
-{set;~colors;[]}
-{foreach;~color;{split;{func.echo;{flag;_}};{space}};{push;~colors;{color;{get;~color};hex}}}
+{switch;{lower;{args;0}};
+["comp","complementary"];
+{if;{color;{args;1}};startswith;`;{throw;Invalid hex color input}{return}}
+{set;!~colors;["{color;{args;1}}"]}
+{push;~colors;{replace;{jget;{exec;motyar;https://www.colorhexa.com/{uriencode;{color;{args;1}}};-x //*[@id="complementary"]/ul/li[2]/a};body.0.text};#;}};
+{if;{color;{args;0}};startswith;`;{throw;Invalid hex color input}{return}}
+{set;!~colors;[]}
+{foreach;~color;{split;{func.echo;{flag;_}};{space}};{push;~colors;{color;{get;~color};hex}}}}
+{if;{length;{get;~colors}};==;1;
+{set;!~cjson;{exec;rawhtml;https://www.thecolorapi.com/id?hex={get;~colors;0}}}
+{set;!~complementary;{replace;{jget;{exec;motyar;https://www.colorhexa.com/{get;~colors;0};-x //*[@id="complementary"]/ul/li[2]/a};body.0.text};#;}}
+{embed;{embedbuild;
+author.name:#{get;~colors;0};
+author.icon_url:https://www.colorcombos.com/combomaker_image.php?design=squares.png&colors={get;~colors;0}&background_color={get;~colors;0}&output_width=400;
+title:The Color API;
+url:https://www.thecolorapi.com/id?hex={get;~colors;0};
+color:{get;~colors;0};
+description:{regexreplace;{jget;{exec;motyar;https://www.colorhexa.com/{get;~colors;0};-x //*[@id="information"]/p};body.0.text};/\t/g;}
+**Closest named color match**
+name: {jget;{get;~cjson};name.value}
+hex: {jget;{get;~cjson};name.closest_named_hex}
+distance from match: {jget;{get;~cjson};name.distance}
+
+**Conversions for {get;~colors;0}**
+rgb: {jget;{get;~cjson};rgb.value}
+hsl: {jget;{get;~cjson};hsl.value}
+hsv: {jget;{get;~cjson};hsv.value}
+cmyk: {jget;{get;~cjson};cmyk.value}
+XYZ: {jget;{get;~cjson};XYZ.value}
+
+**Complementary color**;
+footer.text:#{upper;{get;~complementary}};
+footer.icon_url:https://www.colorcombos.com/combomaker_image.php?design=squares.png&colors={get;~complementary}&background_color={get;~complementary}&output_width=400;}};
 {embed;{embedbuild;
 color:{get;~colors;0};
-image.url:https://www.colorcombos.com/combomaker_image.php?design=squares.png&colors={join;{get;~colors};,}&background_color={if;{flagset;b};{func.echo;{flag;b}};{if;{length;{get;~colors}};==;1;{get;~colors;0};FFFFFF}}&output_width={if;{length;{get;~colors}};==;1;400;3000};}}
+footer.text:{join;{get;~colors};,{space}};
+image.url:https://www.colorcombos.com/combomaker_image.php?design=squares.png&colors={join;{get;~colors};,}&background_color={if;{flagset;b};{func.echo;{flag;b}};{if;{length;{get;~colors}};==;1;{get;~colors;0};FFFFFF}}&output_width={if;{length;{get;~colors}};==;1;400;3000};}}}

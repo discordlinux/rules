@@ -23,8 +23,8 @@ If mod-logging is enabled, the ban will be logged unless the `-q` flag is set.
 {set;~reason;No reason given.}}
 {void;{dm;{get;~user};**You have been banned from {guildname} by {username}!**{newline}**Duration**: {if;{flagset;t};{flag;t};Permanent}{newline}**Reason**: {get;~reason}}}
 {if;{flagset;t};
-{set;~banned;{ban;{get;~user};{get;~deletetime};{get;~reason};{flag;t}}};
-{set;~banned;{ban;{get;~user};{get;~deletetime};{get;~reason}}}}
+{set;~banned;{ban;{get;~user};{get;~deletetime};[{username}#{userdiscrim}] {get;~reason};{flag;t}}};
+{set;~banned;{ban;{get;~user};{get;~deletetime};[{username}#{userdiscrim}] {get;~reason}}}}
 {if;{get;~banned};!=;false;{embed;{embedbuild;
 title:User Banned;
 color:red;

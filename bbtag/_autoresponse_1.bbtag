@@ -1,26 +1,113 @@
-{//;Ignore #github-requests}
-{if;{channelid};==;529058523682701333;{return}}
-{//;Ignore #news-opensuse}
-{if;{channelid};==;492030489750667277;{return}}
+{switch;{channelid};
+["529058523682701333"];
+{//;## track issues submitted to #github-requests}
+{if;{jget;{messageembeds;{channelid};{messageid}};0.title};includes;Issue opened:;
+{if;{get;_github.requests};==;;
+{set;!_github.requests;[]}}
+{push;_github.requests;{messageid}}
+{return}};
+["568095585736065049","492030489750667277"];
+{//;## ignore #feedback and #news-opensuse}
+{return};
+["479497706234970115"];
+{//;## handle passphrase stuffs in #welcome}
+{if;{userhasrole;457281742844330004;{userid};quiet};{return}}
+{//;make sure user has at least 2 normal characters in their name}
+{exec;asciinick;{userid}}
+{//;get rid of spoiler tags in names}
+{if;{length;{split;{usernick};|}};>=;5;{usersetnick;{regexreplace;{usernick};/(\|)/g;};{userid}}}
 {//;###########################logging#############################}
 {if;{messagetext};!=;;
-{if;{get;_{userid}.messages};==;;{set;_{userid}.messages;[]}}
+{if;{get;_{userid}.messages};==;;
+{set;!_{userid}.messages;[]}}
 {if;{length;{get;_{userid}.messages}};>=;2000;
 {shift;_{userid}.messages}}
 {push;_{userid}.messages;{channelid} - {messageid} - {time;YYYY-MMM-DD HH:mm:ss} - {messagetext}}}
-{//;###########################censors##############################}
-{if;{userhasrole;457281742844330004};{//;do nothing};
-{if;{channelid};!=;479497706234970115;
-{exec;_censor;{messageid}}}}
+{//;################################################################}
+{//;no mentions in #welcome}
+{if;{messagetext};includes;<@;
+{delete}
+{exec;nomentionpls}
+{return}}
+{//;detect all other input}
+{switch;{messagetext};
+{//;passphrase for welcome channel}
+["sudo -i {get;_{userid}passcode}"];
+{//;do nothing and let '-i' command handle this}
+{sleep;0.5s};
+{if;{get;_wrong.pass.id.{userid}};!=;;
+{void;{delete;479497706234970115;{get;_wrong.pass.id.{userid}}}}
+{set;!_wrong.pass.id.{userid};}}
+{if;{get;_wrong.pass.array};==;;
+{set;!_wrong.pass.array;[]}}
+{if;{get;_{userid}.pass.fails};==;;
+{set;!_{userid}.pass.fails;[]}}
+{push;_{userid}.pass.fails;{messagetext}}
+{//;detect copy and paste}
+{if;{regextest;{messagetext};/﻿/u};
+{delete}
+{execcc;_wrong.pass.copy};
+{//;delete any other messages and output that incorrect passphrase was entered}
+{delete}
+{execcc;_wrong.pass.other}}
+{push;_wrong.pass.array;{get;_wrong.pass.id.{userid}}}
+{commit}
+{return}};
+{//;## all other channels}
+{//;###########################usernick############################}
+{exec;usernicks;{userid}}
+{//;###########################logging#############################}
+{if;{messagetext};!=;;
+{if;{get;_{userid}.messages};==;;
+{set;!_{userid}.messages;[]}}
+{if;{length;{get;_{userid}.messages}};>=;2000;
+{shift;_{userid}.messages}}
+{push;_{userid}.messages;{channelid} - {messageid} - {time;YYYY-MMM-DD HH:mm:ss} - {messagetext}}}
 {//;################################################################}
 {//;##########################emojistats############################}
 {foreach;~emoji;{emojis};
 {if;{messagetext};includes;{get;~emoji};
 {if;{get;_{get;~emoji}.used};==;;
-{set;_{get;~emoji}.used;1};
+{set;!_{get;~emoji}.used;1};
 {increment;_{get;~emoji}.used}}}}
+{//;#########################Bot mention############################}
+{if;{messagetext};includes;134133271750639616;
+{exec;randinsout}}
+{//;##########################packages##############################}
+{//;package search commands}
+{if;{userhasrole;428637054922915850};
+{exec;autosearcher;{messagetext}}}
+{//;################################################################}
+{//;#########################bash-shell#############################}
+{if;{userhasrole;428637054922915850};
+{if;{messagetext};startswith;bash -c ;{exec;bash;{substring;{messagetext};8}}}}
+{//;################################################################}
+{//;Everything below here ignores the sudoers role entirely}
+{if;{userhasrole;457281742844330004};{return}}
+{//;make sure user has at least 2 normal characters in their name}
+{exec;asciinick;{userid}}
+{//;get rid of spoiler tags in names}
+{if;{length;{split;{usernick};|}};>=;5;{usersetnick;{regexreplace;{usernick};/(\|)/g;};{userid}}}
+{//;###########################censors##############################}
+{exec;_censor;{messageid}}
+{//;########################mention spam############################}
+{if;{length;{split;{messagetext;{channelid};{messageid}};<@}};>=;4;
+{execcc;mute;{userid};-r Mention spam}
+{return}}
+{//;############################spam################################}
+{if;{exec;spamcheck;{channelid};{messageid}};==;false;
+{execcc;mute;{userid};-r Message longer than 100 characters containing no letters or numbers detected}
+{return}}
+{//;##########################slowmode##############################}
+{//;enables slow mode for 60 seconds if a user has sent 5 or more messages in 5 seconds}
+{//;enables slow mode for 120 seconds last 5 {messagetext}s within 10 seconds in {channelid} match}
+{exec;autoslowmode;{channelid};{messageid};{userid}}
+{//;################################################################}
+{set;!_{userid}lastmessage;{time;X}}
+{//;##########################bot-spam##############################}
+{//;bot-spam stuffs}
+{if;{channelid};==;174317464337776640;
 {//;#########################Invalid cmd############################}
-{if;{channelid};!=;479497706234970115;
 {switch;{jget;{split;{lower;{messagetext}};{space}};0};
 ["sudo","su"];
 {switch;{jget;{split;{lower;{messagetext}};{space}};1};
@@ -30,108 +117,29 @@
 {switch;{jget;{split;{lower;{messagetext}};{space}};1};
 {get;_users.commands};
 {exec;randinsout}}};
-{exec;randinsout}}}}
-{//;#########################Bot mention############################}
-{if;{channelid};!=;479497706234970115;
-{if;{messagetext};includes;134133271750639616;
-{exec;randinsout}}}
-{//;##########################packages##############################}
-{//;Package search commands}
-{if;{userhasrole;428637054922915850};
-{if;{channelid};!=;479497706234970115;
-{exec;autosearcher;{messagetext}}}}
-{//;################################################################}
-{//;#########################bash-shell#############################}
-{if;{userhasrole;428637054922915850};
-{if;{channelid};!=;479497706234970115;
-{if;{messagetext};startswith;bash -c ;{exec;bash;{substring;{messagetext};8}}}}}
-{//;################################################################}
-{//;Everything below here ignores the sudoers role entirely}
-{if;{userhasrole;457281742844330004};{return}}
-{//;Make sure user has at least 2 normal characters in their name}
-{exec;asciinick;{userid}}
-{//;get rid of spoiler tags in names}
-{if;{length;{split;{usernick};|}};>=;5;{usersetnick;{regexreplace;{usernick};/(\|)/g;};{userid}}}
-{//;##########################slowmode##############################}
-{//;enables slow mode for 60 seconds if a user has sent 5 or more messages in 5 seconds}
-{//;enables slow mode for 120 seconds last 5 {messagetext}s within 10 seconds in {channelid} match}
-{//;ignore #welcome}
-{if;{channelid};!=;479497706234970115;
-{exec;autoslowmode;{channelid};{messageid};{userid}}}
-{//;##########################welcome###############################}
-{//;welcome channel stuffs}
-{if;{channelid};==;479497706234970115;
-  {//;No mentions in #welcome}
-  {if;{messagetext};includes;<@;
-    {delete}
-    {exec;nomentionpls}
-    {return}}
-  {//;Detect copy and paste}
-  {if;{regextest;{messagetext};/﻿/u};{delete}
-    {if;{get;_{userid}.pass.attempts};==;;
-    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
-    {if;{get;_{userid}.pass.attempts};>=;3;
-    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
-    title:READ!;
-    color:f99157;
-    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
-    description:***If you're seeing this, you have failed to read. Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase!***}}}
-    {exec;readthis;{channelid};{get;~wrongpassid}};
-    {set;~wrongpassid;{send;{channelid};Type the passphrase exactly as it appears in the link you were given. Do not copy and paste the passphrase {usermention}!}}}
-    {sleep;5s}{sleep;5s}{sleep;5s}
-    {delete;{get;~wrongpassid}}
-    {return}}
-  {//;Detect all other input}
-  {switch;{messagetext};
-    {//;old passphrase for welcome channel -- warn about potential alts}
-    ["sudo discord-linux --accept <#172522057291005953> --mark-read <#172522057291005953> --request users"];
-    {delete}
-    {void;{send;461299165100638228;Someone used the old password {usermention;149041922051145728}     {usermention;86201442112671744}!
-    Username: {username}
-    User ID: {userid}}}
-    {if;{get;_{userid}.pass.attempts};==;;
-    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
-    {if;{get;_{userid}.pass.attempts};>=;3;
-    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
-    title:READ!;
-    color:f99157;
-    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
-    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}}
-    {exec;readthis;{channelid};{get;~wrongpassid}};
-    {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}}
-    {sleep;5s}{sleep;5s}{sleep;5s}
-    {delete;{get;~wrongpassid}}
-    {return};
-    {//;passphrase for welcome channel}
-    ["sudo -i {get;_{userid}passcode}"];
-    {//;do nothing and let discord-linux command handle this}
-    {sleep;0.5s};
-    {//;delete any other messages and output that incorrect passphrase was entered}
-    {delete}
-    {//;message auto deletes after 15 seconds}
-    {if;{get;_{userid}.pass.attempts};==;;
-    {set;_{userid}.pass.attempts;1};{increment;_{userid}.pass.attempts}}
-    {if;{get;_{userid}.pass.attempts};>=;3;
-    {set;~wrongpassid;{send;{channelid};{usermention};{embedbuild;
-    title:READ!;
-    color:f99157;
-    thumbnail.url:https://ibin.co/4ESfirfejQNH.png;
-    description:***If you're seeing this, you have failed to read. Please read your welcome embed and try again.***}}};
-    {set;~wrongpassid;{send;{channelid};The passphrase you entered was not correct. Please double-check the passphrase before sending it, {usermention}!}}}
-    {sleep;5s}{sleep;5s}{sleep;5s}
-    {delete;{get;~wrongpassid}}}}
-{set;_{userid}lastmessage;{time;X}}
-{//;##########################bot-spam##############################}
-{//;bot-spam stuffs}
-{//;This section probably needs to stay near the bottom due to users role checks}
-{//;If user does not have users role and has not chatted in bot-spam, send info message}
-{if;{channelid};==;174317464337776640;
-{if;{quiet}{userhasrole;428637054922915850};{return}}
+{if;{length;{split;{messagetext};{space}}};>;1;
+{if;{userhasrole;428637054922915850;{userid};quiet};
+{exec;bash;exec;{join;{slice;{split;{messagetext};{space}};1;};{space}}}}}}}
+{//;if user does not have users role and has not chatted in bot-spam, send info message}
+{//;do not output for users role}
 {if;{get;_{userid}usedbotspam};!=;true;
-{set;~botspamid;{send;{channelid};{usermention};{embedbuild;
+{if;{userhasrole;428637054922915850;{userid};quiet};
+{set;!_{userid}usedbotspam;true}}}
+{//;output message if has not used bot-spam and message is not calling help}
+{if;{get;_{userid}usedbotspam};!=;true;
+{switch;{lower;{messagetext}};
+["sudo help","su help"];
+{set;!_{userid}usedbotspam;true};
+{set;!~botspamid;{send;{channelid};{usermention};{embedbuild;
 title:Read Me!;
 color:C7A031;
 description:This seems to be your first time in <#174317464337776640>!  Please see `sudo help` for a list of commands you can use until you've earned your `users` role.;}}}
 {exec;readthis;{channelid};{get;~botspamid}}
-{set;_{userid}usedbotspam;true}}}
+{set;!_{userid}usedbotspam;true}}}
+{//;check if using command without prefix}
+{switch;{jget;{split;{lower;{messagetext}};{space}};0};
+["bash"];
+{//;do nothing};
+{get;_valid.commands};
+{exec;_echo;{jget;{split;{lower;{messagetext}};{space}};0}: Permission denied}}}}
 {//;################################################################}

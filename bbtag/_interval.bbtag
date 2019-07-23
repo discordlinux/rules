@@ -1,12 +1,58 @@
+{fallback;}
+{//;##############################################}
+{//;Check if users in _new.user.array have entered passphrase}
+{//;If not, check if user has been in guild for 24 hours and kick if so}
+{//;for loop on each user in _.new.user.array}
+{suppresslookup}
+{if;{get;_new.user.array};==;;
+{set;!_new.user.array;[]}}
+{foreach;~usrid;{jget;{get;_new.user.array};v};
+{//;check if user is in guild}
+{switch;{exec;usercheck;{get;~usrid}};
+{//;## user is in guild}
+["true"];
+{//;check if user has tty role}
+{switch;{userhasrole;486321901342425089;{get;~usrid};quiet};
+{//;## user has tty role}
+["true"];
+{//;delete welcome message if user has role}
+{if;{get;_welcome.{get;~usrid}};!=;;
+{void;{delete;479497706234970115;{get;_welcome.{get;~usrid}}}}}
+{//;remove user from _new.user.check array}
+{set;!_new.user.array;{filter;~usrf;{jget;{get;_new.user.array};v};{if;{get;~usrf};==;{get;~usrid};false;true}}};
+{//;## user does not have tty role}
+["false"];
+{//;else if user does not have tty role and is still in guild}
+{//;check if user has been in guild for 24 hours}
+{fallback;{time;X}}
+{set;!~usr.join;{userjoinedat;X;{get;~usrid};quiet}}
+{fallback;}
+{if;{math;-;{time;X};{get;~usr.join}};>=;86400;
+{//;remove user from _new.user.check array}
+{set;!_new.user.array;{filter;~usrf;{jget;{get;_new.user.array};v};{if;{get;~usrf};==;{get;~usrid};false;true}}}}};
+{//;## user not in guild}
+["false"];
+{//;else if user is not in guild, delete welcome message}
+{if;{get;_welcome.{get;~usrid}};!=;;
+{void;{delete;479497706234970115;{get;_welcome.{get;~usrid}}}}}
+{//;remove user from _new.user.check array}
+{set;!_new.user.array;{filter;~usrf;{jget;{get;_new.user.array};v};{if;{get;~usrf};==;{get;~usrid};false;true}}}}}
+{//;##############################################}
+{//;Edit guild info in rules to update user count}
 {if;{get;_guild.info.msgid};==;;{set;_guild.info.msgid;{send;172522057291005953;;{exec;guildinfosend}}};
 {edit;172522057291005953;{get;_guild.info.msgid};_delete;{exec;guildinfosend}}}
-{if;{time;HHmm};==;1700;
-{send;166340424603009024;;{exec;wordsend}};
-{fallback;}
+{//;##############################################}
+{//;If time is 1700, send word of day}
+{if;{substring;{time;HHmm};0;3};==;170;
+{send;166340424603009024;;{exec;wordsend}}
+{set;!~message.sent;true};
+{//;##############################################}
+{//;Otherwise check for latest tumbleweed snapshot}
 {set;!~tw.snapshot;{exec;twsnapshot}}
 {if;{get;~tw.snapshot};!=;;
 {if;{get;~tw.snapshot};>;0{get;_tw.latest.snapshot};
 {set;!_tw.latest.snapshot;{get;~tw.snapshot}}
+{set;!~message.sent;true}
 {rolesetmentionable;496063229156392970;true}
 {set;!~changed;{math;-;{length;{split;{jget;{split;{exec;rawhtml;http://download.opensuse.org/tumbleweed/iso/Changes.{get;_tw.latest.snapshot}.txt};=== Details ===};0};{newline}}};3}}
 {send;492030489750667277;<@&496063229156392970>;{embedbuild;
@@ -18,3 +64,87 @@ description:**New openSUSE Tumbleweed snapshot released!  Time to `dup`!
 {if;{get;~changed};>;0;{get;~changed} packages changed. [Click here to see the changelog](http://download.opensuse.org/tumbleweed/iso/Changes.{get;_tw.latest.snapshot}.txt).**};
 timestamp:{exec;timeconv};}}
 {rolesetmentionable;496063229156392970;false}}}}
+{//;##############################################}
+{//;Handle giving users role}
+{if;{get;_users.role.array};==;;
+{set;!_users.role.array;[]}}
+{foreach;~roleusr;{jget;{get;_users.role.array};v};
+{//;Only check if we haven't sent a message already, only one message allowed per run}
+{if;{get;~message.sent};!=;true;
+{//;Check if user is in guild}
+{if;{exec;usercheck;{get;~roleusr}};==;true;
+{//;Set _users.role.time if not set}
+{if;{get;_users.role.time.{get;~roleusr}};==;;
+{set;!_users.role.time.{get;~roleusr};{time;X}}}
+{//;If _users.role.time greater than 172800, check warnings}
+{if;{math;-;{time;X};{get;_users.role.time.{get;~roleusr}}};>=;172800;
+{//;Delete welcome message}
+{void;{delete;479497706234970115;{get;_welcome.users.id.{get;~roleusr}}}}
+{set;!_welcome.users.id.{get;~roleusr};}
+{//;Set ~message.sent to true to stop loop}
+{set;!~message.sent;true}
+{//;If user hasn't gotten more warnings, give users role}
+{if;0{warnings;{get;~roleusr}};<=;{get;_{get;~roleusr}.join.warns};
+{//;Give users role}
+{void;{roleadd;428637054922915850;{get;~roleusr}}}
+{//;Send message about users role}
+{void;{send;174317464337776640;{usermention;{get;~roleusr}};{embedbuild;
+title:Congratulations, {usernick;{get;~roleusr}}!;
+thumbnail.url:{useravatar;{get;~roleusr}};
+color:{rolecolor;428637054922915850};
+description:You have earned the <@&428637054922915850> role, {usermention;{get;~roleusr}}!  You can now let everyone know your favorite distro with `sudo usermod -c <distro>` in <#174317464337776640>, setup your profile using `sudo profile` in <#174317464337776640>, set your screenshot using `sudo ss set url <png screenshot url>` in <#173927645334077441>, and see other commands open to the <@&428637054922915850> role by using `sudo help` in <#174317464337776640>.  Remember to keep most command use in <#174317464337776640>, thanks!}}}
+{//;Remove user from _users.role.array}
+{set;!_users.role.array;{filter;~froleusr;{jget;{get;_users.role.array};v};{if;{get;~froleusr};==;{get;~roleusr};false;true}}};
+{//;Else if user has gotten mor warnings}
+{//;Send message about users role}
+{void;{send;174317464337776640;{usermention;{get;~roleusr}};{embedbuild;
+title:Sorry, {usernick;{get;~roleusr}}!;
+thumbnail.url:{useravatar;{get;~roleusr}};
+color:red;
+description:{usermention;{get;~roleusr}} you already have {warnings;{get;~roleusr}} warnings! You will receive the <@&428637054922915850> in 48 hours if you have not gotten any more warnings in that time.}}}
+{//;Set _users.role.time to current time}
+{set;!_users.role.time.{get;~roleusr};{time;X}}}};
+{//;Else if user is not in guild}
+{//;Unset _users.role.time}
+{set;!_users.role.time.{get;~roleusr};}
+{//;Remove user from _users.role.array}
+{set;!_users.role.array;{filter;~froleusr;{jget;{get;_users.role.array};v};{if;{get;~froleusr};==;{get;~roleusr};false;true}}}
+{//;Delete welcome message}
+{void;{delete;479497706234970115;{get;_welcome.users.id.{get;~roleusr}}}}
+{set;!_welcome.users.id.{get;~roleusr};}}}}
+{//;##############################################}
+{//;kick users who do not have tty role and have been in guild for more than 24 hours}
+{foreach;~kickmem;{filter;~kickusr;{guildmembers};{if;{userhasrole;486321901342425089;{get;~kickusr};quiet};==;true;false;true}};
+{fallback;{time;X}}
+{set;!~kickusr.join;{userjoinedat;X;{get;~kickmem};quiet}}
+{fallback}
+{if;{math;-;{time;X};{get;~kickusr.join}};>=;86400;
+{if;{get;_welcome.{get;~kickmem}};!=;;
+{void;{delete;479497706234970115;{get;_welcome.{get;~kickmem}}}}}
+{void;{ban;{get;~kickmem};0;{username;{get;~kickmem}} has not entered passphrase in 24 hours. Current time: {time;X} - Joined at: {get;~kickusr.join};0s;noperms}}}}
+{//;##############################################}
+{//;Delete any leftover wrong passphrase messages in #welcome}
+{foreach;~wrongmsg;{get;_wrong.pass.array};
+{void;{delete;479497706234970115;{get;~wrongmsg}}}
+{void;{shift;_wrong.pass.array}}}
+{//;##############################################}
+{//;Close github requests that have been open for 24 hours}
+{if;{get;_github.requests};==;;
+{set;!_github.requests;[]}}
+{foreach;~ghreq;{jget;{get;_github.requests};v};
+{set;!~req.num;{pop;{split;{jget;{messageembeds;529058523682701333;{get;~ghreq}};0.url};/}}}
+{set;!~req.time;{messagetime;529058523682701333;{get;~ghreq}}}
+{if;{jget;{request;https://api.github.com/repos/discordlinux/rules/issues/{get;~req.num}};body.state};==;closed;
+{set;!_github.requests;{filter;~reqgh;{jget;{get;_github.requests};v};{if;{get;~reqgh};==;{get;~ghreq};false;true}}};
+{if;{math;-;{time;X};{get;~req.time}};>=;86400;
+{execcc;issues;comment;{get;~req.num};Closing as it has been more than 24 hours.}
+{execcc;issues;close;{get;~req.num}}
+{set;!_github.requests;{filter;~reqgh;{jget;{get;_github.requests};v};{if;{get;~reqgh};==;{get;~ghreq};false;true}}}}}}
+{//;loop through online members and check for ASCII nicknames
+###
+{if;{get;_member.check.loop};!=;0;
+{set;!_member.check.loop;0}
+{foreach;~member.check;{slice;{jget;{request;https://discordapp.com/api/guilds/{guildid}/widget.json};body.members};1000;2000};{exec;asciinick;{jget;{get;~member.check};id}}};
+{set;!_member.check.loop;1}
+{foreach;~member.check;{slice;{jget;{request;https://discordapp.com/api/guilds/{guildid}/widget.json};body.members};0;1000};{exec;asciinick;{jget;{get;~member.check};id}}}}
+###}

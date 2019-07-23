@@ -1,3 +1,13 @@
+{exec;prefix.test}
+{function;help;
+{embed;{embedbuild;
+color:yellow;
+title:Help for ask;
+description:__**Usage**__: `ask [channel]`
+Outputs a message with info on how to properly ask questions. Output changes based on channel input.;}}}
+{switch;{lower;{flag;_}};
+["help"];
+{func.help};
 {if;{argslength};==;0;{set;~chan;<#{channelid}>};{set;~chan;{args;0}}}
 {embed;{embedbuild;
 title:__**Asking for Help**__;
@@ -73,4 +83,4 @@ fields.value:Please note that we do not provide support for the following distri
 Kali Linux, Parrot OS, any pentesting distro, Linux Mint, Manjaro, Antergos, Solus, or any derivative of Arch Linux.
 Head over to <#174317464337776640> and see `sudo info` for more information on why we do not support these distributions.;
 fields.inline:false;
-}}
+}}}
