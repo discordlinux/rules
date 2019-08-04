@@ -80,9 +80,9 @@ description:<@&457281742844330004>
 <@&106082717833113600>
 • These are actual Discord employees.  Please do not bother them.{newline}{zws};
 fields.name:__**Channels**__{newline}**Information**;
-fields.value:<#479497706234970115>{newline}• Show new member joins.
-<#172522057291005953>{newline}• You are here.
+fields.value:<#172522057291005953>{newline}• You are here.
 <#220424374329671681>{newline}• News about the server.
+<#479497706234970115>{newline}• Tell us about yourself.
 <#349085517218054145>{newline}• Related Discord server links.
 <#227643567273672706>{newline}• Logs of moderation actions.{newline}{zws};
 fields.inline:true;
